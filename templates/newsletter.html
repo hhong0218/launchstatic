@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free newsletter signup landing page template with perks list and Formspree-ready form. Grow your email list on a static site without a CMS.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/templates/newsletter.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Newsletter Signup Template — LaunchStatic">
+  <meta property="og:description" content="Free static newsletter landing page with email capture, subscriber perks, and Formspree integration. MIT-licensed HTML for indie creators.">
+  <meta property="og:url" content="https://launchstatic.dev/templates/newsletter.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Newsletter Signup Template — LaunchStatic">
+  <meta name="twitter:description" content="Free static newsletter landing page with email capture, subscriber perks, and Formspree integration. MIT-licensed HTML for indie creators.">
+  <title>Newsletter Signup Template — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/" class="active">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/templates/">Templates</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Newsletter</span>
+        </nav>
+
+        <div class="grid grid-2" style="align-items:start;gap:2rem">
+          <div>
+            <span class="badge-free">Free</span>
+            <h1 class="section-title mt-2">Newsletter Signup Template</h1>
+            <p class="section-lead mb-3">A focused landing page for growing an email list without Substack branding or a heavy CMS. The demo promotes <strong>Draft &amp; Ship</strong>, a fictional weekly newsletter for indie builders — replace the masthead, perks, and form endpoint to launch your own list this week.</p>
+            <div class="hero-actions mb-4" style="justify-content:flex-start">
+              <a href="/downloads/newsletter-landing.html" class="btn btn-success" download>Download HTML</a>
+              <a href="/demos/newsletter/index.html" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open full preview</a>
+            </div>
+          </div>
+          <div class="preview-frame" aria-label="Live preview of Newsletter template">
+            <iframe src="/demos/newsletter/index.html" title="Newsletter signup page live preview" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container prose">
+        <h2>What's included</h2>
+        <p>Newsletter landing pages have one job: convince a stranger to trust you with their inbox. This template strips away navigation clutter and puts the signup form above the fold on every screen size. Like every LaunchStatic file, it ships as a single HTML document with embedded CSS and a tiny inline script for demo mode.</p>
+        <ul>
+          <li><strong>Masthead block</strong> — italic serif newsletter name and a schedule tagline (weekly cadence, send day, read time)</li>
+          <li><strong>Value headline and lead</strong> — one sentence on what subscribers learn, plus social proof numbers you can swap for real stats</li>
+          <li><strong>Email signup form</strong> — optional first-name field, required email input, and submit button wired for Formspree via <code>data-endpoint</code></li>
+          <li><strong>Success state</strong> — inline confirmation message when the form submits in demo mode or after a real Formspree post</li>
+          <li><strong>Perks list</strong> — three subscriber benefits with icon bullets to answer "why should I subscribe?"</li>
+          <li><strong>Trust note</strong> — anti-spam reassurance directly below the form</li>
+          <li><strong>Warm editorial theme</strong> — cream background and gold accent suited to writing-focused brands; changeable via CSS variables</li>
+        </ul>
+
+        <h2>Use cases</h2>
+        <p>Email remains the highest-ROI channel for indie creators who own their audience. This page fits anyone who publishes on Substack or Beehiiv but wants a custom domain landing page that matches their site design. Solo founders writing a pre-launch diary can pair this template with the <a href="/templates/waitlist.html">Waitlist template</a> — use the waitlist page for product signups and the newsletter page for ongoing content subscribers.</p>
+        <p>Developers documenting their build-in-public journey get a fast path to "subscribe for weekly updates" without adding Mailchimp's bloated embed script. Consultants and coaches can highlight subscriber perks like office hours, template drops, or early-access pricing. Even established newsletters benefit from a lightweight archive-adjacent signup page that loads instantly when shared on social media.</p>
+        <p>The Formspree integration means you are not locked into one email provider. Collect addresses via Formspree, then sync to ConvertKit, Buttondown, or a plain CSV export. For conversion tactics beyond layout, read the <a href="/guides/waitlist-conversion-playbook.html">Waitlist Conversion Playbook</a> — many of the same principles apply to newsletter signups.</p>
+
+        <h2>Customization</h2>
+        <p>The visual identity lives in the <code>:root</code> block. <code>--accent</code> controls the submit button and perk icons; <code>--bg</code> sets the warm cream default. For a tech newsletter, switch to a dark palette similar to the <a href="/templates/waitlist.html">Waitlist template</a>. For a design-focused letter, keep the serif masthead font (<code>--font: Georgia</code>) and tighten the max-width.</p>
+        <p>Rename <strong>Draft &amp; Ship</strong> to your newsletter title and update the tagline with your real send schedule. Replace the social proof line ("1,847 readers") with honest numbers — even "142 readers in 12 countries" converts better than no proof at all. Edit the three perk bullets to describe tangible subscriber value: exclusive essays, downloadable resources, or community access.</p>
+        <p>To connect a live form, create a free Formspree account and replace <code>YOUR_FORM_ID</code> in the <code>data-endpoint</code> attribute. Full wiring steps are in <a href="/how-to/add-formspree-to-static-site.html">How to add Formspree to a static site</a> and the <a href="/tools/formspree.html">Formspree tool guide</a>. For Netlify Forms instead, remove the demo script and add <code>data-netlify="true"</code> to the form tag — both backends work on static hosts with zero server code.</p>
+        <p>Add a privacy policy link in the footer before you collect emails in the EU or California. Our <a href="/how-to/write-privacy-policy-static-site.html">privacy policy how-to</a> walks through the minimum disclosures for a simple signup form.</p>
+
+        <h2>Deployment checklist</h2>
+        <p>A newsletter page fails quietly when the form does not work — you will not notice until weeks later when subscriber count stays flat. Run this checklist on staging before promoting the URL.</p>
+        <ol>
+          <li><strong>Set a real Formspree endpoint</strong> — confirm <code>data-endpoint</code> no longer contains the <code>YOUR_FORM_ID</code> placeholder</li>
+          <li><strong>Submit a test email</strong> — verify the entry appears in your Formspree dashboard or connected ESP</li>
+          <li><strong>Check mobile form UX</strong> — email keyboard should appear on tap; submit button must be visible without horizontal scroll</li>
+          <li><strong>Update page metadata</strong> — title and description should name your newsletter, not "Draft &amp; Ship"</li>
+          <li><strong>Add canonical and OG tags</strong> — mirror the patterns on this detail page so Twitter and LinkedIn previews look professional</li>
+          <li><strong>Deploy to static host</strong> — follow <a href="/guides/cloudflare-pages-complete-guide.html">Cloudflare Pages Complete Guide</a> or pick a workflow from <a href="/deploy-guides/">Deploy Guides</a></li>
+          <li><strong>Link from your main site</strong> — add a Subscribe nav item on your homepage or blog so the signup page is not an orphan URL</li>
+        </ol>
+        <p>After launch, track signup rate with Umami or Plausible UTM parameters. The <a href="/guides/static-site-seo-handbook.html">Static Site SEO Handbook</a> covers metadata and analytics setup for one-page sites.</p>
+
+        <h2>FAQ</h2>
+        <h3>How is this different from the Waitlist template?</h3>
+        <p>The Waitlist template uses a dark, product-launch aesthetic with a single email field and early-access perks. This newsletter template uses a warmer editorial design, adds an optional first-name field, and frames perks around ongoing content rather than a one-time product drop. Pick Waitlist for pre-launch validation; pick Newsletter for recurring publication.</p>
+        <h3>Can I integrate with ConvertKit or Buttondown directly?</h3>
+        <p>Yes. Replace the Formspree form markup with your provider's embed code, or point the form <code>action</code> to their API endpoint. The layout stays the same — only the <code>&lt;form&gt;</code> innards change. Formspree is the default because it works on any static host without provider-specific build plugins.</p>
+        <h3>Does the demo script work offline?</h3>
+        <p>When <code>YOUR_FORM_ID</code> is still in the endpoint, submitting the form shows the inline success message without a network request. That lets you preview the full UX locally. Once you set a real endpoint, the script posts to Formspree and the browser handles the redirect or JSON response per your Formspree settings.</p>
+        <h3>Do I need double opt-in?</h3>
+        <p>Depends on your provider and jurisdiction. Formspree can forward to ESPs that enforce double opt-in automatically. Mention your confirmation flow in the success message copy ("Check your inbox for a confirmation link") so subscribers know what to expect. Consult your ESP documentation for GDPR and CAN-SPAM compliance details.</p>
+
+        <h2>License</h2>
+        <p>This template is released under the <strong>MIT License</strong>. Use it for personal newsletters, client projects, or commercial publications. No attribution required. The MIT comment in the downloaded HTML source documents your right to modify and redistribute the code.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+            <li><a href="/templates/portfolio.html">Developer Portfolio</a></li>
+            <li><a href="/templates/newsletter.html">Newsletter</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

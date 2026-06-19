@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flowboard — project management for remote teams. Demo SaaS landing template by LaunchStatic.">
+  <title>Flowboard — Project management for remote teams</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#fafbfc;--text:#0f172a;--muted:#64748b;--accent:#4f46e5;--accent2:#7c3aed;--border:#e2e8f0;--radius:10px;--font:system-ui,-apple-system,sans-serif}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
+    .wrap{width:min(100% - 2rem,1080px);margin-inline:auto}
+    header{padding:1rem 0;border-bottom:1px solid var(--border);background:#fff}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .logo{font-weight:800;font-size:1.125rem;color:var(--text);text-decoration:none}
+    .nav-links{display:flex;gap:1.5rem;align-items:center}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:.9375rem;font-weight:500}
+    .btn{display:inline-block;padding:.625rem 1.25rem;border-radius:var(--radius);font-weight:600;font-size:.9375rem;text-decoration:none;border:none;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .hero{padding:4rem 0;text-align:center}
+    .hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem}
+    .hero p{color:var(--muted);font-size:1.125rem;max-width:48ch;margin:0 auto 2rem}
+    .hero-cta{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+    .features{padding:4rem 0;background:#fff;border-block:1px solid var(--border)}
+    .features h2{text-align:center;font-size:1.75rem;margin-bottom:2rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+    .feat{padding:1.5rem;border:1px solid var(--border);border-radius:var(--radius)}
+    .feat h3{font-size:1.0625rem;margin-bottom:.5rem}
+    .feat p{color:var(--muted);font-size:.9375rem}
+    .pricing{padding:4rem 0}
+    .pricing h2{text-align:center;font-size:1.75rem;margin-bottom:2rem}
+    .price-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;max-width:800px;margin:0 auto}
+    .price-card{padding:2rem;border:1px solid var(--border);border-radius:var(--radius);background:#fff;text-align:center}
+    .price-card.featured{border-color:var(--accent);box-shadow:0 8px 30px rgba(79,70,229,.12)}
+    .price{font-size:2.5rem;font-weight:800;margin:.5rem 0}
+    .price span{font-size:1rem;font-weight:500;color:var(--muted)}
+    .price-card ul{list-style:none;margin:1.5rem 0;text-align:left}
+    .price-card li{padding:.375rem 0;color:var(--muted);font-size:.9375rem}
+    .price-card li::before{content:"✓ ";color:var(--accent);font-weight:700}
+    .faq{padding:4rem 0;background:#fff;border-top:1px solid var(--border)}
+    .faq h2{text-align:center;margin-bottom:2rem}
+    .faq-item{max-width:640px;margin:0 auto 1rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius)}
+    .faq-item h3{font-size:1rem;margin-bottom:.375rem}
+    .faq-item p{color:var(--muted);font-size:.9375rem}
+    footer{padding:2rem 0;text-align:center;color:var(--muted);font-size:.875rem;border-top:1px solid var(--border)}
+    @media(max-width:640px){.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a href="#" class="logo">Flowboard</a>
+      <nav class="nav-links" aria-label="Demo navigation">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#pricing" class="btn btn-primary">Start free trial</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Ship projects faster with your remote team</h1>
+      <p>Flowboard replaces scattered spreadsheets and Slack threads with one calm workspace for tasks, docs, and standups.</p>
+      <div class="hero-cta">
+        <a href="#pricing" class="btn btn-primary">Start 14-day free trial</a>
+        <a href="#features" class="btn btn-outline">See how it works</a>
+      </div>
+    </div>
+  </section>
+  <section class="features" id="features">
+    <div class="wrap">
+      <h2>Everything your team needs</h2>
+      <div class="grid">
+        <article class="feat"><h3>Kanban boards</h3><p>Drag tasks across columns. Set WIP limits. No training required.</p></article>
+        <article class="feat"><h3>Async standups</h3><p>Replace daily meetings with written updates your team reads on their schedule.</p></article>
+        <article class="feat"><h3>Shared docs</h3><p>Link specs and decisions directly to tasks. One source of truth.</p></article>
+        <article class="feat"><h3>Slack integration</h3><p>Get notified when tasks move. Reply from Slack without switching tabs.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <h2>Simple pricing</h2>
+      <div class="price-cards">
+        <article class="price-card">
+          <h3>Starter</h3>
+          <p class="price">$0<span>/mo</span></p>
+          <p style="color:var(--muted);font-size:.875rem">Up to 3 members</p>
+          <ul>
+            <li>2 projects</li>
+            <li>Basic kanban</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#" class="btn btn-outline" style="width:100%">Get started</a>
+        </article>
+        <article class="price-card featured">
+          <h3>Team</h3>
+          <p class="price">$12<span>/user/mo</span></p>
+          <p style="color:var(--muted);font-size:.875rem">Most popular</p>
+          <ul>
+            <li>Unlimited projects</li>
+            <li>Async standups</li>
+            <li>Slack integration</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="#" class="btn btn-primary" style="width:100%">Start free trial</a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <h2>Frequently asked questions</h2>
+      <article class="faq-item"><h3>Do I need a credit card for the trial?</h3><p>No. The 14-day trial is fully functional with no payment details required.</p></article>
+      <article class="faq-item"><h3>Can I import from Trello or Notion?</h3><p>Yes. CSV import is built in. Notion export works with our migration guide.</p></article>
+      <article class="faq-item"><h3>Is my data encrypted?</h3><p>All data is encrypted in transit (TLS 1.3) and at rest (AES-256).</p></article>
+    </div>
+  </section>
+  <footer>
+    <p>© 2026 Flowboard demo · Template by <a href="https://launchstatic.dev/" style="color:var(--accent)">LaunchStatic</a></p>
+  </footer>
+</body>
+</html>

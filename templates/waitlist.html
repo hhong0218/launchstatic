@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free waitlist landing page template with email capture for Formspree or Netlify Forms. Validate your idea before you build.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/templates/waitlist.html">
+  <title>Waitlist Template — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/" class="active">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/templates/">Templates</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Waitlist</span>
+        </nav>
+
+        <div class="grid grid-2" style="align-items:start;gap:2rem">
+          <div>
+            <span class="badge-free">Free</span>
+            <h1 class="section-title mt-2">Waitlist Template</h1>
+            <p class="section-lead mb-3">A focused pre-launch page to collect emails before your product ships. The demo promotes MetricJar, a fictional analytics tool — ideal for validating demand with a single URL.</p>
+            <div class="hero-actions mb-4" style="justify-content:flex-start">
+              <a href="/downloads/waitlist-landing.html" class="btn btn-success" download>Download HTML</a>
+              <a href="/demos/waitlist/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open full preview</a>
+            </div>
+          </div>
+          <div class="preview-frame" aria-label="Live preview of Waitlist template">
+            <iframe src="/demos/waitlist/" title="Waitlist landing page live preview" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container prose">
+        <h2>What's included</h2>
+        <ul>
+          <li><strong>Single-column layout</strong> — one clear goal: capture the visitor's email</li>
+          <li><strong>Email signup form</strong> — demo mode out of the box; set <code>data-endpoint</code> to your Formspree URL to go live</li>
+          <li><strong>Success state</strong> — inline confirmation message after submit (also works offline for local preview)</li>
+          <li><strong>Perk list</strong> — three early-access benefits to motivate signups</li>
+          <li><strong>Trust note</strong> — anti-spam reassurance below the form</li>
+          <li><strong>Minimal JavaScript</strong> — one small script for demo success handling; remove when using a real form backend</li>
+        </ul>
+
+        <h2>Formspree and Netlify Forms</h2>
+        <p>The downloaded file uses <code>data-endpoint="https://formspree.io/f/YOUR_FORM_ID"</code> for demo submissions. Create a free account at formspree.io, make a new form, and replace <code>YOUR_FORM_ID</code> with your real form ID. The script posts to Formspree when a valid endpoint is set; until then, visitors see an inline success message for local preview.</p>
+        <p>For <strong>Netlify Forms</strong>, change the form tag to:</p>
+        <div class="code-block"><span class="comment">&lt;!-- Add netlify attribute and remove Formspree action --&gt;</span>
+&lt;form name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field"&gt;
+  &lt;input type="hidden" name="form-name" value="waitlist"&gt;</div>
+        <p>Deploy to Netlify and submissions appear in your site dashboard under Forms. No server code required on either platform.</p>
+
+        <h2>Who this template fits</h2>
+        <p>Pre-launch founders who need one measurable goal — email signups — should start here. The layout removes navigation distractions and keeps the form above the fold on phones. Pair it with the <a href="/guides/waitlist-conversion-playbook.html">waitlist conversion playbook</a> for copy and incentive ideas that outperform generic "join our list" pages.</p>
+        <p>Once you validate demand, graduate to the <a href="/templates/saas.html">SaaS template</a> for pricing and feature depth, or keep this page as a dedicated /early-access route alongside a fuller marketing site.</p>
+
+        <h2>Customization tips</h2>
+        <p>Change the headline to state your value proposition in one sentence. Update the perk list with real incentives — discount codes, beta access dates, or feature voting rights convert better than generic bullets.</p>
+        <p>The orange accent (<code>--accent: #f97316</code>) stands out on dark backgrounds. Swap it for your brand color. Keep the page to one screen height on mobile so the form is visible without scrolling.</p>
+        <p>Wire the form using our <a href="/how-to/add-formspree-to-static-site.html">Formspree how-to</a> or Netlify Forms attributes. Test submissions from an incognito window before sharing the URL publicly.</p>
+
+        <h2>Launch checklist</h2>
+        <ul>
+          <li>Form endpoint returns 200 and delivers email to your inbox</li>
+          <li>Privacy note links to a real <a href="/privacy.html">privacy policy</a> on your domain</li>
+          <li>Headline states outcome, not feature jargon</li>
+          <li>Thank-you state confirms next step ("Check your inbox for confirmation")</li>
+          <li>UTM parameters preserved if you redirect after signup</li>
+          <li><a href="/how-to/generate-sitemap-xml-static.html">Sitemap</a> includes this URL for indexing</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Is the demo form safe to leave live?</h3>
+        <p>No. Replace <code>YOUR_FORM_ID</code> before marketing. Demo mode fakes success locally but does not store emails.</p>
+        <h3>Can I collect name and company too?</h3>
+        <p>Yes, but every extra field lowers conversion. Add one optional field only if you will actually segment on it.</p>
+        <h3>How many signups does Formspree free tier allow?</h3>
+        <p>Check current limits on <a href="/tools/formspree.html">our Formspree tool page</a>. Upgrade when you consistently hit the cap during a launch week.</p>
+
+        <h2>Common mistakes to avoid</h2>
+        <p>Announcing a waitlist without a delivery date feels open-ended. State when the first beta batch ships — even "invites roll out Fridays in March" beats silence. Avoid counting signups publicly unless the number is verifiable; inflated counters erode trust when early users compare notes on Discord.</p>
+        <p>Do not add navigation links to your full marketing site on this page unless each link opens in a new tab with a clear return path. Every exit link is a leak from your single conversion goal. Keep social proof to one line — a founder quote or niche community mention — instead of a logo wall of brands you have not served yet.</p>
+
+        <h2>License</h2>
+        <p>This template is released under the <strong>MIT License</strong>. Collect emails for any project, commercial or personal. No attribution required.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

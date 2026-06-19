@@ -1,0 +1,8 @@
+# Cloudflare Pages — LaunchStatic
+# Deploy: npx wrangler pages deploy . --project-name=launchstatic
+name = "launchstatic"
+compatibility_date = "2026-06-19"
+pages_build_output_dir = "."
+
+[env.production]
+# Custom domain: launchstatic.dev (apex preferred, www redirects via CF dashboard)

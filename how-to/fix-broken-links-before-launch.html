@@ -1,0 +1,93 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Fix Broken Links Before Launch — LaunchStatic</title>
+  <meta name="description" content="Find and fix broken internal and external links on static sites: manual audit, scripted checks, root-relative paths, and pre-launch QA workflow.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/fix-broken-links-before-launch.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Fix Broken Links Before Launch — LaunchStatic">
+  <meta property="og:description" content="Find and fix broken internal and external links on static sites: manual audit, scripted checks, root-relative paths, and pre-launch QA workflow.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/fix-broken-links-before-launch.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Fix Broken Links Before Launch — LaunchStatic">
+  <meta name="twitter:description" content="Find and fix broken internal and external links on static sites: manual audit, scripted checks, root-relative paths, and pre-launch QA workflow.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Fix Broken Links Before Launch","description":"Find and fix broken internal and external links on static sites: manual audit, scripted checks, root-relative paths, and pre-launch QA workflow.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/fix-broken-links-before-launch.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How many broken links are acceptable?","acceptedAnswer":{"@type":"Answer","text":"Zero on primary navigation and CTAs. Occasional archived blog outbound failures are tolerable if fixed promptly."}},{"@type":"Question","name":"Do anchor links need checking?","acceptedAnswer":{"@type":"Answer","text":"Yes. Broken in-page anchors frustrate users clicking feature tabs or table-of-contents links."}},{"@type":"Question","name":"Should I check images too?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. Broken hero images are as damaging as broken HTML links."}},{"@type":"Question","name":"What about links in CSS url()?","acceptedAnswer":{"@type":"Answer","text":"Include them in manual review or advanced crawlers. Missing background fonts and images slip past href-only scans."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Fix Broken Links Before Launch</span></nav>
+      <h1 itemprop="headline">How to Fix Broken Links Before Launch</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 10 min read · How-to</p>
+      <p>Broken links erode trust faster than mediocre typography. A visitor who clicks "Pricing" and lands on a 404 wonders if your product is abandoned before they read a single feature bullet. Static sites have no server framework to auto-repair routes—you own every <code>href</code> in HTML. This how-to walks through a practical pre-launch link audit for LaunchStatic-style projects: scripted crawling, root-relative path rules, external link hygiene, and sign-off criteria aligned with our deployment checklist.</p>
+<h2>Categorize links before you test</h2>
+<p>Group links into <strong>internal</strong> (same domain), <strong>asset</strong> (CSS, JS, images), and <strong>external</strong> (docs, social, Formspree). Each category fails differently. Internal broken paths are your bug. External failures may be temporary outages—but repeated dead GitHub or Twitter links still look sloppy. Export a list from your editor with project-wide search for <code>href=</code> and <code>src=</code> if you do not yet run automated tooling.</p>
+<h2>Prefer root-relative paths</h2>
+<p>Root-relative URLs start with <code>/</code> and resolve correctly on <code>localhost:8080</code>, <code>*.pages.dev</code>, and custom domains without edits. Relative paths like <code>../templates/index.html</code> break when you move files between folders or when trailing slash rules differ across hosts.</p>
+<pre><code>&lt;!-- Good --&gt;
+&lt;a href=&quot;/templates/&quot;&gt;Templates&lt;/a&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/main.css&quot;&gt;
+
+&lt;!-- Risky when files move --&gt;
+&lt;a href=&quot;../templates/index.html&quot;&gt;Templates&lt;/a&gt;</code></pre>
+<p>Exception: single-file HTML downloads meant to open from disk may intentionally use relative asset paths—keep those bundles separate from production site pages.</p>
+<h2>Run a local static server, not file://</h2>
+<p>Browsers treat local files differently; root-relative links fail under <code>file://</code>. Serve the repo root:</p>
+<pre><code>python -m http.server 8080 --directory .
+# Visit http://localhost:8080 and click every nav item</code></pre>
+<p>Click header, footer, in-content CTAs, breadcrumbs, and mobile menu items. Note any 404 or blank CSS—both indicate path problems.</p>
+<h2>Automate with a link checker</h2>
+<p>Manual clicks do not scale past twenty pages. Use a CLI crawler against your local server or staging URL.</p>
+<pre><code># Example using lychee (install from GitHub releases)
+lychee --offline http://localhost:8080 \
+  --exclude-path ./demos \
+  --max-concurrency 4</code></pre>
+<p>Alternative tools include linkinator and htmlproofer. Configure excludes for third-party URLs that block bots (some social networks return 999 errors to crawlers—verify those manually). Fail the build on 404 for internal routes in CI if you adopt GitHub Actions later.</p>
+<h2>Fix common static-site mistakes</h2>
+<p><strong>Missing trailing slash on directory indexes:</strong> Some hosts redirect <code>/guides</code> to <code>/guides/</code>; others 404. Match your host docs—Cloudflare Pages serves <code>index.html</code> in folders with or without slash but stay consistent in links. <strong>Case sensitivity:</strong> Linux hosts treat <code>/Templates/</code> and <code>/templates/</code> as different paths. <strong>Stale blog links:</strong> Renamed files leave ghost URLs—grep for old filenames. <strong>Hash-only links:</strong> <code>#pricing</code> fails if the section id moved—confirm ids exist.</p>
+<h2>Validate external and mailto links</h2>
+<p>Open external targets in new tabs with <code>rel="noopener noreferrer"</code> for security. Confirm documentation links point to current vendor paths—Cloudflare and GitHub reorganize docs periodically. Test <code>mailto:</code> addresses on a real mail client. Form actions should POST to live Formspree IDs, not placeholder endpoints copied from demos.</p>
+<h2>Re-test after custom domain cutover</h2>
+<p>DNS changes do not fix broken relative paths, but they expose mixed-content issues if any asset still references <code>http://</code>. Run the crawler again on <code>https://yourdomain.com</code> immediately after SSL activates. Update <code>sitemap.xml</code> and canonical tags if hostname changed from staging.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Header and footer links verified on mobile menu</li><li><input type="checkbox" disabled> CSS, JS, and favicon load without 404</li><li><input type="checkbox" disabled> 404.html renders for unknown paths</li><li><input type="checkbox" disabled> External docs links return 200 in spot checks</li><li><input type="checkbox" disabled> No placeholder href="#" on primary CTAs</li></ul>
+<h2>Document ownership going forward</h2>
+<p>Add "link check" to your release checklist markdown. When adding a how-to article, link it from the hub page the same commit—orphan pages harm SEO and hide broken routes longer. Schedule quarterly crawls; blogs accrue broken outbound links naturally as the web rots.</p>
+<h2>Check redirects and status codes</h2>
+<p>A link that returns 302 to the correct page still works for humans but may dilute SEO signals if temporary redirects linger. Prefer 301 for permanent URL moves. Tools like curl show status chains: <code>curl -I https://example.com/old-path</code>. Fix redirect loops immediately—they surface as "too many redirects" in browsers and fail crawlers entirely.</p>
+<h2>Preview deployments deserve a pass too</h2>
+<p>Cloudflare Pages preview URLs use random subdomains. Links with hard-coded production domains break in previews—that is acceptable if you know why. For staging reviews, temporarily grep for <code>launchstatic.dev</code> absolute URLs and confirm they are intentional (canonical, OG, sitemap), not navigation hrefs that should be root-relative.</p>
+<h2>Social and footer link rot</h2>
+<p>Twitter/X URL changes, deprecated Discord invite links, and moved GitHub org repos are frequent offenders in footers. Schedule a quarterly manual click through social icons even when automated crawlers pass—some platforms return 200 to bots but interstitial login walls to humans. Replace dead Discord invites before launch day announcements; nothing signals "abandoned project" like an expired invite in the hero footer.</p>
+<p>Assign one owner for link health in your launch retro. When multiple people edit HTML by hand, broken relative paths appear silently—grep for <code>href=""</code> and <code>href="#"</code> before every production tag.</p>
+<p>Print the crawler output to your CI logs. A failing link check should block merge the same way a failing unit test would—prevention beats apologizing on social media for a dead pricing link.</p>
+<p>Remember downloadable single-file templates in <code>/downloads/</code> may use different relative paths than production pages—audit them separately before publishing to GitHub releases.</p>
+<p>Treat link fixing as part of accessibility work—keyboard users follow the same hrefs mouse users click, and dead ends waste everyone's time.</p>
+<p>Run link checks after renaming files—git does not warn you when <code>pricing.html</code> becomes <code>plans.html</code> but nav still points at the old path.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/docs/DEPLOYMENT-CHECKLIST.md">Deployment checklist</a> <a href="/how-to/generate-sitemap-xml-static.html">Generate sitemap.xml</a> <a href="/deploy-guides/">Deploy guides</a> <a href="/templates/">Templates catalog</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How many broken links are acceptable?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Zero on primary navigation and CTAs. Occasional archived blog outbound failures are tolerable if fixed promptly.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do anchor links need checking?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Broken in-page anchors frustrate users clicking feature tabs or table-of-contents links.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should I check images too?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Absolutely. Broken hero images are as damaging as broken HTML links.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">What about links in CSS url()?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Include them in manual review or advanced crawlers. Missing background fonts and images slip past href-only scans.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Ship with confidence</h2><p>Start from tested LaunchStatic templates with consistent root-relative navigation.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/how-to/generate-sitemap-xml-static.html" class="btn btn-secondary">Build your sitemap</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

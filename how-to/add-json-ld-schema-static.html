@@ -1,0 +1,149 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Add JSON-LD Schema to a Static Site — LaunchStatic</title>
+  <meta name="description" content="Add structured data with JSON-LD on static HTML: Organization, Article, FAQPage, WebSite, and Google Rich Results validation.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/add-json-ld-schema-static.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Add JSON-LD Schema to a Static Site — LaunchStatic">
+  <meta property="og:description" content="Add structured data with JSON-LD on static HTML: Organization, Article, FAQPage, WebSite, and Google Rich Results validation.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/add-json-ld-schema-static.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Add JSON-LD Schema to a Static Site — LaunchStatic">
+  <meta name="twitter:description" content="Add structured data with JSON-LD on static HTML: Organization, Article, FAQPage, WebSite, and Google Rich Results validation.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Add JSON-LD Schema to a Static Site","description":"Add structured data with JSON-LD on static HTML: Organization, Article, FAQPage, WebSite, and Google Rich Results validation.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/add-json-ld-schema-static.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is JSON-LD better than microdata?","acceptedAnswer":{"@type":"Answer","text":"For hand-written static HTML, JSON-LD is easier to maintain and is Google's recommended format."}},{"@type":"Question","name":"Will schema guarantee rich snippets?","acceptedAnswer":{"@type":"Answer","text":"No. Eligibility depends on quality, policy compliance, and Google's discretion."}},{"@type":"Question","name":"Can I add schema without JavaScript execution?","acceptedAnswer":{"@type":"Answer","text":"Yes. JSON-LD is inert script content; crawlers read it without running your site JS."}},{"@type":"Question","name":"Should every page use Article schema?","acceptedAnswer":{"@type":"Answer","text":"Use Article on editorial content. Use WebPage or more specific types on utility pages like contact or pricing."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Add JSON-LD Schema to a Static Site</span></nav>
+      <h1 itemprop="headline">How to Add JSON-LD Schema to a Static Site</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 12 min read · How-to</p>
+      <p>Structured data helps search engines interpret your pages—article headlines, FAQs, organization name, and site search potential. JSON-LD is Google's recommended format: a <code>&lt;script type="application/ld+json"&gt;</code> block in <code>&lt;head&gt;</code> without altering visible HTML. Static sites implement it the same way frameworks do—you paste or generate JSON. This how-to follows schema.org types and Google's structured data guidelines for common LaunchStatic page patterns.</p>
+<h2>Choose the right schema type per page</h2>
+<p>Match schema to visible content—misleading markup can trigger manual actions. Use <strong>WebSite</strong> on the homepage, <strong>Organization</strong> in a sitewide partial, <strong>Article</strong> or <strong>TechArticle</strong> on guides, and <strong>FAQPage</strong> only when FAQs are user-visible on that URL. Product landing pages may qualify for <strong>SoftwareApplication</strong> if you disclose price and operating system honestly.</p>
+<h2>Add Organization and WebSite on the homepage</h2>
+<p>Combine related entities with <code>@graph</code> so you declare one JSON-LD script.</p>
+<pre><code>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@graph&quot;: [
+    {
+      &quot;@type&quot;: &quot;Organization&quot;,
+      &quot;name&quot;: &quot;Example Inc&quot;,
+      &quot;url&quot;: &quot;https://example.com&quot;,
+      &quot;logo&quot;: &quot;https://example.com/assets/img/logo.png&quot;,
+      &quot;contactPoint&quot;: {
+        &quot;@type&quot;: &quot;ContactPoint&quot;,
+        &quot;email&quot;: &quot;hello@example.com&quot;,
+        &quot;contactType&quot;: &quot;customer support&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;WebSite&quot;,
+      &quot;name&quot;: &quot;Example&quot;,
+      &quot;url&quot;: &quot;https://example.com&quot;
+    }
+  ]
+}
+&lt;/script&gt;</code></pre>
+<p>Use HTTPS logo URLs at least 112×112 px. Keep email addresses current with your contact page.</p>
+<h2>Mark up articles and how-to guides</h2>
+<p>Article schema supports headline, datePublished, author, and image. Align values with on-page meta and Open Graph tags.</p>
+<pre><code>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Article&quot;,
+  &quot;headline&quot;: &quot;How to Deploy a Static Site&quot;,
+  &quot;description&quot;: &quot;Step-by-step deploy guide for HTML landing pages.&quot;,
+  &quot;datePublished&quot;: &quot;2026-06-19&quot;,
+  &quot;dateModified&quot;: &quot;2026-06-19&quot;,
+  &quot;author&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Example Inc&quot;
+  },
+  &quot;publisher&quot;: {
+    &quot;@type&quot;: &quot;Organization&quot;,
+    &quot;name&quot;: &quot;Example Inc&quot;,
+    &quot;logo&quot;: {
+      &quot;@type&quot;: &quot;ImageObject&quot;,
+      &quot;url&quot;: &quot;https://example.com/assets/img/logo.png&quot;
+    }
+  },
+  &quot;mainEntityOfPage&quot;: &quot;https://example.com/how-to/deploy.html&quot;
+}
+&lt;/script&gt;</code></pre>
+<p>LaunchStatic's article renderer injects similar JSON automatically when you generate pages from Python content modules—hand-authored HTML should mirror the same fields.</p>
+<h2>Implement FAQPage for visible FAQs</h2>
+<p>FAQ rich results require questions and answers displayed to users, not hidden SEO text. Map each accordion or heading to a Question entity.</p>
+<pre><code>{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;FAQPage&quot;,
+  &quot;mainEntity&quot;: [
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;Do I need a backend for forms?&quot;,
+      &quot;acceptedAnswer&quot;: {
+        &quot;@type&quot;: &quot;Answer&quot;,
+        &quot;text&quot;: &quot;No. Services like Formspree handle POST requests from static HTML.&quot;
+      }
+    }
+  ]
+}</code></pre>
+<p>Answer text must be plain language without misleading promises. Keep answers concise; Google may truncate verbose blocks.</p>
+<h2>Validate before requesting indexing</h2>
+<p>Use Google's Rich Results Test and Schema Markup Validator (schema.org). Fix parse errors—trailing commas are invalid in JSON. Confirm the tested URL is publicly reachable; validators fetch live pages. After deploy, monitor Search Console Enhancements for FAQ or Article warnings.</p>
+<h2>Avoid duplicate and conflicting graphs</h2>
+<p>Multiple JSON-LD scripts on one page are allowed if they describe distinct entities, but conflicting headlines confuse parsers. Prefer one <code>@graph</code> per page when types relate to the same content. Do not duplicate microdata attributes and JSON-LD for the same properties unless you maintain both carefully—pick JSON-LD for static simplicity.</p>
+<h2>Maintain schema when content changes</h2>
+<p>Update <code>dateModified</code> when you revise guides. If you remove an FAQ from the page, remove its Question entity the same deploy. Automate injection via templates or static site generators to prevent drift between visible copy and structured data.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> JSON validates without syntax errors</li><li><input type="checkbox" disabled> headline matches visible H1</li><li><input type="checkbox" disabled> FAQ schema only on pages with visible Q&A</li><li><input type="checkbox" disabled> URLs in schema use production HTTPS host</li><li><input type="checkbox" disabled> Rich Results Test passes for target types</li></ul>
+<h2>BreadcrumbList for guide hierarchies</h2>
+<p>How-to and guide pages benefit from BreadcrumbList JSON-LD mirroring visible breadcrumbs. Declare <code>itemListElement</code> entries with position, name, and item URL. This reinforces site structure for crawlers interpreting deep content hubs like <code>/how-to/</code> and <code>/guides/</code>.</p>
+<pre><code>{
+  &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+  &quot;itemListElement&quot;: [
+    {&quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 1, &quot;name&quot;: &quot;Home&quot;, &quot;item&quot;: &quot;https://example.com/&quot;},
+    {&quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 2, &quot;name&quot;: &quot;How-to&quot;, &quot;item&quot;: &quot;https://example.com/how-to/&quot;},
+    {&quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 3, &quot;name&quot;: &quot;Add JSON-LD&quot;, &quot;item&quot;: &quot;https://example.com/how-to/add-json-ld-schema-static.html&quot;}
+  ]
+}</code></pre>
+<h2>SoftwareApplication for product landings</h2>
+<p>If your static page markets downloadable software or a SaaS trial, SoftwareApplication schema can describe operating system, application category, and offers. Only include <code>offers</code> with price and currency when the on-page pricing section matches exactly—Google penalizes inconsistent structured data. For pre-launch waitlists without public pricing, omit price fields rather than fabricating zero-dollar offers.</p>
+<h2>HowTo schema for step articles</h2>
+<p>Tutorial pages like this one can add HowTo schema listing steps matching visible ordered lists. Each <code>HowToStep</code> needs a name and text aligned with on-page instructions. Do not mark up steps that exist only in schema—Google's rich result policies require parity with user-visible content. Combine HowTo with Article in a <code>@graph</code> when both types describe the same page responsibly.</p>
+<h2>Testing in staging</h2>
+<p>Rich Results Test fetches live URLs. Deploy schema changes to a public preview or production before validating—localhost JSON will not be crawled. Keep a changelog entry when schema types change so you can correlate Search Console enhancement warnings with specific git commits.</p>
+<p>Validate JSON with <code>python -m json.tool</code> before embedding in HTML. A trailing comma breaks the entire graph and silently removes structured data benefits until someone notices missing rich results weeks later.</p>
+<p>Reuse the same Organization object across pages with identical <code>@id</code> URLs (for example <code>https://example.com/#organization</code>) so parsers connect entities consistently across your static site.</p>
+<p>When LaunchStatic's Python renderer generates articles for you, inspect the emitted JSON-LD in one output file before bulk publishing—template bugs replicate across every page instantly.</p>
+<p>Mirror Open Graph <code>og:title</code> and <code>og:description</code> with Article schema fields—divergent metadata confuses social previews and search snippets alike.</p>
+<p>Add <code>dateModified</code> when you materially update guides—stale dates misrepresent freshness to crawlers even when body copy changed significantly. Re-run Rich Results Test after each schema edit.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/how-to/generate-sitemap-xml-static.html">Generate sitemap.xml</a> <a href="/how-to/write-high-converting-headline.html">Write converting headlines</a> <a href="/guides/">Pillar guides</a> <a href="/how-to/write-privacy-policy-static-site.html">Privacy policy how-to</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is JSON-LD better than microdata?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">For hand-written static HTML, JSON-LD is easier to maintain and is Google's recommended format.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Will schema guarantee rich snippets?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. Eligibility depends on quality, policy compliance, and Google's discretion.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I add schema without JavaScript execution?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. JSON-LD is inert script content; crawlers read it without running your site JS.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should every page use Article schema?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Use Article on editorial content. Use WebPage or more specific types on utility pages like contact or pricing.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Structured pages, faster</h2><p>Generated LaunchStatic articles include JSON-LD and FAQ markup out of the box.</p><a href="/how-to/" class="btn btn-primary">More how-to guides</a> <a href="/templates/" class="btn btn-secondary">Browse templates</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

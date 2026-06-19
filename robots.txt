@@ -1,0 +1,5 @@
+# LaunchStatic — https://launchstatic.dev
+User-agent: *
+Allow: /
+
+Sitemap: https://launchstatic.dev/sitemap.xml

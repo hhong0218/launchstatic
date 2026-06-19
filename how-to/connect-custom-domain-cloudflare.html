@@ -1,0 +1,77 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Connect a Custom Domain on Cloudflare Pages — LaunchStatic</title>
+  <meta name="description" content="Step-by-step guide to point your domain at Cloudflare Pages: DNS records, SSL, apex vs www, and verification without downtime.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/connect-custom-domain-cloudflare.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Connect a Custom Domain on Cloudflare Pages — LaunchStatic">
+  <meta property="og:description" content="Step-by-step guide to point your domain at Cloudflare Pages: DNS records, SSL, apex vs www, and verification without downtime.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/connect-custom-domain-cloudflare.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Connect a Custom Domain on Cloudflare Pages — LaunchStatic">
+  <meta name="twitter:description" content="Step-by-step guide to point your domain at Cloudflare Pages: DNS records, SSL, apex vs www, and verification without downtime.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Connect a Custom Domain on Cloudflare Pages","description":"Step-by-step guide to point your domain at Cloudflare Pages: DNS records, SSL, apex vs www, and verification without downtime.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/connect-custom-domain-cloudflare.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I use Cloudflare Pages without moving nameservers?","acceptedAnswer":{"@type":"Answer","text":"Sometimes, if your registrar supports CNAME on the apex or you only need www. Most teams move DNS to Cloudflare because apex support and free SSL are simpler in one dashboard."}},{"@type":"Question","name":"How long until HTTPS works on my custom domain?","acceptedAnswer":{"@type":"Answer","text":"After nameservers propagate, Cloudflare typically provisions Universal SSL within minutes to a few hours. You can track certificate status under SSL/TLS \u2192 Edge Certificates."}},{"@type":"Question","name":"Should I use www or non-www?","acceptedAnswer":{"@type":"Answer","text":"Either is fine\u2014pick one canonical host, redirect the other with a 301, and match your canonical link tags and sitemap URLs."}},{"@type":"Question","name":"Will connecting a domain break my pages.dev URL?","acceptedAnswer":{"@type":"Answer","text":"No. The *.pages.dev subdomain keeps working alongside your custom domain unless you disable it in project settings."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Connect a Custom Domain on Cloudflare Pages</span></nav>
+      <h1 itemprop="headline">How to Connect a Custom Domain on Cloudflare Pages</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 12 min read · How-to</p>
+      <p>A <code>*.pages.dev</code> URL proves your static site deploys correctly, but visitors trust a branded domain. Connecting a custom domain on Cloudflare Pages routes HTTPS traffic from <code>yourproduct.com</code> to the same HTML files you already ship from Git. This how-to follows the official Cloudflare Pages custom domain workflow and adds practical checks indie hackers use before announcing a launch.</p>
+<h2>What you need before you start</h2>
+<p>You need an active Cloudflare Pages project with at least one successful production deploy. You also need a domain you control, either purchased through Cloudflare Registrar or registered elsewhere (Namecheap, Google Domains successor, Porkbun, etc.). If the domain is new, finish registration and unlock the registrar account so you can change nameservers or add DNS records. Cloudflare issues free Universal SSL certificates automatically once DNS validates; no manual certificate upload is required for standard static sites.</p>
+<ul><li>Cloudflare account with Pages project deployed</li><li>Domain registered and accessible in a registrar dashboard</li><li>Roughly 15–60 minutes for DNS propagation (often faster)</li><li>Optional: access to your previous host if migrating an existing site</li></ul>
+<h2>Choose your DNS strategy</h2>
+<p>Cloudflare supports two common setups. <strong>Full Cloudflare DNS</strong> means you move nameservers to Cloudflare and manage every record in one dashboard—recommended when Pages is your only host. <strong>Partial setup (CNAME flattening)</strong> keeps your registrar DNS but points specific records at Pages; some registrars do not support apex CNAME, which is why many teams move DNS to Cloudflare anyway. For a marketing landing page, full Cloudflare DNS simplifies SSL renewal, redirect rules, and future email records.</p>
+<h2>Add the domain inside Cloudflare Pages</h2>
+<p>Open the Cloudflare dashboard, navigate to <strong>Workers &amp; Pages</strong>, and select your project. Go to <strong>Custom domains</strong> and click <strong>Set up a custom domain</strong>. Enter the exact hostname you want—typically the apex <code>example.com</code> and optionally <code>www.example.com</code>. Cloudflare will show the DNS records it expects. Accept the suggested configuration unless you have a deliberate split setup (for example, <code>docs.example.com</code> hosted elsewhere).</p>
+<pre><code># Example: Pages shows you something like
+# Apex (example.com)  -&gt; CNAME to your-project.pages.dev (flattened)
+# www (www.example.com) -&gt; CNAME your-project.pages.dev</code></pre>
+<p>If your domain is already on the same Cloudflare account, Pages can often attach records automatically. Confirm the status column reads <strong>Active</strong> or <strong>Pending</strong> with clear next steps. Pending usually means DNS has not propagated yet, not that you misconfigured Pages.</p>
+<h2>Configure DNS at your registrar</h2>
+<p>When the domain is external, Cloudflare prompts you to add nameservers. Copy the two (sometimes four) assigned nameservers and paste them into your registrar's DNS settings, replacing the defaults. Save and wait. Registrar UIs label this field "Custom DNS," "Nameservers," or "Delegate DNS." Changes can take up to 24 hours but often complete within an hour. You can monitor progress with <code>dig NS example.com</code> or an online DNS checker.</p>
+<ol><li>Log into your registrar and open DNS / nameserver settings.</li><li>Switch from default nameservers to Cloudflare's assigned pair.</li><li>Save changes and note the timestamp for troubleshooting.</li><li>Return to Cloudflare; the domain status should move from Pending to Active.</li><li>In Pages → Custom domains, verify both apex and www show Active.</li></ol>
+<h2>Force HTTPS and pick a canonical host</h2>
+<p>Browsers and search engines treat <code>www.example.com</code> and <code>example.com</code> as separate URLs unless you redirect one to the other. In Cloudflare, open <strong>SSL/TLS</strong> and ensure mode is <strong>Full</strong> or <strong>Full (strict)</strong> for Pages origins. Then create a <strong>Redirect Rule</strong> (or Bulk Redirect) sending <code>www</code> to apex—or the reverse if your brand prefers www. Pick one canonical URL and use it in <code>link rel="canonical"</code> tags across every HTML file. Consistency prevents duplicate indexing and split analytics.</p>
+<pre><code>&lt;!-- In every page &lt;head&gt; --&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;https://example.com/how-to/page.html&quot;&gt;</code></pre>
+<h2>Verify SSL, caching, and live content</h2>
+<p>Visit <code>https://example.com</code> in a private browser window. Confirm the padlock appears, CSS loads, and forms submit to the correct endpoint. Check response headers in DevTools Network tab: Cloudflare should serve <code>cf-cache-status</code> on static assets. Purge cache under <strong>Caching → Configuration → Purge Everything</strong> if you still see an old parking page. Test from mobile data, not just office Wi-Fi, to avoid stale DNS caches on your laptop.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Apex domain loads your latest Pages deploy</li><li><input type="checkbox" disabled> www redirects to canonical host with 301</li><li><input type="checkbox" disabled> Certificate is valid (no mixed-content warnings)</li><li><input type="checkbox" disabled> sitemap.xml and robots.txt use https://example.com URLs</li><li><input type="checkbox" disabled> Form endpoints and analytics still receive events</li></ul>
+<h2>Troubleshooting common failures</h2>
+<p><strong>Too many redirects:</strong> Usually a conflict between Cloudflare SSL mode and an origin redirect loop. Set SSL to Full (strict) and remove duplicate page rules. <strong>522 / 525 errors:</strong> Often appear when a DNS record still points at a retired host; delete obsolete A records pointing at old IPs. <strong>Domain stuck on Pending:</strong> Nameservers may not have propagated; double-check for typos and that the registrar actually saved changes. <strong>Wrong site content:</strong> You attached the domain to a different Pages project—detach and reconnect to the correct project.</p>
+<h2>After the domain goes live</h2>
+<p>Update absolute URLs in <code>sitemap.xml</code>, Open Graph tags, and email templates. Submit the new property in Google Search Console and Bing Webmaster Tools. If you use Formspree or Umami, add the production domain to allowed origins or site settings. Run through the LaunchStatic deployment checklist one more time on the live hostname before sharing the link publicly.</p>
+<h2>Email and subdomain planning</h2>
+<p>Connecting a marketing domain does not automatically configure email. If you send mail from <code>@example.com</code>, add MX records separately in Cloudflare DNS—do not point MX at Pages. Common patterns keep the apex on Pages, route <code>www</code> to the same project, and host docs at <code>docs.example.com</code> on another Pages project or host. Document each subdomain in your internal runbook so a future you does not wonder why <code>status.example.com</code> resolves unexpectedly.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/deploy-guides/">Deploy to Cloudflare Pages</a> <a href="/how-to/deploy-static-site-github-pages.html">Deploy on GitHub Pages</a> <a href="/how-to/generate-sitemap-xml-static.html">Generate sitemap.xml</a> <a href="/tools/">Free tools for static sites</a> <a href="/templates/">Browse landing page templates</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I use Cloudflare Pages without moving nameservers?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Sometimes, if your registrar supports CNAME on the apex or you only need www. Most teams move DNS to Cloudflare because apex support and free SSL are simpler in one dashboard.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How long until HTTPS works on my custom domain?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">After nameservers propagate, Cloudflare typically provisions Universal SSL within minutes to a few hours. You can track certificate status under SSL/TLS → Edge Certificates.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should I use www or non-www?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Either is fine—pick one canonical host, redirect the other with a 301, and match your canonical link tags and sitemap URLs.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Will connecting a domain break my pages.dev URL?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. The *.pages.dev subdomain keeps working alongside your custom domain unless you disable it in project settings.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Ship on your own domain</h2><p>Start from a LaunchStatic template, deploy to Cloudflare Pages, then attach your domain in one afternoon.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/deploy-guides/" class="btn btn-secondary">Full deploy guide</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

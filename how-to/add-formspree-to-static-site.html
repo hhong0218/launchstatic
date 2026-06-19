@@ -1,0 +1,88 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Add Formspree to a Static Site — LaunchStatic</title>
+  <meta name="description" content="Wire a plain HTML contact or waitlist form to Formspree: account setup, form action URL, honeypot spam protection, and success redirects.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/add-formspree-to-static-site.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Add Formspree to a Static Site — LaunchStatic">
+  <meta property="og:description" content="Wire a plain HTML contact or waitlist form to Formspree: account setup, form action URL, honeypot spam protection, and success redirects.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/add-formspree-to-static-site.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Add Formspree to a Static Site — LaunchStatic">
+  <meta name="twitter:description" content="Wire a plain HTML contact or waitlist form to Formspree: account setup, form action URL, honeypot spam protection, and success redirects.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Add Formspree to a Static Site","description":"Wire a plain HTML contact or waitlist form to Formspree: account setup, form action URL, honeypot spam protection, and success redirects.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/add-formspree-to-static-site.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need JavaScript to use Formspree?","acceptedAnswer":{"@type":"Answer","text":"No. A plain HTML form with method=\"post\" and the correct action URL works without any client-side script, which keeps static sites fast and simple."}},{"@type":"Question","name":"Can I use Formspree on GitHub Pages or Cloudflare Pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Any static host that serves your HTML can use Formspree because processing happens on Formspree servers, not yours."}},{"@type":"Question","name":"Why am I not receiving emails?","acceptedAnswer":{"@type":"Answer","text":"Check spam folders, confirm the form ID, and verify you did not leave a placeholder action URL. Some corporate filters block formspree.io until you whitelist it."}},{"@type":"Question","name":"Is Formspree GDPR compliant?","acceptedAnswer":{"@type":"Answer","text":"Formspree publishes a Data Processing Agreement and privacy documentation. You must still disclose the service in your site privacy policy and lawful basis for collecting emails."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Add Formspree to a Static Site</span></nav>
+      <h1 itemprop="headline">How to Add Formspree to a Static Site</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 10 min read · How-to</p>
+      <p>Static HTML cannot process form submissions on its own—you need a hosted endpoint. Formspree accepts POST requests from plain <code>&lt;form&gt;</code> elements and forwards submissions to your inbox or integrations, which matches the no-backend philosophy of LaunchStatic templates. This guide follows Formspree's documented form setup for static sites and covers spam controls, custom fields, and what to test before launch.</p>
+<h2>Create a Formspree form</h2>
+<p>Sign up at formspree.io and create a new form from the dashboard. Formspree assigns a unique form ID used in the action URL. On the free tier you receive a limited number of submissions per month—enough for early waitlists and contact pages. Name the form clearly (for example, "Waitlist – SaaS landing") so notifications are searchable later. Copy the endpoint that looks like <code>https://formspree.io/f/xxxxxxxx</code>; you will paste it into your HTML.</p>
+<h2>Add the form markup to your HTML</h2>
+<p>Place a standard form wherever your template expects it—hero section, dedicated contact page, or footer CTA. Set <code>method="post"</code> and point <code>action</code> at your Formspree URL. Each input needs a <code>name</code> attribute; those names appear in email notifications and export files. Use <code>type="email"</code> on email fields so mobile keyboards adapt and Formspree can validate format.</p>
+<pre><code>&lt;form action=&quot;https://formspree.io/f/xyzabcde&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+  &lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required
+         placeholder=&quot;you@company.com&quot; autocomplete=&quot;email&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Join waitlist&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>LaunchStatic waitlist templates already include accessible labels and large tap targets. Replace the placeholder action URL with your real endpoint before deploying—never commit a teammate's form ID to a public fork unless you intend to share that inbox.</p>
+<h2>Configure redirects and thank-you UX</h2>
+<p>By default, Formspree shows its own confirmation screen. For a branded experience, add a hidden field named <code>_next</code> with the absolute URL of a thank-you page on your site. Create a simple <code>thanks.html</code> that confirms submission and links back to your homepage or docs. Use root-relative paths only for internal assets, but <code>_next</code> must be a full <code>https://</code> URL in production.</p>
+<pre><code>&lt;input type=&quot;hidden&quot; name=&quot;_next&quot; value=&quot;https://example.com/thanks.html&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;_subject&quot; value=&quot;New waitlist signup&quot;&gt;</code></pre>
+<p>The optional <code>_subject</code> field customizes the email subject line you receive. Keep it short and identifiable so mobile mail clients do not truncate it.</p>
+<h2>Reduce spam with honeypot and reCAPTCHA</h2>
+<p>Public forms attract bots. Formspree supports a honeypot field—an input humans never see but bots auto-fill. Add <code>&lt;input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"&gt;</code> inside the form. Enable reCAPTCHA or hCaptcha in the Formspree dashboard for higher-traffic launches. According to Formspree documentation, spam filtering also learns from reported messages; mark junk in your inbox to improve filtering.</p>
+<h2>Collect extra fields responsibly</h2>
+<p>Waitlists often ask for role or company size. Each additional field needs a unique <code>name</code> and a privacy justification if you publish a GDPR-aligned policy. Avoid collecting data you do not need—every field reduces conversion. If you add a message textarea on contact forms, set <code>maxlength</code> to prevent abuse. Document collected fields in your privacy policy (see our privacy policy how-to).</p>
+<pre><code>&lt;select name=&quot;role&quot; aria-label=&quot;Your role&quot;&gt;
+  &lt;option value=&quot;&quot;&gt;Select role (optional)&lt;/option&gt;
+  &lt;option value=&quot;founder&quot;&gt;Founder&lt;/option&gt;
+  &lt;option value=&quot;engineer&quot;&gt;Engineer&lt;/option&gt;
+  &lt;option value=&quot;other&quot;&gt;Other&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+<h2>Test locally and on staging</h2>
+<p>Formspree accepts submissions from any origin once the form ID is public, but you should still test before swapping DNS. Submit a real email to yourself from localhost (file:// pages may block POST—use <code>python -m http.server</code> instead). Confirm the notification arrives, fields map correctly, and <code>_next</code> redirect works. Repeat on your <code>*.pages.dev</code> URL, then again on the custom domain after cutover.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Form action uses your form ID, not a demo placeholder</li><li><input type="checkbox" disabled> Required fields match what your copy promises</li><li><input type="checkbox" disabled> Thank-you redirect uses https:// production URL</li><li><input type="checkbox" disabled> Honeypot field is present and hidden from screen readers</li><li><input type="checkbox" disabled> Privacy policy mentions Formspree as a processor</li></ul>
+<h2>Monitor submissions and upgrade paths</h2>
+<p>The Formspree dashboard lists submissions with export to CSV. Connect Slack or Zapier on paid plans if you need instant team alerts. Watch monthly quotas; if launch traffic spikes, upgrade temporarily rather than losing signups silently. Archive or delete test submissions so metrics reflect real interest.</p>
+<h2>Accessibility and mobile form UX</h2>
+<p>Static forms still need accessible markup. Associate every input with a <code>&lt;label&gt;</code> via <code>for</code> and <code>id</code>. Mark required fields visually and with the <code>required</code> attribute. Ensure error messages from Formspree do not trap keyboard users—if you add client-side validation later, mirror errors in text, not color alone. On mobile, use <code>inputmode="email"</code> where appropriate and keep submit buttons full-width for thumb reach. Touch targets should meet the 44×44px guideline referenced in WCAG understanding docs.</p>
+<h2>Security and secret handling</h2>
+<p>The form ID in your action URL is public by design—anyone can POST to it. That is why honeypots and dashboard spam settings matter. Never embed private API keys in static HTML; Formspree's browser integration uses the public form endpoint only. If you fork a template repository, rotate the form ID so trolls cannot flood your inbox with submissions triggered from the old public repo. Rate limiting at the edge (Cloudflare WAF rules) can supplement Formspree when a launch post goes viral.</p>
+<h2>Double opt-in and mailing lists</h2>
+<p>Formspree delivers email notifications; it is not a full newsletter CRM. If you promise GDPR-compliant marketing emails, connect Formspree to ConvertKit, MailerLite, or similar via integrations or Zapier, and document that flow in your privacy policy. Collect only affirmative consent when required—pre-checked marketing boxes are invalid under EU ePrivacy interpretations for many use cases. A simple waitlist for product updates differs legally from a weekly promotional newsletter; match your form copy to what you actually send.</p>
+<p>After launch, export submissions monthly and back them up outside Formspree in case you switch providers. Document the export format (CSV columns) in your ops notes so migrations do not lose historical waitlist context.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/templates/waitlist.html">Waitlist template</a> <a href="/how-to/write-privacy-policy-static-site.html">Write a privacy policy</a> <a href="/tools/">Form tools roundup</a> <a href="/blog/waitlist-page-conversion-tips.html">Waitlist conversion tips</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need JavaScript to use Formspree?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. A plain HTML form with method="post" and the correct action URL works without any client-side script, which keeps static sites fast and simple.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I use Formspree on GitHub Pages or Cloudflare Pages?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Any static host that serves your HTML can use Formspree because processing happens on Formspree servers, not yours.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Why am I not receiving emails?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Check spam folders, confirm the form ID, and verify you did not leave a placeholder action URL. Some corporate filters block formspree.io until you whitelist it.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is Formspree GDPR compliant?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Formspree publishes a Data Processing Agreement and privacy documentation. You must still disclose the service in your site privacy policy and lawful basis for collecting emails.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Launch a waitlist this week</h2><p>Use our waitlist template with Formspree-ready markup, then deploy in minutes.</p><a href="/templates/waitlist.html" class="btn btn-primary">Get waitlist template</a> <a href="/how-to/connect-custom-domain-cloudflare.html" class="btn btn-secondary">Add custom domain</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

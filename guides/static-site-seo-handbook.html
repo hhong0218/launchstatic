@@ -1,0 +1,134 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Site SEO Handbook — Sitemap, Schema, Core Web Vitals</title>
+  <meta name="description" content="SEO handbook for static landing pages and indie sites: indexing, sitemaps, structured data, meta tags, internal links, and Core Web Vitals without WordPress plugins.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/guides/static-site-seo-handbook.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Static Site SEO Handbook — Sitemap, Schema, Core Web Vitals">
+  <meta property="og:description" content="SEO handbook for static landing pages and indie sites: indexing, sitemaps, structured data, meta tags, internal links, and Core Web Vitals without WordPress plugins.">
+  <meta property="og:url" content="https://launchstatic.dev/guides/static-site-seo-handbook.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Static Site SEO Handbook — Sitemap, Schema, Core Web Vitals">
+  <meta name="twitter:description" content="SEO handbook for static landing pages and indie sites: indexing, sitemaps, structured data, meta tags, internal links, and Core Web Vitals without WordPress plugins.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Static Site SEO Handbook: Rank Without a CMS","description":"SEO handbook for static landing pages and indie sites: indexing, sitemaps, structured data, meta tags, internal links, and Core Web Vitals without WordPress plugins.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/guides/static-site-seo-handbook.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do static sites rank as well as WordPress?","acceptedAnswer":{"@type":"Answer","text":"Yes for comparable content and technical quality. WordPress adds convenience plugins; static adds speed and control. Rankings follow relevance, links, and experience signals\u2014not CMS brand."}},{"@type":"Question","name":"How long until new pages get indexed?","acceptedAnswer":{"@type":"Answer","text":"Days to weeks depending on authority. Request indexing once after publish; focus on internal links and sharing to speed discovery."}},{"@type":"Question","name":"Do I need a blog for SEO?","acceptedAnswer":{"@type":"Answer","text":"Not mandatory. One strong guide plus template pages can rank. Add blog posts when you have unique data or tutorials\u2014not filler."}},{"@type":"Question","name":"Should I use trailing slashes?","acceptedAnswer":{"@type":"Answer","text":"Either works if consistent. Redirect the variant you do not use. Match canonical and sitemap URLs to the chosen style."}},{"@type":"Question","name":"Are Core Web Vitals a ranking factor?","acceptedAnswer":{"@type":"Answer","text":"They influence experience signals, especially competitive queries. Fast static pages often beat heavier CMS defaults without heroic optimization."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides/">Guides</a><span aria-hidden="true">/</span><span>Static Site SEO Handbook: Rank Without a CMS</span></nav>
+      <h1 itemprop="headline">Static Site SEO Handbook: Rank Without a CMS</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 21 min read · Pillar Guide</p>
+      <p>Static sites are SEO-friendly by default: fast HTML, no database timeouts, small attack surface. They are also easy to get wrong because nobody installs an SEO plugin to nag you. You hand-write meta tags once, forget sitemap.xml, and wonder why Google shows a blank description. This handbook covers technical SEO for indie static landers and small content sites—sitemap, robots, schema, CWV, and internal linking—without enterprise tooling.</p>
+<h2>How search engines see your static site</h2>
+<p>Crawlers fetch URLs, parse HTML, follow links, and index what they can render. Static HTML is ideal: content is in the response, not behind client-side routing that delays paint. JavaScript-heavy SPAs without prerender still rank, but slower and flakier. For marketing pages, ship real HTML files per URL.</p>
+<ul><li>Each important URL returns 200 with unique title and description</li><li>Canonical tag points to preferred URL version</li><li>Internal links use normal anchor hrefs crawlers can follow</li><li>Noindex only on thank-you, staging, or duplicate thin pages</li><li>HTTPS everywhere; redirects consolidate www/apex</li></ul>
+<h2>Essential meta tags on every page</h2>
+<p>Title: primary keyword near front, brand at end, under 60 characters displayed. Meta description: compelling summary, not keyword stuffing, 150–160 characters. One H1 matching search intent. Open Graph and Twitter tags for share previews—social clicks indirectly support discovery even if not ranking factors.</p>
+<pre><code>&lt;title&gt;Waitlist Landing Page Template — LaunchStatic&lt;/title&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Deploy-ready waitlist page for indie hackers. Fast HTML, form-ready, mobile-first.&quot;&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;https://launchstatic.dev/templates/waitlist.html&quot;&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Waitlist Landing Page Template&quot;&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Ship a waitlist page this afternoon.&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://launchstatic.dev/assets/img/og/waitlist.png&quot;&gt;
+&lt;meta name=&quot;twitter:card&quot; content=&quot;summary_large_image&quot;&gt;</code></pre>
+<h2>robots.txt and crawl budget</h2>
+<p>At indie scale, crawl budget is rarely the bottleneck—indexation and relevance are. Still, robots.txt should allow public content and point to sitemap. Do not block CSS/JS; Google needs them to render. Staging previews on pages.dev can use noindex meta or HTTP auth; do not leak duplicate content on indexable URLs.</p>
+<pre><code>User-agent: *
+Allow: /
+Sitemap: https://launchstatic.dev/sitemap.xml</code></pre>
+<h2>sitemap.xml that stays current</h2>
+<p>List canonical URLs you want indexed. Omit noindex pages, redirects, and 404s. Include lastmod if you maintain it—honest dates help recrawl after updates. For ten-page sites, hand-maintain sitemap. For blogs, generate at build time with your SSG or a small script in CI.</p>
+<ol><li>Homepage, key landing pages, guides, templates index</li><li>Legal pages optional; low priority</li><li>Submit sitemap in Google Search Console and Bing Webmaster Tools</li><li>Regenerate sitemap when adding routes; redeploy same commit</li><li>Keep under 50,000 URLs—irrelevant for indies but good habit</li></ol>
+<h2>Structured data (schema.org)</h2>
+<p>JSON-LD in script tags is the cleanest for static sites. Article schema for guides; FAQPage for FAQ sections; Organization on homepage; WebSite with SearchAction only if you have on-site search. Validate with Google Rich Results Test after deploy—not just locally.</p>
+<pre><code>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Article&quot;,
+  &quot;headline&quot;: &quot;Static Site SEO Handbook&quot;,
+  &quot;description&quot;: &quot;SEO for static landing pages.&quot;,
+  &quot;author&quot;: {&quot;@type&quot;: &quot;Organization&quot;, &quot;name&quot;: &quot;LaunchStatic&quot;},
+  &quot;datePublished&quot;: &quot;2026-06-19&quot;,
+  &quot;mainEntityOfPage&quot;: &quot;https://launchstatic.dev/guides/static-site-seo-handbook.html&quot;
+}
+&lt;/script&gt;</code></pre>
+<p>FAQ schema can yield rich snippets; questions must appear on page verbatim. Do not mark up invisible content. BreadcrumbList helps sitelinks clarity in some cases—match visible breadcrumb nav.</p>
+<h2>URL structure and information architecture</h2>
+<p>Readable paths beat opaque IDs: /guides/waitlist-conversion-playbook.html beats /p?id=17. Keep folders shallow. Trailing slash consistency matters—pick one via redirects. Use hyphens in filenames. Lowercase only.</p>
+<table><thead><tr><th>Pattern</th><th>Example</th><th>Note</th></tr></thead><tbody><tr><td>Hub + leaf</td><td>/guides/seo-handbook.html</td><td>Breadcrumb back to /guides/</td></tr><tr><td>Templates</td><td>/templates/waitlist.html</td><td>Commercial intent pages</td></tr><tr><td>Blog</td><td>/blog/deploy-cloudflare.html</td><td>Date optional in URL</td></tr><tr><td>Avoid</td><td>/page/v2/final-real.html</td><td>Signals churn to users and bots</td></tr></tbody></table>
+<h2>Internal linking strategy</h2>
+<p>Static sites lack sidebar widgets unless you build them. Plan links in content: every guide links to two related guides, one template, one tool. Hub pages (/guides/, /templates/) list children with descriptive anchor text—not "click here." Footer links repeat key hubs. Internal links distribute authority and help discovery without sitemap alone.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Each new page linked from at least one existing indexed page</li><li><input type="checkbox" disabled> Anchor text describes destination (waitlist template, not read more)</li><li><input type="checkbox" disabled> Orphan pages audit quarterly—Search Console coverage report</li><li><input type="checkbox" disabled> Related links block at end of articles</li><li><input type="checkbox" disabled> Breadcrumb nav matches URL hierarchy</li></ul>
+<h2>Core Web Vitals on static HTML</h2>
+<p>LCP (Largest Contentful Paint): optimize hero image dimensions and priority hint. INP (Interaction to Next Paint): minimize main-thread JS on form pages. CLS (Cumulative Layout Shift): width/height on images, reserve space for web fonts, avoid injecting banners above content late.</p>
+<ul><li>LCP: preload hero WebP; serve from CDN; avoid lazy-load on LCP image</li><li>INP: defer third-party scripts; small inline handlers only</li><li>CLS: font-display swap with metric-matched fallbacks</li><li>TTFB: Cloudflare caching; HTML not over-cached during copy tests</li><li>Measure field data in Search Console CWV report after traffic exists</li></ul>
+<h2>Content that earns links and rankings</h2>
+<p>Technical SEO gets you indexed; content gets you ranked. For indies, long-tail guides that solve one problem completely outperform thin "best tools 2026" listicles. Original screenshots, step-by-step deploy commands, and checklists attract links from forums. Update posts when APIs change—lastmod in sitemap signals freshness.</p>
+<h2>International and duplicate content</h2>
+<p>If you ship /en/ and root English duplicate, canonical one version. hreflang only when you have real translations—not machine spam. Parameterized URLs for UTM are fine; canonical without params on marketing pages.</p>
+<h2>Google Search Console workflow</h2>
+<ol><li>Verify domain property via DNS TXT</li><li>Submit sitemap.xml</li><li>Inspect URL after major copy deploy; request indexing sparingly</li><li>Monitor Coverage and Page Experience reports monthly</li><li>Fix soft 404s—pages with little content that return 200</li><li>Review queries report for unexpected keywords to support with content</li></ol>
+<h2>Bing and secondary engines</h2>
+<p>Bing Webmaster Tools import from GSC in minutes. DuckDuckGo uses Bing index. Neglecting Bing costs little traffic in US/EU SaaS but setup is ten minutes—worth it.</p>
+<h2>Local SEO if relevant</h2>
+<p>Local service SaaS needs NAP consistency, Google Business Profile, and LocalBusiness schema. Pure global B2B tools skip local schema—do not fake addresses.</p>
+<h2>SEO mistakes on static landers</h2>
+<ul><li>Identical title/description on every page</li><li>Missing canonical when syndicating same kit to multiple paths</li><li>Blocking entire site in staging robots.txt copied to production</li><li>Huge unoptimized PNG heroes crushing LCP</li><li>No analytics on which landing URLs convert—SEO without conversion feedback</li><li>Buying links or AI mass pages—short-term poison</li></ul>
+<h2>Maintenance calendar</h2>
+<p>Monthly: broken link check, Search Console errors, dependency bumps for build. Quarterly: refresh top guide stats and screenshots, internal link audit, CWV lab test. At launch: full technical pass; after that, SEO is incremental—not a one-week project.</p>
+<p>Static SEO is discipline, not plugins. Ship clean HTML, keep sitemap honest, write one great page per intent, and let speed work in your favor while bigger competitors load analytics suites.</p>
+<h2>Image SEO and media</h2>
+<p>Name files descriptively: waitlist-hero-dashboard.webp not IMG_8842.png. Write alt text describing the image function, not keyword dumps. Use picture element for WebP with fallback. Host large PDFs with clear link text; optional PDF schema only if you invest in maintaining metadata.</p>
+<h2>Pagination and archive pages</h2>
+<p>Blog indexes listing ten posts per page need rel=next/prev or a single view-all if small. Avoid infinite scroll without crawlable links—bots may not see deep posts. Static generators often handle this; plain HTML bloggers should add manual next links.</p>
+<h2>Monitoring rankings without obsession</h2>
+<p>Track five to ten target queries in Search Console, not third-party rank trackers daily. Month-over-month impression growth on intended queries matters more than position three vs five. Note SERP feature changes—FAQ rich results, AI overviews— and adapt content format when clicks shift.</p>
+<h2>Security headers and SEO</h2>
+<p>Headers do not directly rank you, but HSTS and CSP reduce compromise risk that nukes trust if site gets defaced. After adding strict CSP, test forms and analytics in staging—broken scripts do not hurt rankings but hurt conversions you measure from organic.</p>
+<pre><code># Example CSP snippet—tune per your embeds
+Content-Security-Policy: default-src &#x27;self&#x27;; script-src &#x27;self&#x27; plausible.io; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data: https:; form-action &#x27;self&#x27; https://formspree.io</code></pre>
+<h2>Launch checklist: technical SEO</h2>
+<ul class="checklist"><li><input type="checkbox" disabled> Unique title and meta description per URL</li><li><input type="checkbox" disabled> Canonical matches live primary domain</li><li><input type="checkbox" disabled> sitemap.xml submitted and fetchable</li><li><input type="checkbox" disabled> robots.txt allows CSS/JS and points to sitemap</li><li><input type="checkbox" disabled> JSON-LD validates without errors</li><li><input type="checkbox" disabled> Mobile-friendly test passes</li><li><input type="checkbox" disabled> No accidental noindex on production</li><li><input type="checkbox" disabled> 404 returns proper status, not soft redirect to home</li><li><input type="checkbox" disabled> Internal links from home to money pages</li><li><input type="checkbox" disabled> OG image returns 200 and correct dimensions</li></ul>
+<p>Revisit this checklist after every major IA change—adding /guides/, splitting templates, or migrating hosts. Static sites make diffs obvious in git; use that audit trail when rankings wobble after a refactor.</p>
+<h2>Programmatic pages without spam</h2>
+<p>Indies sometimes generate location or integration pages from JSON at build time. That is fine when each page has unique utility—setup steps for that integration—not 200 near-duplicate paragraphs. Cap programmatic pages at what you can maintain. One excellent /integrations/linear.html beats fifty thin stubs.</p>
+<h2>Page speed budgets</h2>
+<p>Set a budget: HTML under 50 KB, total page weight under 500 KB on landing, requests under 30 on first load. Measure in WebPageTest from a mobile profile quarterly. Exceeding budget triggers a trim sprint—drop a font weight, compress hero, remove an embed—not a redesign.</p>
+<h2>Fixing indexation drops</h2>
+<p>If indexed pages fall suddenly, check robots.txt deploy, accidental noindex meta, 5xx during crawl, or domain migration without redirects. Search Console URL Inspection shows live Google view. Keep old URLs 301ing for at least a year after migrations; static sites make redirect maps easy in _redirects.</p>
+<ol><li>Compare sitemap URL count to indexed count monthly</li><li>Fetch robots.txt in browser after each production deploy</li><li>Run site:yourdomain.com monthly for obvious omissions</li><li>Fix broken internal links found in Screaming Frog free tier crawl</li><li>Add contextual links from high-traffic posts to new guides</li></ol>
+<p>SEO for static indies is a slow compounding channel alongside community launch. Technical hygiene keeps the door open; useful guides and templates bring visitors who actually sign up. Pair this handbook with conversion work on the same URLs—rankings without signups is a hobby, not distribution.</p>
+<p>When you add new guides under /guides/, update the hub page HTML and sitemap the same commit. Hub pages pass internal PageRank to leaf articles; orphan guides without hub links can lag indexation for weeks on new domains.</p>
+<p>Track organic landing URLs in the same spreadsheet as waitlist conversion. A guide ranking on page one with 0.5% signup rate needs a stronger CTA block, not more backlinks. SEO and conversion optimization on static sites share the same HTML files—treat them as one system.</p>
+<p>Prefer stable URLs when updating titles. A renamed filename without 301 loses accumulated signals. Edit in place when possible; redirect old paths when you must restructure. Static repos make filename churn tempting—resist for any URL that already earned impressions in Search Console.</p>
+<p>Add last-updated visible dates on guides when facts change. Users and crawlers both reward maintained references; stale year references in titles erode click-through without you noticing.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/guides/static-landing-page-playbook.html">Landing page playbook</a> <a href="/guides/cloudflare-pages-complete-guide.html">Cloudflare Pages guide</a> <a href="/how-to/">How-to articles</a> <a href="/tools/">SEO tools</a> <a href="/templates/">Templates index</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do static sites rank as well as WordPress?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes for comparable content and technical quality. WordPress adds convenience plugins; static adds speed and control. Rankings follow relevance, links, and experience signals—not CMS brand.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How long until new pages get indexed?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Days to weeks depending on authority. Request indexing once after publish; focus on internal links and sharing to speed discovery.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need a blog for SEO?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Not mandatory. One strong guide plus template pages can rank. Add blog posts when you have unique data or tutorials—not filler.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should I use trailing slashes?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Either works if consistent. Redirect the variant you do not use. Match canonical and sitemap URLs to the chosen style.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Are Core Web Vitals a ranking factor?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">They influence experience signals, especially competitive queries. Fast static pages often beat heavier CMS defaults without heroic optimization.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Ship SEO-ready pages faster</h2><p>Use templates with meta tags, OG images, and sitemap-friendly structure so you spend time on content—not boilerplate.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/free-static-landing-kit/" class="btn btn-secondary">Free static kit</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

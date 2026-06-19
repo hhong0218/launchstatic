@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Join the MetricJar waitlist — analytics for indie SaaS without the enterprise price tag.">
+  <title>MetricJar — Join the waitlist</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#111827;--surface:#1f2937;--text:#f9fafb;--muted:#9ca3af;--accent:#f97316;--radius:10px;--font:system-ui,-apple-system,sans-serif}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+    .wrap{width:min(100% - 2rem,560px);margin-inline:auto;padding:3rem 0;flex:1;display:flex;flex-direction:column;justify-content:center}
+    .logo{font-weight:800;font-size:1.5rem;margin-bottom:2rem;text-align:center}
+    h1{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;text-align:center;line-height:1.2;margin-bottom:1rem}
+    .lead{color:var(--muted);text-align:center;font-size:1.0625rem;margin-bottom:2rem}
+    .form-box{background:var(--surface);border:1px solid #374151;border-radius:var(--radius);padding:1.5rem}
+    label{display:block;font-size:.875rem;font-weight:600;margin-bottom:.375rem}
+    input[type=email]{width:100%;padding:.875rem 1rem;background:var(--bg);border:1px solid #374151;border-radius:var(--radius);color:var(--text);font-size:1rem;margin-bottom:1rem}
+    input:focus{outline:2px solid var(--accent);outline-offset:0}
+    button{width:100%;padding:.875rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-weight:700;font-size:1rem;cursor:pointer}
+    button:hover{background:#ea580c}
+    .note{font-size:.8125rem;color:var(--muted);text-align:center;margin-top:1rem}
+    .perks{margin-top:2.5rem}
+    .perks h2{font-size:1rem;text-align:center;margin-bottom:1rem;color:var(--muted)}
+    .perk-list{list-style:none;display:flex;flex-direction:column;gap:.75rem}
+    .perk-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9375rem;color:var(--muted)}
+    .perk-list li::before{content:"→";color:var(--accent);font-weight:700}
+    footer{padding:1.5rem;text-align:center;font-size:.8125rem;color:var(--muted);border-top:1px solid #374151}
+    footer a{color:var(--muted)}
+    .success{display:none;text-align:center;padding:2rem}
+    .success.show{display:block}
+    .form-box.hidden{display:none}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="logo">MetricJar</p>
+    <h1>Analytics built for indie SaaS</h1>
+    <p class="lead">Revenue, churn, and activation metrics without Mixpanel complexity or enterprise pricing. Join 400+ founders on the waitlist.</p>
+    <div class="form-box" id="waitlist-form">
+      <form action="#" method="POST" id="email-form" data-endpoint="https://formspree.io/f/YOUR_FORM_ID">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@startup.com" autocomplete="email">
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <p class="note">No spam. One launch email when we go live. Unsubscribe anytime.</p>
+    </div>
+    <div class="success" id="success-msg">
+      <p style="font-size:2rem;margin-bottom:.5rem">✓</p>
+      <p><strong>You're on the list.</strong></p>
+      <p style="color:var(--muted);margin-top:.5rem">We'll email you when MetricJar opens early access.</p>
+    </div>
+    <section class="perks" aria-label="Waitlist benefits">
+      <h2>Early access includes</h2>
+      <ul class="perk-list">
+        <li>50% off your first year</li>
+        <li>Direct input on the roadmap</li>
+        <li>Stripe and Paddle revenue sync on day one</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p>Demo template · <a href="https://launchstatic.dev/">LaunchStatic</a> · Replace Formspree action with your form endpoint</p>
+  </footer>
+  <script>
+    document.getElementById('email-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var endpoint = e.target.getAttribute('data-endpoint') || '';
+      if (endpoint.indexOf('YOUR_FORM_ID') !== -1) {
+        document.getElementById('waitlist-form').classList.add('hidden');
+        document.getElementById('success-msg').classList.add('show');
+        return;
+      }
+      e.target.action = endpoint;
+      e.target.removeAttribute('data-endpoint');
+      e.target.submit();
+    });
+  </script>
+</body>
+</html>

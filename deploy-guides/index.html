@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deploy your static landing page to Cloudflare Pages in minutes. Step-by-step guide with GitHub setup, custom domains, and troubleshooting.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/deploy-guides/">
+  <title>Deploy to Cloudflare Pages — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/" class="active">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section-sm">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>Deploy Guides</span>
+        </nav>
+        <h1>Deploy to Cloudflare Pages</h1>
+        <p class="section-lead" style="margin-inline:auto;text-align:center">Ship a static landing page from your laptop to a global CDN in under ten minutes. No build tools, no Docker, no surprise bills.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose">
+        <h2>Prerequisites</h2>
+        <p>Before you start, make sure you have the following ready. None of this requires paid software.</p>
+        <ul>
+          <li><strong>A LaunchStatic template</strong> — download from <a href="/templates/">our templates page</a> or clone the repo. You need at least one <code>index.html</code> at the project root.</li>
+          <li><strong>A GitHub account</strong> — free tier is fine. Cloudflare Pages connects directly to GitHub for automatic deploys on every push.</li>
+          <li><strong>A Cloudflare account</strong> — sign up at <a href="https://dash.cloudflare.com/sign-up" rel="noopener noreferrer" target="_blank">dash.cloudflare.com</a>. The free plan includes Pages, SSL, and unlimited bandwidth for static sites.</li>
+          <li><strong>Git installed locally</strong> — verify with <code>git --version</code> in your terminal.</li>
+          <li><strong>(Optional) A custom domain</strong> — you can use the free <code>*.pages.dev</code> subdomain until you are ready to point your own domain.</li>
+        </ul>
+
+        <h2>Step 1: Create a GitHub repository</h2>
+        <p>Create a new repository on GitHub. Keep it public (required for free Cloudflare Pages on personal accounts) and do not initialize with a README if you already have local files — that avoids merge conflicts on first push.</p>
+        <p>In your project folder, initialize Git and push your template files:</p>
+        <pre class="code-block"><code>cd path/to/your-landing-page
+git init
+git add .
+git commit -m "Initial commit: LaunchStatic template"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main</code></pre>
+        <p>Replace <code>YOUR_USERNAME</code> and <code>YOUR_REPO</code> with your actual GitHub details. Your folder structure should look like this:</p>
+        <pre class="code-block"><code>your-landing-page/
+├── index.html
+├── assets/
+│   ├── css/
+│   └── js/
+└── (optional) images/</code></pre>
+        <p>Cloudflare Pages serves files from the repository root by default. Your homepage must be named <code>index.html</code> so visitors hitting <code>/</code> get the right page.</p>
+
+        <h2>Step 2: Connect Cloudflare Pages</h2>
+        <ol>
+          <li>Log in to the <a href="https://dash.cloudflare.com/" rel="noopener noreferrer" target="_blank">Cloudflare dashboard</a>.</li>
+          <li>Go to <strong>Workers &amp; Pages</strong> in the left sidebar, then click <strong>Create application</strong> → <strong>Pages</strong> → <strong>Connect to Git</strong>.</li>
+          <li>Authorize Cloudflare to access your GitHub account and select the repository you just created.</li>
+          <li>On the build settings screen, configure the following:</li>
+        </ol>
+        <ul>
+          <li><strong>Production branch:</strong> <code>main</code></li>
+          <li><strong>Framework preset:</strong> None (or "None")</li>
+          <li><strong>Build command:</strong> leave empty — static HTML needs no compilation</li>
+          <li><strong>Build output directory:</strong> <code>/</code> (root)</li>
+        </ul>
+        <p>Click <strong>Save and Deploy</strong>. Cloudflare clones your repo, finds your HTML files, and publishes them to a <code>your-project.pages.dev</code> URL within about a minute.</p>
+        <p>Every future <code>git push</code> to <code>main</code> triggers a new deployment automatically. Preview deployments are created for pull requests if you enable that option in project settings.</p>
+
+        <h2>Step 3: No build command — why it matters</h2>
+        <p>LaunchStatic templates are plain HTML, CSS, and vanilla JavaScript. There is no <code>npm run build</code>, no Vite, no Next.js output folder. Leaving the build command empty tells Cloudflare to upload your files as-is.</p>
+        <p>If you accidentally select a framework preset like React or Astro, Cloudflare may run a build step that fails or outputs to the wrong directory. Always choose <strong>None</strong> for raw static sites.</p>
+        <p>If you add a build step later (for example, Tailwind CLI), you would set a build command like <code>npx tailwindcss -i ./src/input.css -o ./assets/css/main.css</code> and keep the output directory as root or wherever your built files land.</p>
+
+        <h2>Step 4: Custom domain with CNAME</h2>
+        <p>Once your site works on <code>*.pages.dev</code>, point your own domain to it.</p>
+        <h3>If your domain is on Cloudflare</h3>
+        <ol>
+          <li>In your Pages project, go to <strong>Custom domains</strong> → <strong>Set up a custom domain</strong>.</li>
+          <li>Enter your domain (e.g. <code>launchstatic.dev</code> or <code>www.launchstatic.dev</code>).</li>
+          <li>Cloudflare adds the DNS records automatically. SSL certificates provision within a few minutes.</li>
+        </ol>
+        <h3>If your domain is at another registrar</h3>
+        <p>Add a CNAME record at your DNS provider:</p>
+        <ul>
+          <li><strong>Type:</strong> CNAME</li>
+          <li><strong>Name:</strong> <code>www</code> (for <code>www.yourdomain.com</code>) or <code>@</code> if your registrar supports CNAME flattening at apex</li>
+          <li><strong>Target:</strong> <code>your-project.pages.dev</code></li>
+          <li><strong>TTL:</strong> Auto or 300 seconds</li>
+        </ul>
+        <p>For apex domains (<code>yourdomain.com</code> without www), Cloudflare Pages supports CNAME flattening when the domain is on Cloudflare DNS. Other registrars may require an ALIAS or ANAME record, or you can redirect apex to www.</p>
+        <p>Back in the Pages dashboard, add the custom domain under <strong>Custom domains</strong>. Wait for the status to show <strong>Active</strong> before sharing the URL publicly.</p>
+
+        <h2>Alternative: GitHub Pages</h2>
+        <p>GitHub Pages is a solid free alternative if you prefer to keep everything inside GitHub. The trade-off: slightly slower global CDN compared to Cloudflare, and custom domain setup uses GitHub's infrastructure rather than Cloudflare's edge network.</p>
+        <ol>
+          <li>Open your repository on GitHub → <strong>Settings</strong> → <strong>Pages</strong>.</li>
+          <li>Under <strong>Source</strong>, select <strong>Deploy from a branch</strong>.</li>
+          <li>Choose branch <code>main</code> and folder <code>/ (root)</code>.</li>
+          <li>Click <strong>Save</strong>. Your site will be live at <code>https://YOUR_USERNAME.github.io/YOUR_REPO/</code> within a few minutes.</li>
+        </ol>
+        <p>For a custom domain on GitHub Pages, add a <code>CNAME</code> file to your repo root containing your domain name (e.g. <code>www.yourdomain.com</code>), then create a CNAME DNS record pointing to <code>YOUR_USERNAME.github.io</code>.</p>
+        <pre class="code-block"><code>echo "www.yourdomain.com" > CNAME
+git add CNAME
+git commit -m "Add custom domain for GitHub Pages"
+git push</code></pre>
+        <p>Enable <strong>Enforce HTTPS</strong> in GitHub Pages settings once DNS propagates.</p>
+
+        <h2>Troubleshooting</h2>
+        <h3>404 on homepage or subpages</h3>
+        <ul>
+          <li><strong>Missing index.html</strong> — Cloudflare and GitHub Pages both expect <code>index.html</code> at the root for the <code>/</code> route. Rename your main file if needed.</li>
+          <li><strong>Wrong output directory</strong> — If build output is set to <code>/dist</code> or <code>/public</code> but your files are at root, every URL will 404. Set output directory to <code>/</code>.</li>
+          <li><strong>Case sensitivity</strong> — Linux servers are case-sensitive. <code>Index.html</code> will not work. Use lowercase <code>index.html</code>.</li>
+          <li><strong>Broken asset paths</strong> — Use root-relative paths like <code>/assets/css/main.css</code> instead of relative paths that break on nested routes.</li>
+        </ul>
+
+        <h3>Stale content / cache issues</h3>
+        <p>If you pushed changes but the live site still shows old content:</p>
+        <ul>
+          <li>Check the Cloudflare Pages dashboard for deployment status. Failed builds leave the previous version live.</li>
+          <li>Hard-refresh your browser: <code>Ctrl+Shift+R</code> (Windows) or <code>Cmd+Shift+R</code> (Mac).</li>
+          <li>Cloudflare caches static assets at the edge. Purge cache under <strong>Caching</strong> → <strong>Configuration</strong> → <strong>Purge Everything</strong> if you need an immediate update (rare for HTML-only sites).</li>
+          <li>Add cache-busting query strings during development: <code>style.css?v=2</code>. Remove before production or use filename hashing if you add a build step later.</li>
+        </ul>
+
+        <h3>Custom domain not working</h3>
+        <ul>
+          <li>DNS propagation can take up to 48 hours, though it is usually under an hour.</li>
+          <li>Verify the CNAME target matches your exact <code>*.pages.dev</code> subdomain.</li>
+          <li>SSL errors often mean the certificate is still provisioning — wait 15 minutes and retry.</li>
+        </ul>
+
+        <div class="mt-4">
+          <a href="/templates/" class="btn btn-primary">Pick a template</a>
+          <a href="/blog/deploy-static-site-cloudflare-5-minutes.html" class="btn btn-secondary">Read the 5-minute walkthrough</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

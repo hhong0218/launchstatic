@@ -1,0 +1,111 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudflare Pages Complete Guide — Deploy Static Sites for Indie Hackers</title>
+  <meta name="description" content="Deep guide to Cloudflare Pages: project setup, custom domains, redirects, preview branches, forms, and production checklists for solo founders.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/guides/cloudflare-pages-complete-guide.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Cloudflare Pages Complete Guide — Deploy Static Sites for Indie Hackers">
+  <meta property="og:description" content="Deep guide to Cloudflare Pages: project setup, custom domains, redirects, preview branches, forms, and production checklists for solo founders.">
+  <meta property="og:url" content="https://launchstatic.dev/guides/cloudflare-pages-complete-guide.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cloudflare Pages Complete Guide — Deploy Static Sites for Indie Hackers">
+  <meta name="twitter:description" content="Deep guide to Cloudflare Pages: project setup, custom domains, redirects, preview branches, forms, and production checklists for solo founders.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Cloudflare Pages: The Complete Guide for Static Landing Pages","description":"Deep guide to Cloudflare Pages: project setup, custom domains, redirects, preview branches, forms, and production checklists for solo founders.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/guides/cloudflare-pages-complete-guide.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Cloudflare Pages free enough for a launch?","acceptedAnswer":{"@type":"Answer","text":"Yes for typical indie landing traffic. The free tier includes unlimited static requests and generous build minutes. You pay when you add paid Workers features, R2 at scale, or enterprise support\u2014not for a waitlist page with modest traffic."}},{"@type":"Question","name":"Pages vs Workers: which do I need?","acceptedAnswer":{"@type":"Answer","text":"Pages alone for static HTML and SSG output. Add Workers or Pages Functions when you need edge logic\u2014A/B redirects, form proxies, or lightweight APIs. Start without them."}},{"@type":"Question","name":"Can I deploy without Git?","acceptedAnswer":{"@type":"Answer","text":"Yes via Wrangler CLI direct upload for emergencies, but Git-connected deploys are the workflow you want for history, previews, and rollbacks."}},{"@type":"Question","name":"How do I roll back a bad deploy?","acceptedAnswer":{"@type":"Answer","text":"In Pages \u2192 Deployments, select a previous successful deployment and Retry deployment or Rollback to that version. Keep copy changes small so rollbacks are painless."}},{"@type":"Question","name":"Does Cloudflare replace my email or form tool?","acceptedAnswer":{"@type":"Answer","text":"No. Pages hosts files. Email capture still uses Formspree, Mailchimp embed, Buttondown API, or a Worker you write. DNS on Cloudflare can route email with MX records elsewhere."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides/">Guides</a><span aria-hidden="true">/</span><span>Cloudflare Pages: The Complete Guide for Static Landing Pages</span></nav>
+      <h1 itemprop="headline">Cloudflare Pages: The Complete Guide for Static Landing Pages</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 20 min read · Pillar Guide</p>
+      <p>Cloudflare Pages gives indie hackers a fast path from git push to global CDN without managing servers. For a static landing page—HTML, CSS, a few images, and maybe a build step—it is often the best default: free tier is generous, SSL is automatic, and your site sits on the same network that blocks bots before they hit your origin. This guide assumes you are shipping a marketing or waitlist page, not a full-stack app. We cover setup, domains, previews, headers, redirects, and the mistakes that eat Saturdays.</p>
+<h2>What Cloudflare Pages is (and is not)</h2>
+<p>Pages is a static hosting product tied to Git. You connect a repository; Cloudflare clones it, runs an optional build command, and publishes the output directory to edge locations worldwide. It is not WordPress hosting, and it is not a database. Dynamic features—forms, search, auth—come from third-party services or Cloudflare Workers paired with Pages Functions. That separation is a feature: your landing page stays fast and cheap while you validate demand.</p>
+<ul><li>Static assets: HTML, CSS, JS, images, fonts, PDFs</li><li>SSG output: Eleventy, Hugo, Astro, Next static export, Vite build</li><li>Preview deployments: every branch or PR gets a unique URL</li><li>Custom domains: apex and www with automatic HTTPS</li><li>Not included: long-running Node servers, MySQL, cron on the origin</li></ul>
+<h2>Prerequisites and account setup</h2>
+<p>Create a Cloudflare account and a GitHub (or GitLab) repository with your site files. If you use plain HTML, your repo root can be the deploy root. If you use a generator, commit package-lock or pnpm-lock so builds are reproducible. Turn on two-factor authentication on both Cloudflare and Git—your production marketing site should not be one stolen password away from defacement.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Cloudflare account with email verified</li><li><input type="checkbox" disabled> Git repo with README noting build command and output folder</li><li><input type="checkbox" disabled> Production branch named main (or adjust in settings)</li><li><input type="checkbox" disabled> Local test: site opens correctly with npx serve or python -m http.server</li><li><input type="checkbox" disabled> Form endpoint chosen and tested locally with curl or browser</li></ul>
+<h2>Create your first Pages project</h2>
+<ol><li>In Cloudflare dashboard: Workers & Pages → Create → Pages → Connect to Git</li><li>Authorize GitHub and select the repository</li><li>Framework preset: None (or pick Astro/Hugo if applicable)</li><li>Build command: leave empty for plain HTML; otherwise npm run build</li><li>Build output directory: / for plain HTML; dist or _site or out for common SSGs</li><li>Deploy and wait for the first green checkmark</li></ol>
+<p>Open the *.pages.dev URL on your phone over LTE. Check hero image, form, and tap targets. The first deploy is your baseline; screenshot Lighthouse scores now so you can compare after adding analytics or fonts.</p>
+<h3>Build settings for popular static stacks</h3>
+<table><thead><tr><th>Stack</th><th>Build command</th><th>Output directory</th></tr></thead><tbody><tr><td>Plain HTML</td><td>(none)</td><td>/</td></tr><tr><td>Vite</td><td>npm run build</td><td>dist</td></tr><tr><td>Astro</td><td>npm run build</td><td>dist</td></tr><tr><td>Hugo</td><td>hugo</td><td>public</td></tr><tr><td>Eleventy</td><td>npx @11ty/eleventy</td><td>_site</td></tr><tr><td>Next.js static</td><td>npm run build</td><td>out</td></tr></tbody></table>
+<h2>Custom domains without DNS pain</h2>
+<p>Add your domain under Pages → Custom domains. If the domain already uses Cloudflare DNS, the CNAME or apex setup is mostly click-through. If DNS lives at Namecheap or Google Domains, either transfer DNS to Cloudflare (recommended for simplicity) or add the records Cloudflare shows you. Apex domains use CNAME flattening on Cloudflare; www should CNAME to your Pages project.</p>
+<p>Pick a canonical host: www or apex, not both without redirects. Duplicate URLs split SEO and confuse analytics. Set one as primary in Pages; add a redirect rule so the other permanently forwards. Wait for TLS certificates to reach Active status before posting the link publicly—first visitors remember certificate warnings.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Primary domain set in Pages settings</li><li><input type="checkbox" disabled> Redirect www → apex (or apex → www) with 301</li><li><input type="checkbox" disabled> HTTPS always; no mixed content warnings in browser console</li><li><input type="checkbox" disabled> Update canonical link and OG:url tags to match primary host</li><li><input type="checkbox" disabled> Old pages.dev URL still works; optional redirect to custom domain</li></ul>
+<h2>Environment variables and build secrets</h2>
+<p>If your build injects analytics IDs or public API endpoints, store them in Pages → Settings → Environment variables. Production and Preview can differ—use Preview without production keys when testing. Never embed private API secrets in client-side JS; anything in the built HTML is public. For waitlist forms, the form provider URL is fine in HTML; your admin API key is not.</p>
+<h2>Preview deployments for safe iteration</h2>
+<p>Every push to a non-production branch generates a preview URL. Use previews to share copy drafts with cofounders or beta users without touching production. Name branches after the experiment: headline-outcome-test, not fix-stuff. When you merge to main, production updates in usually under two minutes. Document preview URLs in PR descriptions so feedback stays traceable.</p>
+<h2>_redirects and _headers files</h2>
+<p>Cloudflare Pages honors Netlify-style _redirects and _headers in your publish directory. Put them in the output folder (often project root or dist). Redirects fix moved paths, force HTTPS variants, and send old campaign slugs to the homepage. Headers add security and caching without a Worker.</p>
+<pre><code># _redirects
+/old-pricing /#pricing 301
+http://www.example.com/* https://example.com/:splat 301
+
+# _headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable</code></pre>
+<p>Cache immutable hashed assets aggressively; keep HTML shorter cache or no-cache if you ship frequent copy tests. Misconfigured cache on HTML is why you "deployed but still see old headline"—purge CDN cache or bump a query string only as a last resort.</p>
+<h2>Forms, Functions, and where logic lives</h2>
+<p>Pure static forms POST to external endpoints—simplest and enough for waitlists. If you need custom validation, honeypot scoring, or Slack notifications, add a Pages Function in functions/api/submit.js that proxies to your backend. Keep functions small; cold starts are usually fine for form volume at indie scale. Log errors to console in preview, wire alerting only after you have paying customers.</p>
+<h2>Performance on Cloudflare by default</h2>
+<p>You already get HTTP/3, Brotli, and global anycast. Your job is not to defeat the CDN but to ship lean assets: responsive images, system or subset fonts, minimal third-party scripts. Use Cloudflare Web Analytics or Zaraz if you want lighter tracking. Each analytics script is another DNS lookup and parse cost on mobile.</p>
+<ol><li>Compress hero image; prefer WebP or AVIF with PNG fallback if needed</li><li>Load fonts with font-display: swap and limit weights to 2</li><li>Defer non-critical JS; avoid jQuery for one toggle</li><li>Preconnect only to domains you actually request</li><li>Run Lighthouse in incognito after deploy, not only locally</li></ol>
+<h2>Security checklist for public marketing sites</h2>
+<ul class="checklist"><li><input type="checkbox" disabled> 2FA on Cloudflare and Git provider</li><li><input type="checkbox" disabled> Least-privilege GitHub app access—only repos that need deploy</li><li><input type="checkbox" disabled> No secrets in repo; rotate if accidentally committed</li><li><input type="checkbox" disabled> Security headers via _headers file</li><li><input type="checkbox" disabled> Dependency updates for build tooling monthly</li><li><input type="checkbox" disabled> Form spam: honeypot + provider-side filtering</li></ul>
+<h2>Troubleshooting deploy failures</h2>
+<p>Build fails: read the log line by line. Ninety percent are Node version mismatch, missing lockfile, or wrong output directory. Set NODE_VERSION in environment variables to match local. Site 404 after success: your index.html is not at the output root—fix output path or add index in public folder. Form works locally but not prod: mixed content (HTTP form on HTTPS site) or wrong action URL on production branch only.</p>
+<ul><li>404 on all routes: wrong publish directory or missing index.html</li><li>Assets 404: absolute paths like /assets/... break on preview subpaths—use relative or root-relative consistently</li><li>Old content after deploy: HTML caching or browser cache—hard refresh or fix Cache-Control</li><li>SSL pending: DNS not propagated; wait up to 24 hours, usually minutes on Cloudflare DNS</li><li>Build OOM: reduce image sizes in repo or split large binaries to R2/external CDN</li></ul>
+<h2>Production launch day sequence</h2>
+<ol><li>Merge final copy to main; confirm production deploy green</li><li>Verify custom domain, www redirect, and SSL active</li><li>Submit test form from mobile; confirm notification arrives</li><li>Check robots.txt allows indexing; submit sitemap in Google Search Console</li><li>Paste OG debugger URL for Slack/X/Twitter card preview</li><li>Enable uptime monitor on apex and one deep link</li><li>Tag release in git; note deploy time in changelog</li></ol>
+<p>Cloudflare Pages is infrastructure you configure once and forget for months. Invest an afternoon in domains, redirects, and headers so every future push is a one-click copy iteration—not another fire drill.</p>
+<h2>Wrangler CLI for power users</h2>
+<p>Wrangler lets you deploy without opening the dashboard—useful in CI or when you need a quick upload from a laptop at a café. Install with npm, authenticate once, then run pages deploy against your build output folder. Keep wrangler.toml in the repo with project name and compatibility flags documented. CLI deploys do not replace Git for day-to-day; they are escape hatches when GitHub is down or you need an emergency rollback asset.</p>
+<pre><code>npm i -g wrangler
+wrangler login
+wrangler pages deploy ./dist --project-name=my-landing</code></pre>
+<h2>Pairing Pages with R2 for large assets</h2>
+<p>If your repo balloons with PDFs, 4K screenshots, or demo videos, move binaries to R2 and reference public URLs in HTML. Smaller repos mean faster clones and builds. Set Cache-Control on R2 objects to match immutable assets. Keep HTML on Pages so copy deploys stay git-driven while heavy media ships separately.</p>
+<h2>Access control for client previews</h2>
+<p>Cloudflare Access can gate preview URLs behind email PIN or SSO when you share work-in-progress with design partners who should not see unfinished pricing. Production stays public. Document which branch triggers Access so you do not accidentally lock your homepage during a misconfigured rule experiment.</p>
+<h2>Monorepo and multiple projects</h2>
+<p>If marketing site and docs live in one repo, set build output to the marketing folder only or use a monorepo build script that outputs to dist. Separate Pages projects for docs versus marketing give independent deploy cadences—useful when docs need weekly churn but homepage changes monthly. Document which repo path maps to which project in README so future you does not wire the wrong branch.</p>
+<h2>Analytics without slowing Pages</h2>
+<p>Prefer lightweight analytics loaded async at end of body. Cloudflare Web Analytics adds minimal weight. If you need conversion goals, tag form submit success with a small inline script firing one event—avoid loading full GTM on a ten-field waitlist. Review network tab after each new embed; marketing people love tags that cost 400 KB.</p>
+<p>Save your final Pages settings in the repo as docs/DEPLOY.md: project name, build command, output dir, env vars, primary domain. Future collaborators should deploy without DMing you for screenshots of the dashboard.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/deploy-guides/">Deploy guides hub</a> <a href="/how-to/">How-to articles</a> <a href="/templates/">Static templates</a> <a href="/tools/">Tools directory</a> <a href="/free-static-landing-kit/">Free landing kit</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is Cloudflare Pages free enough for a launch?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes for typical indie landing traffic. The free tier includes unlimited static requests and generous build minutes. You pay when you add paid Workers features, R2 at scale, or enterprise support—not for a waitlist page with modest traffic.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Pages vs Workers: which do I need?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Pages alone for static HTML and SSG output. Add Workers or Pages Functions when you need edge logic—A/B redirects, form proxies, or lightweight APIs. Start without them.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I deploy without Git?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes via Wrangler CLI direct upload for emergencies, but Git-connected deploys are the workflow you want for history, previews, and rollbacks.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How do I roll back a bad deploy?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">In Pages → Deployments, select a previous successful deployment and Retry deployment or Rollback to that version. Keep copy changes small so rollbacks are painless.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does Cloudflare replace my email or form tool?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. Pages hosts files. Email capture still uses Formspree, Mailchimp embed, Buttondown API, or a Worker you write. DNS on Cloudflare can route email with MX records elsewhere.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Deploy on Cloudflare Pages today</h2><p>Use our deploy guides and free kit to connect your repo, set a custom domain, and ship a waitlist-ready page without server admin.</p><a href="/deploy-guides/" class="btn btn-primary">Open deploy guides</a> <a href="/free-static-landing-kit/" class="btn btn-secondary">Download free kit</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

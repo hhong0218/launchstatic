@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free SaaS landing page template with hero, features, pricing, and FAQ. Download the HTML file and deploy to Cloudflare Pages in minutes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/templates/saas.html">
+  <title>SaaS Landing Template — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/" class="active">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/templates/">Templates</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">SaaS Landing</span>
+        </nav>
+
+        <div class="grid grid-2" style="align-items:start;gap:2rem">
+          <div>
+            <span class="badge-free">Free</span>
+            <h1 class="section-title mt-2">SaaS Landing Template</h1>
+            <p class="section-lead mb-3">A complete marketing page for subscription software and B2B tools. The demo uses a fictional product called Flowboard — swap the copy and you have a credible launch page tonight.</p>
+            <div class="hero-actions mb-4" style="justify-content:flex-start">
+              <a href="/downloads/saas-landing.html" class="btn btn-success" download>Download HTML</a>
+              <a href="/demos/saas/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open full preview</a>
+            </div>
+          </div>
+          <div class="preview-frame" aria-label="Live preview of SaaS template">
+            <iframe src="/demos/saas/" title="SaaS landing page live preview" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container prose">
+        <h2>What's included</h2>
+        <ul>
+          <li><strong>Hero section</strong> — headline, subhead, and dual CTAs (primary trial + secondary learn more)</li>
+          <li><strong>Feature grid</strong> — four benefit cards with icons replaced by simple headings</li>
+          <li><strong>Pricing table</strong> — Starter and Pro tiers with feature lists and highlighted recommended plan</li>
+          <li><strong>FAQ section</strong> — four common SaaS questions (billing, trials, integrations, data export)</li>
+          <li><strong>Sticky-style header</strong> — logo, anchor nav links, and sign-up CTA</li>
+          <li><strong>Responsive layout</strong> — mobile nav collapses gracefully; pricing cards stack on small screens</li>
+        </ul>
+
+        <h2>Who this template fits</h2>
+        <p>Use the SaaS landing layout when you sell subscription software, developer tools, or B2B workflows. It assumes visitors compare plans before signing up, so pricing and FAQ sections are prominent. If you only need email capture before launch, start with the <a href="/templates/waitlist.html">Waitlist template</a> instead and graduate to this page once you have tiers and a trial flow.</p>
+        <p>Indie hackers validating a new SKU often ship this page in an afternoon: swap demo copy, connect Stripe Payment Links on the Pro tier button, and point the Starter CTA to a Cal.com demo call. No React, no CMS, no deploy surprises.</p>
+
+        <h2>Customization tips</h2>
+        <p>Edit the <code>:root</code> CSS variables at the top of the file to change accent colors in seconds. Replace <strong>Flowboard</strong> with your product name across the header, title tag, and meta description. Update pricing numbers and feature bullets to match your actual plans.</p>
+        <p>Link your trial button to your signup URL (Stripe Checkout, Lemon Squeezy, or your app login). Add a real logo image by replacing the text logo with an <code>&lt;img&gt;</code> tag — the layout has room for a 120px-wide mark.</p>
+        <p>For analytics, drop a Plausible or Umami script before <code>&lt;/body&gt;</code>. The page has no JavaScript dependencies, so third-party scripts load without conflicts. See our <a href="/how-to/setup-umami-analytics-static.html">Umami setup guide</a> for a privacy-friendly default.</p>
+
+        <h2>Pre-launch checklist</h2>
+        <ul>
+          <li>Replace all fictional product names and placeholder pricing with real offers</li>
+          <li>Add Privacy Policy and Terms links in the footer (see <a href="/how-to/write-privacy-policy-static-site.html">privacy how-to</a>)</li>
+          <li>Connect primary CTA to a working signup or checkout URL — test on mobile</li>
+          <li>Set canonical URL and Open Graph tags for social sharing</li>
+          <li>Run <a href="/how-to/fix-broken-links-before-launch.html">broken link check</a> before announcing</li>
+          <li>Deploy via <a href="/guides/cloudflare-pages-complete-guide.html">Cloudflare Pages</a> with HTTPS on your apex domain</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Can I remove the pricing section?</h3>
+        <p>Yes. Delete the pricing block and add a single enterprise CTA if you are sales-led. Keep the FAQ section — it answers objections even without public prices.</p>
+        <h3>Does this work on GitHub Pages?</h3>
+        <p>Absolutely. Upload the HTML file or push to a repo and enable Pages. Follow our <a href="/how-to/deploy-static-site-github-pages.html">GitHub Pages deploy guide</a> for path and custom domain details.</p>
+        <h3>Is commercial use allowed?</h3>
+        <p>MIT License covers client work and your own SaaS. Read <a href="/license/">license terms</a> for Pro Pack differences if you bundle templates for resale.</p>
+
+        <h2>Common mistakes to avoid</h2>
+        <p>Founders often paste feature lists from their README without translating them into customer outcomes. Rewrite each bullet as a before/after: "Spreadsheets break at 10k rows" becomes "Import 100k rows without timeouts." Visitors skim pricing before features — if tiers look copy-pasted from a competitor, trust drops even when the product is better.</p>
+        <p>Another frequent miss is leaving the demo product name in the <code>&lt;title&gt;</code> tag after launch. Search engines and browser tabs still say Flowboard while your brand is different. Run a project-wide find-and-replace before connecting analytics. Finally, do not embed a live chat widget on day one; it adds weight and implies support hours you may not have. Email in the footer is enough until revenue justifies Intercom.</p>
+
+        <h2>License</h2>
+        <p>This template is released under the <strong>MIT License</strong>. Use it commercially, modify it freely, and ship it without attribution — though a link back to LaunchStatic is appreciated. You own the deployed site and all customized code.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

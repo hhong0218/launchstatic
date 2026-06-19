@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Draft &amp; Ship — a weekly newsletter on shipping static sites, indie SaaS, and calm product launches.">
+  <title>Draft &amp; Ship — Newsletter for indie builders</title>
+  <!--
+    MIT License — Copyright (c) 2026 LaunchStatic
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+  -->
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#fefce8;--surface:#fff;--text:#1c1917;--muted:#78716c;--accent:#ca8a04;--accent-dark:#a16207;--border:#e7e5e4;--radius:10px;--font:Georgia,"Times New Roman",serif;--sans:system-ui,-apple-system,sans-serif}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+    .wrap{width:min(100% - 2rem,600px);margin-inline:auto;padding:3rem 0;flex:1}
+    .masthead{text-align:center;margin-bottom:2.5rem}
+    .logo{font-family:var(--font);font-weight:700;font-size:2rem;font-style:italic;color:var(--text);margin-bottom:.5rem}
+    .tagline{font-size:.9375rem;color:var(--muted);letter-spacing:.02em}
+    h1{font-family:var(--font);font-size:clamp(1.75rem,4vw,2.25rem);font-weight:700;line-height:1.25;text-align:center;margin-bottom:1rem}
+    .lead{color:var(--muted);text-align:center;font-size:1.0625rem;margin-bottom:2rem;max-width:48ch;margin-inline:auto}
+    .form-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:0 4px 20px rgba(28,25,23,.06)}
+    label{display:block;font-size:.875rem;font-weight:600;margin-bottom:.375rem}
+    input[type=email],input[type=text]{width:100%;padding:.875rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:1rem;margin-bottom:1rem;font-family:var(--sans)}
+    input:focus{outline:2px solid var(--accent);outline-offset:0}
+    button{width:100%;padding:.875rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius);font-weight:700;font-size:1rem;cursor:pointer;font-family:var(--sans)}
+    button:hover{background:var(--accent-dark)}
+    .note{font-size:.8125rem;color:var(--muted);text-align:center;margin-top:1rem}
+    .perks{margin-top:2.5rem}
+    .perks h2{font-family:var(--font);font-size:1.125rem;text-align:center;margin-bottom:1.25rem}
+    .perk-list{list-style:none;display:flex;flex-direction:column;gap:.875rem}
+    .perk-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.9375rem;color:var(--muted);padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)}
+    .perk-list li::before{content:"✦";color:var(--accent);font-weight:700;flex-shrink:0}
+    .social-proof{text-align:center;margin-top:2rem;font-size:.875rem;color:var(--muted)}
+    .social-proof strong{color:var(--text)}
+    footer{padding:1.5rem;text-align:center;font-size:.8125rem;color:var(--muted);border-top:1px solid var(--border)}
+    footer a{color:var(--accent-dark)}
+    .success{display:none;text-align:center;padding:2rem}
+    .success.show{display:block}
+    .form-box.hidden{display:none}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="masthead">
+      <p class="logo">Draft &amp; Ship</p>
+      <p class="tagline">Weekly · Tuesdays · 5-minute read</p>
+    </header>
+    <h1>Practical notes on shipping without the drama</h1>
+    <p class="lead">Static deploys, waitlist tactics, and honest indie SaaS math. Join 1,800+ builders who read Draft &amp; Ship every Tuesday morning.</p>
+    <div class="form-box" id="newsletter-form">
+      <form action="#" method="POST" id="email-form" data-endpoint="https://formspree.io/f/YOUR_FORM_ID">
+        <label for="name">First name <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+        <input type="text" id="name" name="name" placeholder="Alex" autocomplete="given-name">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@startup.com" autocomplete="email">
+        <button type="submit">Subscribe free</button>
+      </form>
+      <p class="note">No ads. No funnels. One thoughtful email per week. Unsubscribe in one click.</p>
+    </div>
+    <div class="success" id="success-msg">
+      <p style="font-size:2rem;margin-bottom:.5rem">✓</p>
+      <p><strong>Welcome aboard.</strong></p>
+      <p style="color:var(--muted);margin-top:.5rem">Check your inbox for a confirmation link. The next issue ships Tuesday.</p>
+    </div>
+    <section class="perks" aria-label="Subscriber perks">
+      <h2>What subscribers get</h2>
+      <ul class="perk-list">
+        <li><strong>Deploy walkthroughs</strong> — copy-paste Cloudflare Pages and GitHub Pages setups tested the same week they publish</li>
+        <li><strong>Template drops</strong> — early access to LaunchStatic layouts before they hit the public catalog</li>
+        <li><strong>Reply-friendly</strong> — hit reply anytime; reader questions often become the next issue</li>
+      </ul>
+    </section>
+    <p class="social-proof"><strong>1,847 readers</strong> · read in 42 countries · avg. open rate 54%</p>
+  </main>
+  <footer>
+    <p>Demo template · <a href="https://launchstatic.dev/">LaunchStatic</a> · MIT License · Replace Formspree <code>data-endpoint</code> with your form ID</p>
+  </footer>
+  <script>
+    document.getElementById('email-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var endpoint = e.target.getAttribute('data-endpoint') || '';
+      if (endpoint.indexOf('YOUR_FORM_ID') !== -1) {
+        document.getElementById('newsletter-form').classList.add('hidden');
+        document.getElementById('success-msg').classList.add('show');
+        return;
+      }
+      e.target.action = endpoint;
+      e.target.removeAttribute('data-endpoint');
+      e.target.submit();
+    });
+  </script>
+</body>
+</html>

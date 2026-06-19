@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Why indie SaaS founders should use static landing pages instead of WordPress. Speed, security, cost, and focus — without the plugin treadmill.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/blog/why-static-beats-wordpress-for-saas.html">
+  <title>Why Static Beats WordPress for Indie SaaS — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/" class="active">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="section">
+      <div class="container prose">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/blog/">Blog</a>
+          <span aria-hidden="true">/</span>
+          <span>Why Static Beats WordPress for Indie SaaS</span>
+        </nav>
+
+        <header class="mb-3">
+          <p class="blog-meta"><time datetime="2026-03-12">March 12, 2026</time> · 6 min read</p>
+          <h1 style="font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.2;margin-bottom:1rem">Why Static Beats WordPress for Indie SaaS</h1>
+          <p class="section-lead">You do not need a CMS to validate a product idea. For most indie SaaS founders, a single static landing page outperforms WordPress on every metric that matters before product-market fit.</p>
+        </header>
+
+        <h2>The job of a pre-launch landing page</h2>
+        <p>Before you have paying customers, your website has one job: convince a stranger that your problem is worth solving and that you are the person to solve it. That means a clear headline, a short value proposition, social proof if you have it, and a call to action — usually a waitlist signup or demo request.</p>
+        <p>WordPress was built for blogs and content-heavy sites with frequent publishing, user accounts, and plugin ecosystems. A SaaS founder validating an MVP does not need any of that. You need a page that loads in under a second, ranks reasonably well, and does not break when you are busy writing code.</p>
+
+        <h2>Speed is a feature and a ranking signal</h2>
+        <p>Google uses Core Web Vitals as a ranking factor. Visitors bounce when pages feel slow. A typical WordPress install with a popular theme, page builder, and analytics plugins ships 500 KB to 2 MB of JavaScript and CSS before your content even renders.</p>
+        <p>A well-built static landing page — plain HTML, a single CSS file, minimal JavaScript — often weighs under 50 KB gzipped. That difference shows up in Lighthouse scores, mobile performance on slow networks, and real conversion rates. When someone clicks your Product Hunt link or Twitter post, you have about three seconds before they decide whether to stay.</p>
+        <p>Static files served from a CDN like Cloudflare Pages do not wait on PHP execution or database queries. The HTML is pre-built. The server just delivers it. There is no cold start, no plugin conflict slowing down Time to First Byte.</p>
+
+        <h2>Security without maintenance anxiety</h2>
+        <p>WordPress powers roughly 40% of the web, which makes it a prime target for automated attacks. Plugin vulnerabilities, outdated themes, and misconfigured admin panels are responsible for the majority of compromised small business sites. As a solo founder, you do not have a security team — you have a backlog.</p>
+        <p>Static sites have no database, no admin login, no server-side code execution. There is nothing to SQL-inject. You are not patching WordPress core on a Tuesday night when you should be talking to users. Your attack surface is essentially zero unless you misconfigure your hosting account itself.</p>
+
+        <h2>Total cost of ownership</h2>
+        <p>WordPress can be "free," but the real bill adds up: managed hosting ($15–30/month), premium theme ($60/year), essential plugins for forms, SEO, caching, and security ($100–300/year), and the hidden cost of your time maintaining updates.</p>
+        <p>A static landing page on Cloudflare Pages costs $0 on the free tier. Form handling through Formspree's free plan covers early waitlist volume. Analytics from Umami (self-hosted) or Plausible's trial tier gives you traffic data without Google Analytics bloat. Domain registration is the only unavoidable expense — roughly $10–15/year.</p>
+        <p>For a bootstrapped founder, that margin matters. Spend the savings on ads, a designer for your logo, or an extra month of runway.</p>
+
+        <h2>Focus beats flexibility</h2>
+        <p>WordPress tempts you with infinite customization. Page builders, widget areas, custom post types — suddenly you are tweaking footer columns instead of writing copy or building your actual product. Decision fatigue is real when every element is configurable.</p>
+        <p>Static templates impose healthy constraints. You get a proven layout: hero, features, pricing, FAQ, CTA. You fill in your copy, swap colors, deploy. Done in an afternoon. The constraint forces you to ship rather than endlessly redesign.</p>
+        <p>When you outgrow a static page — you need a blog with 50 posts, user dashboards, or dynamic pricing — that is a good problem. It means you have traction. Until then, simplicity is a competitive advantage.</p>
+
+        <h2>When WordPress still makes sense</h2>
+        <p>WordPress is the right tool if you are running a content business (newsletter, media site, SEO-driven blog) where non-technical writers publish daily. It is also fine if you already know WordPress deeply and can maintain it without distraction.</p>
+        <p>For indie SaaS — especially pre-revenue, pre-team, pre-PMF — static wins on speed, security, cost, and focus. Download a template, customize the copy, push to GitHub, connect Cloudflare Pages, and get back to building the thing people will actually pay for.</p>
+
+        <div class="mt-4">
+          <a href="/templates/saas.html" class="btn btn-primary">Get the SaaS template</a>
+          <a href="/blog/" class="btn btn-secondary">More articles</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

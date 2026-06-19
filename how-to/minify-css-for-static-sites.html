@@ -1,0 +1,88 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Minify CSS for Static Sites — LaunchStatic</title>
+  <meta name="description" content="Shrink CSS for faster static pages: manual vs CLI tools, clean-css, esbuild, cache headers, and when minification actually matters.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/minify-css-for-static-sites.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Minify CSS for Static Sites — LaunchStatic">
+  <meta property="og:description" content="Shrink CSS for faster static pages: manual vs CLI tools, clean-css, esbuild, cache headers, and when minification actually matters.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/minify-css-for-static-sites.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Minify CSS for Static Sites — LaunchStatic">
+  <meta name="twitter:description" content="Shrink CSS for faster static pages: manual vs CLI tools, clean-css, esbuild, cache headers, and when minification actually matters.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Minify CSS for Static Sites","description":"Shrink CSS for faster static pages: manual vs CLI tools, clean-css, esbuild, cache headers, and when minification actually matters.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/minify-css-for-static-sites.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Cloudflare minify CSS automatically?","acceptedAnswer":{"@type":"Answer","text":"Optional Auto Minify features applied to proxied sites historically; Pages static assets depend on your build output. Generate minified files yourself for predictable results."}},{"@type":"Question","name":"Should I minify HTML too?","acceptedAnswer":{"@type":"Answer","text":"HTML minification saves fewer bytes than CSS/JS for typical landing pages. Prioritize CSS and images first."}},{"@type":"Question","name":"Will minified CSS hurt debugging?","acceptedAnswer":{"@type":"Answer","text":"Keep the readable source file in git. Use source maps only if you adopt a heavier build chain\u2014they are optional for small sites."}},{"@type":"Question","name":"Can I minify without npm?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Python tools like rcssmin, or run esbuild via npx without adding it to package.json\u2014though documenting dependencies helps teammates."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Minify CSS for Static Sites</span></nav>
+      <h1 itemprop="headline">How to Minify CSS for Static Sites</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 10 min read · How-to</p>
+      <p>Unminified CSS is fine while you iterate locally, but production visitors download every whitespace character and comment. Minification removes redundant bytes without changing styles, which improves Time to First Byte perception on slow mobile networks. Static sites on Cloudflare Pages do not minify your assets automatically—you opt in via a build command or pre-deploy script. This how-to covers practical minification workflows that stay compatible with no-framework LaunchStatic projects.</p>
+<h2>When minification is worth the effort</h2>
+<p>If your entire CSS bundle is under 20 KB gzip, minification saves a few hundred bytes—nice but not launch-blocking. When CSS grows past 50–80 KB uncompressed, or you embed large comment blocks and duplicated rules, minify before marketing launch. Pair minification with removal of unused styles for bigger wins. Measure with Lighthouse and the Network panel; optimize what the waterfall proves is slow.</p>
+<h2>Prepare a safe workflow</h2>
+<p>Never overwrite your only readable source file. Keep <code>main.css</code> as the human-edited source and emit <code>main.min.css</code> for production, or store sources under <code>assets/css/src/</code>. Reference the minified file in HTML only after you verify styles visually. Commit both files if your deploy pipeline has no build step—simplicity beats forgetting to regenerate minified output before a push.</p>
+<pre><code>assets/css/
+  main.css        # source of truth
+  main.min.css    # generated, linked in production HTML</code></pre>
+<h2>Option A: clean-css CLI (Node)</h2>
+<p>The clean-css project is a widely used minifier. Install locally in your repo (not globally) so teammates share the same version.</p>
+<pre><code>npm init -y
+npm install clean-css-cli --save-dev
+npx cleancss -o assets/css/main.min.css assets/css/main.css</code></pre>
+<p>Add an npm script for repeatability: <code>"minify:css": "cleancss -o assets/css/main.min.css assets/css/main.css"</code>. Run it before <code>git commit</code> when styles change. On Cloudflare Pages, set build command to <code>npm run minify:css</code> and output directory <code>/</code> if you want automation on every push.</p>
+<h2>Option B: esbuild for CSS bundling</h2>
+<p>If you split CSS into partial files, esbuild can bundle and minify in one step—even though LaunchStatic defaults to a single stylesheet.</p>
+<pre><code>npx esbuild assets/css/main.css \
+  --minify --outfile=assets/css/main.min.css</code></pre>
+<p>esbuild is extremely fast, which matters when you add a tiny build pipeline to an otherwise static repo. It does not autoprefix unless you chain plugins; for simple landing pages, hand-write standard properties or verify in BrowserStack once.</p>
+<h2>Option C: online minifier for one-off exports</h2>
+<p>For a single-file template download without Node installed, paste CSS into a reputable minifier, inspect output, and save as <code>main.min.css</code>. Do not use random browser extensions that exfiltrate code. Prefer CLI for anything commercial so the process is reproducible and auditable.</p>
+<h2>Update HTML references and cache busting</h2>
+<p>Point <code>&lt;link rel="stylesheet"&gt;</code> at the minified path. Cloudflare caches static assets aggressively; after deploy, purge cache if users report stale styles. Optional cache bust: rename to <code>main.a1b2c3.min.css</code> or add query strings—only needed when you have seen CDN stickiness problems.</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/main.min.css&quot;&gt;</code></pre>
+<h2>Verify nothing broke</h2>
+<p>Minifiers are safe for well-formed CSS but can break hacks that rely on comment placement (rare in modern projects). Open critical pages—home, pricing, mobile nav—and confirm layout, focus states, and dark-mode variables if present. Run Lighthouse Performance again; you should see slightly smaller transfer sizes and unchanged Accessibility scores.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Source CSS preserved separately from minified output</li><li><input type="checkbox" disabled> All HTML pages link to the same production CSS file</li><li><input type="checkbox" disabled> Build command documented in README</li><li><input type="checkbox" disabled> Visual regression check on mobile width</li><li><input type="checkbox" disabled> Cloudflare cache purged after major style deploy</li></ul>
+<h2>Remove unused CSS for bigger savings</h2>
+<p>Minification shrinks bytes; purging unused rules shrinks more. Audit selectors with coverage tools in Chrome DevTools—open Coverage, reload the page, and sort by unused CSS percentage. Delete dead rules from the source file, then re-minify. For multi-page static sites, avoid copying entire framework CSS bundles when you only need a grid and typography. LaunchStatic templates intentionally ship a single moderate stylesheet so you start lean.</p>
+<h2>Integrate with your deploy pipeline</h2>
+<p>On Cloudflare Pages, add a <code>package.json</code> script and set the build command to <code>npm run minify:css</code> even if that is your only build step. On GitHub Actions, run the same script before <code>upload-pages-artifact</code>. Document the command in README so contributors do not commit HTML pointing at stale minified files. If you skip automation, add a pre-commit reminder in CONTRIBUTING.md—human processes fail under launch pressure.</p>
+<h2>Measure gzip and Brotli impact</h2>
+<p>Cloudflare serves Brotli-compressed responses to supporting browsers. Minification improves gzip/Brotli ratios by removing repeated whitespace patterns. Compare Network tab sizes before and after minify on the same deploy preview. Record bytes saved in your performance log—helpful when deciding whether to adopt a CSS preprocessor later. For most LaunchStatic pages, minified single-file CSS plus CDN compression already achieves excellent transfer sizes.</p>
+<h2>Source maps for larger teams</h2>
+<p>If your CSS grows past a few hundred kilobytes and multiple authors edit it, consider generating source maps during minify for DevTools debugging. LaunchStatic single-file stylesheets rarely need this complexity—skip source maps until pain appears. When you add them, do not publish <code>.map</code> files publicly unless you are comfortable exposing original class names and comments.</p>
+<p>Run Lighthouse before and after minification on the same preview URL. Store the Performance score delta in your launch checklist—evidence helps justify build tooling to teammates who prefer zero-config deploys.</p>
+<p>Minify JavaScript with the same discipline if you add client-side helpers later. Symmetry keeps your asset pipeline understandable when the project grows beyond pure HTML.</p>
+<p>Commit minified output in the same pull request as source CSS changes so reviewers see both files diff together and catch accidental regressions early.</p>
+<p>Tag releases after CSS changes so you can roll back minified assets quickly if a deploy looks wrong on mobile Safari.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/deploy-guides/">Cloudflare deploy guide</a> <a href="/how-to/fix-broken-links-before-launch.html">Fix broken links checklist</a> <a href="/templates/">Optimized templates</a> <a href="/tools/">Static site tooling</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does Cloudflare minify CSS automatically?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Optional Auto Minify features applied to proxied sites historically; Pages static assets depend on your build output. Generate minified files yourself for predictable results.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should I minify HTML too?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">HTML minification saves fewer bytes than CSS/JS for typical landing pages. Prioritize CSS and images first.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Will minified CSS hurt debugging?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Keep the readable source file in git. Use source maps only if you adopt a heavier build chain—they are optional for small sites.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I minify without npm?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Use Python tools like rcssmin, or run esbuild via npx without adding it to package.json—though documenting dependencies helps teammates.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Fast templates out of the box</h2><p>LaunchStatic CSS is already lean—fork a template and minify when you scale past one page.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/deploy-guides/" class="btn btn-secondary">Deploy guide</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

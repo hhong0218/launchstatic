@@ -1,0 +1,105 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static Landing Page Playbook — Idea to Deploy for Indie Hackers</title>
+  <meta name="description" content="A complete playbook for solo founders: validate your idea, write copy, pick a stack, ship a static landing page, and deploy without overbuilding.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/guides/static-landing-page-playbook.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Static Landing Page Playbook — Idea to Deploy for Indie Hackers">
+  <meta property="og:description" content="A complete playbook for solo founders: validate your idea, write copy, pick a stack, ship a static landing page, and deploy without overbuilding.">
+  <meta property="og:url" content="https://launchstatic.dev/guides/static-landing-page-playbook.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Static Landing Page Playbook — Idea to Deploy for Indie Hackers">
+  <meta name="twitter:description" content="A complete playbook for solo founders: validate your idea, write copy, pick a stack, ship a static landing page, and deploy without overbuilding.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"The Static Landing Page Playbook: From Idea to Deploy","description":"A complete playbook for solo founders: validate your idea, write copy, pick a stack, ship a static landing page, and deploy without overbuilding.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/guides/static-landing-page-playbook.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long should my first static landing page take to build?","acceptedAnswer":{"@type":"Answer","text":"A focused solo founder can ship in one to three days: day one for copy and structure, day two for HTML/CSS and form wiring, day three for domain, OG tags, and mobile polish. If you are past a week without traffic, you are overbuilding."}},{"@type":"Question","name":"Do I need a custom domain before sharing?","acceptedAnswer":{"@type":"Answer","text":"Not for friends-and-family feedback\u2014a pages.dev subdomain is fine. For public launch, product directories, and paid ads, use a custom domain. It improves trust and makes email deliverability easier when you mail waitlist subscribers."}},{"@type":"Question","name":"What conversion rate should I expect on a waitlist page?","acceptedAnswer":{"@type":"Answer","text":"Cold traffic often lands at 1\u20133%. Warm communities (your newsletter, niche Discords) can hit 8\u201315%. Compare channels separately; one blended number hides what works."}},{"@type":"Question","name":"Plain HTML or a static site generator?","acceptedAnswer":{"@type":"Answer","text":"Plain HTML if you have one page and want the fewest moving parts. Use Eleventy or Hugo when you already plan multiple guides or changelog posts and want includes for header/footer without copy-paste."}},{"@type":"Question","name":"How do I collect emails without building a backend?","acceptedAnswer":{"@type":"Answer","text":"Point your form to Formspree, Basin, or a Cloudflare Worker that writes to Airtable or Google Sheets. Test submissions from an incognito window after deploy\u2014cached success pages often hide broken endpoints."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/guides/">Guides</a><span aria-hidden="true">/</span><span>The Static Landing Page Playbook: From Idea to Deploy</span></nav>
+      <h1 itemprop="headline">The Static Landing Page Playbook: From Idea to Deploy</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 18 min read · Pillar Guide</p>
+      <p>Most indie products fail before anyone sees a landing page. Not because the idea is bad, but because founders spend weeks on authentication, dashboards, and billing before they have proof that strangers care. A static landing page flips that order. You ship a single HTML file (or a small folder of files), put it on a free host, and learn whether the problem and offer resonate. This playbook walks you through that path end to end—no framework churn, no premature SaaS architecture.</p>
+<p>Static does not mean amateur. Stripe, Linear, and plenty of YC companies launched on simple pages with a headline, three bullets, and an email field. The constraint is the feature: you are building a decision surface, not a product. Every section below maps to a decision you can make in an afternoon and ship the same week.</p>
+<h2>Phase 1: Clarify the bet before you open an editor</h2>
+<p>Start with one sentence: who hurts, what they do today, and what changes after your product exists. Example: "Solo founders waste hours wiring waitlist forms; they need a deploy-ready static page with working signup in under ten minutes." If you cannot write that without jargon, the page will confuse visitors too. Write the sentence on paper. Sleep on it. That sentence becomes your hero subhead.</p>
+<p>Next, define the single primary action. For pre-launch, it is almost always email capture or calendar booking—not "learn more" scattered across five buttons. Secondary links (pricing FAQ, changelog) can wait. One CTA reduces bounce and makes analytics honest: did they sign up or not?</p>
+<ul class="checklist"><li><input type="checkbox" disabled> I can name the visitor (role + context) in one line</li><li><input type="checkbox" disabled> I wrote the before/after outcome without feature buzzwords</li><li><input type="checkbox" disabled> Primary CTA is one action: join waitlist, book call, or download kit</li><li><input type="checkbox" disabled> I know what I will do if fewer than 20 people sign up in two weeks</li><li><input type="checkbox" disabled> I have a 48-hour ship deadline, not a "when it's perfect" deadline</li></ul>
+<h2>Phase 2: Structure that converts without a designer</h2>
+<p>High-performing static landers share a predictable scroll order: hero, social proof or problem agitation, how it works, objection handling, FAQ, final CTA. You do not need all seven on day one, but you do need hero + proof + CTA. Skipping proof is the most common solo-founder mistake: you assume the headline is self-evident. It is not. Add one concrete detail—time saved, error avoided, or a quote from a beta user.</p>
+<h3>Hero block</h3>
+<p>Headline: outcome, not category. Weak: "Modern analytics platform." Strong: "See which landing page copy actually drives signups." Subhead: expand who it is for and the mechanism in one breath. CTA button: verb + outcome ("Join the waitlist", "Get the checklist"). Under the button, one trust line: "Free. No spam. Unsubscribe anytime." or "Used by 40+ indie hackers in beta."</p>
+<h3>Body sections</h3>
+<ul><li>Problem: describe the current workflow in visceral terms your reader recognizes</li><li>Solution: three bullets max; each bullet starts with a verb</li><li>How it works: three numbered steps; avoid architecture diagrams on v1</li><li>Pricing teaser: even "pricing TBD—early access discount for waitlist" sets expectations</li><li>FAQ: kill the top three objections you hear in DMs (security, lock-in, timeline)</li></ul>
+<p>Keep paragraphs short. On mobile, a four-line paragraph feels like a wall. One idea per paragraph. Use subheads every two screens so skimmers still get the story.</p>
+<h2>Phase 3: Pick a stack you can maintain alone</h2>
+<p>You need HTML, CSS, and a form endpoint. That is the whole production stack for v1. React, Astro, or Eleventy are fine if you already use them daily. If not, plain HTML plus a single CSS file ships faster and debugs faster at 2 a.m. when your form breaks. Bias toward what you can edit in VS Code and deploy with git push.</p>
+<table><thead><tr><th>Option</th><th>Best for</th><th>Tradeoff</th></tr></thead><tbody><tr><td>Plain HTML + CSS</td><td>Fastest ship, full control</td><td>Manual includes for shared headers</td></tr><tr><td>Eleventy / Hugo</td><td>Multiple pages + blog later</td><td>Build step to learn</td></tr><tr><td>Astro</td><td>Components without heavy JS</td><td>Slightly more tooling</td></tr><tr><td>Tailwind CDN</td><td>Rapid layout experiments</td><td>Harder to keep CSS tiny long-term</td></tr></tbody></table>
+<p>Forms are the one dynamic piece. Use a hosted form backend (Formspree, Getform, Basin, or Cloudflare Workers + KV) so you never touch PHP or server admin. Wire the form action URL, add a honeypot field for bots, test from your phone on cellular—not just localhost.</p>
+<pre><code>&lt;form action=&quot;https://formspree.io/f/your-id&quot; method=&quot;POST&quot;&gt;
+  &lt;input type=&quot;email&quot; name=&quot;email&quot; required placeholder=&quot;you@company.com&quot;&gt;
+  &lt;input type=&quot;text&quot; name=&quot;_gotcha&quot; style=&quot;display:none&quot; tabindex=&quot;-1&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Join waitlist&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<h2>Phase 4: Copy and assets in one sitting</h2>
+<p>Block three hours. Hour one: headline and bullets from your bet sentence. Hour two: FAQ from real conversations or r/indiehackers posts in your niche. Hour three: visuals. Use one hero screenshot or illustration, not a carousel. Export WebP at 2x for retina; keep hero under 120 KB. Favicon and OG image are not optional—they affect trust when you paste the link in Slack or X.</p>
+<ol><li>Draft copy in a doc, not directly in HTML—easier to edit and get feedback</li><li>Read aloud; cut any sentence you stumble on</li><li>Run Hemingway or similar once, then stop—perfectionism delays shipping</li><li>Create 1200×630 OG image with headline text readable at thumbnail size</li><li>Add alt text on every meaningful image for accessibility and SEO</li></ol>
+<h2>Phase 5: Performance and trust by default</h2>
+<p>Static pages should load in under two seconds on 4G. If they do not, you lose signups before the form renders. Defer non-critical JS. Inline critical CSS for above-the-fold content or keep total CSS under 15 KB. Self-host fonts or use system stacks. Lazy-load below-fold images. Add privacy policy and terms links in the footer before you run paid traffic—payment processors and ad platforms expect them.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Lighthouse performance score 90+ on mobile</li><li><input type="checkbox" disabled> HTTPS on custom domain (not bare IP)</li><li><input type="checkbox" disabled> Form success and error states tested</li><li><input type="checkbox" disabled> 404 page exists with link back to home</li><li><input type="checkbox" disabled> Contact email or form linked in footer</li></ul>
+<h2>Phase 6: Deploy and verify</h2>
+<p>Connect GitHub to Cloudflare Pages or Netlify. Production branch: main. Build command: none for plain HTML, or npm run build for SSG. Set custom domain early so shared links use the real brand. After deploy, click every link, submit the form twice (duplicate handling), and view source to confirm meta tags. Set up uptime monitoring with a free ping service—silence is how you learn the site was down for a week.</p>
+<p>Tag the release in git. Screenshot the live page for your build-in-public thread. You are done when the URL is public and the form hits your inbox or spreadsheet.</p>
+<h2>Phase 7: Measure and iterate weekly</h2>
+<p>Track unique visitors, scroll depth if your analytics support it, and form submissions. Plausible or Fathom keeps you GDPR-friendly without cookie banners in many cases; Google Analytics 4 works if you configure consent. Calculate conversion rate: signups divided by unique visitors. Below 2% usually means message mismatch; above 8% on targeted traffic means you can narrow positioning.</p>
+<p>Change one variable per week: headline, hero image, CTA label, or social proof block. Keep a changelog in the repo README so you know what moved the needle. If traffic is zero, distribution is the problem—not the font. Post where your user already hangs out; do not wait for SEO on a brand-new domain.</p>
+<h2>Phase 8: Distribution the same day you deploy</h2>
+<p>A live URL is not launch. Block two hours for distribution the day you deploy. Post a short build log to communities where founders already discuss your problem—Indie Hackers, niche subreddits, Slack groups you genuinely participate in. Lead with the problem and one screenshot, not a product tour. Ask a specific question: "Does this headline match how you'd describe the pain?" Comments are copy research; upvotes are optional.</p>
+<p>Prepare three distribution assets in advance: a one-sentence pitch, a 280-character post, and a slightly longer LinkedIn or blog paragraph. Reuse the same CTA link everywhere so analytics stay clean. If you run small paid tests, cap spend until organic messaging converts. Fifty dollars on bad copy teaches less than ten honest replies from target users.</p>
+<ol><li>Share in one community where you are a known participant, not a drive-by link drop</li><li>Email five people who match your ICP and ask for a 60-second skim review</li><li>Add the link to your X bio, GitHub profile, and email signature the same day</li><li>Submit to one relevant directory only after the page has proof and FAQ</li><li>Schedule a follow-up post seven days later with what you learned from signups</li></ol>
+<h2>A minimal file layout you can copy</h2>
+<p>Keep the repo boring. A typical v1 static landing project fits in five files: index.html, styles.css, favicon.ico, og-image.png, and robots.txt. Optional: privacy.html and terms.html linked from the footer. Store form configuration in HTML comments at the top of index.html so you remember which endpoint and list ID you used. Avoid nesting assets ten folders deep—you will mis-path images under stress.</p>
+<pre><code>project/
+  index.html
+  privacy.html
+  assets/
+    css/main.css
+    img/hero.webp
+    img/og.png
+  robots.txt
+  sitemap.xml</code></pre>
+<p>Version-control everything except secrets. API keys belong in your host environment or form provider dashboard, never committed. If you need A/B headlines later, duplicate index.html to index-b.html and split traffic with a simple redirect rule on your host—no need for a full experimentation framework on day one.</p>
+<h2>Common mistakes that waste a weekend</h2>
+<ul><li>Building a blog before the landing page converts</li><li>Custom CMS for content that changes monthly</li><li>Embedding five analytics scripts that slow first paint</li><li>Hiding pricing anxiety instead of addressing it in FAQ</li><li>Using noreply@ as the only contact—signals "don't talk to us"</li><li>Shipping desktop-only layouts; 60%+ of indie traffic is mobile</li></ul>
+<h2>When to graduate past a static page</h2>
+<p>Move to a dynamic app when you need authenticated dashboards, paid subscriptions with webhooks, or user-generated content. Until then, static plus a form backend and maybe a single serverless function handles waitlists, beta invites, and manual onboarding. The playbook goal is learning speed, not eternal stasis. Ship the static page this week; let data tell you what to build next.</p>
+<p>Bookmark this sequence as your default sprint: clarify bet, draft structure, pick plain HTML or familiar SSG, write copy in a doc, wire one form endpoint, deploy to Cloudflare Pages, verify on mobile, share in one community, measure for seven days, change one variable. Repeat until signups justify the next layer of product—not the other way around.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/templates/">Landing page templates</a> <a href="/deploy-guides/">Deploy guides</a> <a href="/free-static-landing-kit/">Free static landing kit</a> <a href="/how-to/">Step-by-step how-tos</a> <a href="/tools/">Recommended tools</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How long should my first static landing page take to build?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">A focused solo founder can ship in one to three days: day one for copy and structure, day two for HTML/CSS and form wiring, day three for domain, OG tags, and mobile polish. If you are past a week without traffic, you are overbuilding.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need a custom domain before sharing?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Not for friends-and-family feedback—a pages.dev subdomain is fine. For public launch, product directories, and paid ads, use a custom domain. It improves trust and makes email deliverability easier when you mail waitlist subscribers.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">What conversion rate should I expect on a waitlist page?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Cold traffic often lands at 1–3%. Warm communities (your newsletter, niche Discords) can hit 8–15%. Compare channels separately; one blended number hides what works.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Plain HTML or a static site generator?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Plain HTML if you have one page and want the fewest moving parts. Use Eleventy or Hugo when you already plan multiple guides or changelog posts and want includes for header/footer without copy-paste.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How do I collect emails without building a backend?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Point your form to Formspree, Basin, or a Cloudflare Worker that writes to Airtable or Google Sheets. Test submissions from an incognito window after deploy—cached success pages often hide broken endpoints.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Ship your page this week</h2><p>Grab a template, wire your form, and deploy to Cloudflare Pages in an afternoon. Momentum beats polish for your first validation loop.</p><a href="/free-static-landing-kit/" class="btn btn-primary">Get the free kit</a> <a href="/templates/" class="btn btn-secondary">Browse templates</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

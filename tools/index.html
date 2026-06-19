@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Curated free tools for static site builders: hosting, forms, analytics, and domain registrars. No paid upsells, just what indie hackers actually use.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/tools/">
+  <title>Free Tools for Static Sites — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/" class="active">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section-sm">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <span>Tools</span>
+        </nav>
+        <h1>Free tools for static sites</h1>
+        <p class="section-lead" style="margin-inline:auto;text-align:center">A curated stack for indie hackers. Every tool below has a generous free tier and works with plain HTML — no framework lock-in.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">The recommended stack</h2>
+        <p class="section-lead mb-4">Host on Cloudflare Pages, capture emails with Formspree, track visits with Plausible or Umami, and buy your domain from Namecheap or Cloudflare Registrar. Total monthly cost for a pre-launch landing page: $0.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Tool</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
+                <th scope="col">Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Cloudflare Pages</strong></td>
+                <td>Hosting</td>
+                <td>Global CDN hosting with free SSL, unlimited bandwidth, and Git-based deploys. Connect a GitHub repo, leave the build command empty, and your HTML goes live worldwide. Best default choice for LaunchStatic templates.</td>
+                <td><a href="/tools/cloudflare-pages.html">LaunchStatic guide</a> · <a href="https://pages.cloudflare.com/" rel="noopener noreferrer" target="_blank">Official site</a></td>
+              </tr>
+              <tr>
+                <td><strong>GitHub Pages</strong></td>
+                <td>Hosting</td>
+                <td>Free static hosting directly from any public GitHub repository. Simpler setup if you already live in GitHub, but slower CDN and fewer edge features than Cloudflare. Good backup or staging option.</td>
+                <td><a href="https://pages.github.com/" rel="noopener noreferrer" target="_blank">pages.github.com</a></td>
+              </tr>
+              <tr>
+                <td><strong>Netlify Drop</strong></td>
+                <td>Hosting</td>
+                <td>Drag-and-drop deployment with zero Git setup. Ideal for quick demos or one-off client previews. Upload a ZIP of your HTML folder and get a live URL in seconds. Not ideal for long-term CI/CD workflows.</td>
+                <td><a href="https://app.netlify.com/drop" rel="noopener noreferrer" target="_blank">app.netlify.com/drop</a></td>
+              </tr>
+              <tr>
+                <td><strong>Formspree</strong></td>
+                <td>Forms</td>
+                <td>Backend-free form handling for static sites. Point your HTML form <code>action</code> attribute to Formspree's endpoint and submissions arrive in your inbox. Free tier includes 50 submissions per month — enough for early waitlists.</td>
+                <td><a href="/tools/formspree.html">LaunchStatic guide</a> · <a href="https://formspree.io/" rel="noopener noreferrer" target="_blank">Official site</a></td>
+              </tr>
+              <tr>
+                <td><strong>Plausible</strong></td>
+                <td>Analytics</td>
+                <td>Privacy-friendly, lightweight analytics without cookie banners. A single script tag adds pageview tracking under 1 KB. Paid after trial, but transparent pricing and GDPR compliance make it worth it once you have traffic.</td>
+                <td><a href="https://plausible.io/" rel="noopener noreferrer" target="_blank">plausible.io</a></td>
+              </tr>
+              <tr>
+                <td><strong>Umami</strong></td>
+                <td>Analytics</td>
+                <td>Open-source, self-hostable analytics alternative to Google Analytics. Cloud-hosted plans exist, or deploy the Docker image on a $5 VPS. Completely free if you self-host. Simple dashboard, no personal data collection.</td>
+                <td><a href="/tools/umami.html">LaunchStatic guide</a> · <a href="https://umami.is/" rel="noopener noreferrer" target="_blank">Official site</a></td>
+              </tr>
+              <tr>
+                <td><strong>Namecheap</strong></td>
+                <td>Domain registrar</td>
+                <td>Affordable domain registration with straightforward DNS management. Frequent first-year discounts on <code>.com</code> domains. Point your CNAME to Cloudflare Pages after purchase. Whois privacy included free.</td>
+                <td><a href="https://www.namecheap.com/" rel="noopener noreferrer" target="_blank">namecheap.com</a></td>
+              </tr>
+              <tr>
+                <td><strong>Cloudflare Registrar</strong></td>
+                <td>Domain registrar</td>
+                <td>Domains at wholesale cost with no markup. DNS, SSL, and Pages hosting live in one dashboard. Best when you want a single vendor for domain + hosting + CDN. Transfer existing domains in or register new ones.</td>
+                <td><a href="https://www.cloudflare.com/products/registrar/" rel="noopener noreferrer" target="_blank">cloudflare.com/products/registrar</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="section-title mt-4">How these tools fit together</h2>
+        <div class="grid grid-2 mt-3">
+          <article class="card">
+            <h3>Pre-launch waitlist</h3>
+            <p>Deploy the <a href="/templates/waitlist.html">Waitlist template</a> to Cloudflare Pages. Connect the email form to Formspree. Add Umami for traffic counts. Buy your domain on Namecheap and CNAME it to Pages.</p>
+          </article>
+          <article class="card">
+            <h3>SaaS marketing site</h3>
+            <p>Host on Cloudflare Pages with Git auto-deploy. Use Plausible for conversion tracking on pricing and signup CTAs. Keep forms on Formspree until you build a real backend.</p>
+          </article>
+          <article class="card">
+            <h3>Quick client demo</h3>
+            <p>Customize a template locally, ZIP the folder, and drop it on Netlify Drop for an instant shareable URL. No GitHub account required for the prospect review.</p>
+          </article>
+          <article class="card">
+            <h3>GitHub-only workflow</h3>
+            <p>Push to GitHub Pages if your audience is technical and you want issues/PRs colocated with your site repo. Swap Cloudflare for GitHub in the table above — everything else stays the same.</p>
+          </article>
+        </div>
+
+        <p class="mt-4"><a href="/deploy-guides/">Full Cloudflare Pages deployment guide →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

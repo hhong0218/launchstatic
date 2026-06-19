@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact LaunchStatic — operator email, DMCA notices, custom builds, and template support.">
+  <link rel="canonical" href="https://launchstatic.dev/contact.html">
+  <title>Contact — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+      <nav class="nav-desktop">
+        <a href="/templates/">Templates</a><a href="/pricing.html">Pricing</a><a href="/deploy-guides/">Deploy</a><a href="/blog/">Blog</a>
+        <a href="/contact.html" class="nav-cta active">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile"><a href="/templates/">Templates</a><a href="/contact.html">Contact</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero section-sm"><div class="container">
+      <h1>Contact</h1>
+      <p>We reply within two business days. For urgent copyright issues, use the DMCA address below.</p>
+    </div></section>
+    <section class="section section-sm"><div class="container">
+      <div class="grid grid-2" style="gap:3rem;align-items:start">
+        <div class="prose">
+          <h2>Operator</h2>
+          <p><strong>LaunchStatic</strong> — static template & deployment resource for indie hackers.</p>
+          <ul>
+            <li><strong>General & privacy:</strong> <a href="mailto:hello@launchstatic.dev">hello@launchstatic.dev</a></li>
+            <li><strong>DMCA / copyright removal:</strong> <a href="mailto:dmca@launchstatic.dev">dmca@launchstatic.dev</a></li>
+          </ul>
+
+          <h2>DMCA / copyright notice</h2>
+          <p>If you believe content on launchstatic.dev infringes your copyright, email <a href="mailto:dmca@launchstatic.dev">dmca@launchstatic.dev</a> with:</p>
+          <ol>
+            <li>Identification of the copyrighted work</li>
+            <li>URL of the infringing material on our site</li>
+            <li>Your contact information</li>
+            <li>A statement of good-faith belief that use is not authorized</li>
+            <li>A statement that your notice is accurate and you are authorized to act</li>
+            <li>Physical or electronic signature</li>
+          </ol>
+          <p>We respond to valid notices promptly and may remove or disable access to disputed material.</p>
+
+          <h2>We can help with</h2>
+          <ul>
+            <li>Template questions and deployment troubleshooting</li>
+            <li>Custom static landing page builds</li>
+            <li>Pro Template Pack waitlist</li>
+            <li>Partnership inquiries</li>
+          </ul>
+        </div>
+        <div class="card">
+          <form id="contact-form" aria-label="Contact form">
+            <div class="form-group"><label for="contact-name">Name *</label><input type="text" id="contact-name" name="name" required autocomplete="name"></div>
+            <div class="form-group"><label for="contact-email">Email *</label><input type="email" id="contact-email" name="email" required autocomplete="email"></div>
+            <div class="form-group"><label for="contact-subject">Subject</label><input type="text" id="contact-subject" name="subject"></div>
+            <div class="form-group"><label for="contact-message">Message *</label><textarea id="contact-message" name="message" required></textarea></div>
+            <p class="text-muted" style="font-size:.8125rem;margin-bottom:1rem">Submitting opens your email app — we do not store form data on servers. See <a href="/privacy.html">Privacy Policy</a>.</p>
+            <button type="submit" class="btn btn-primary">Send via email</button>
+            <p id="form-status" class="mt-2 text-muted" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a> · <a href="/licenses.html">Licenses</a></span></div></footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

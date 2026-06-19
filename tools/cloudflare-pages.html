@@ -1,0 +1,76 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudflare Pages Guide for Static Sites — LaunchStatic</title>
+  <meta name="description" content="Deploy static HTML to Cloudflare Pages with Git integration, free SSL, global CDN, and custom domains. Step-by-step setup for indie hackers.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/tools/cloudflare-pages.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Cloudflare Pages Guide for Static Sites — LaunchStatic">
+  <meta property="og:description" content="Deploy static HTML to Cloudflare Pages with Git integration, free SSL, global CDN, and custom domains. Step-by-step setup for indie hackers.">
+  <meta property="og:url" content="https://launchstatic.dev/tools/cloudflare-pages.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cloudflare Pages Guide for Static Sites — LaunchStatic">
+  <meta name="twitter:description" content="Deploy static HTML to Cloudflare Pages with Git integration, free SSL, global CDN, and custom domains. Step-by-step setup for indie hackers.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Cloudflare Pages for Static Sites","description":"Deploy static HTML to Cloudflare Pages with Git integration, free SSL, global CDN, and custom domains. Step-by-step setup for indie hackers.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/tools/cloudflare-pages.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is Cloudflare Pages really free for landing pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. Static HTML sites on the free tier include unlimited bandwidth for reasonable use, automatic SSL, and global CDN delivery. You pay only if you add paid Cloudflare products or exceed specific Workers/Pages paid-plan limits \u2014 unlikely for a single marketing site."}},{"@type":"Question","name":"Do I need Wrangler CLI?","acceptedAnswer":{"@type":"Answer","text":"No. Git-connected deploys handle everything from the dashboard. Wrangler is optional for direct uploads or advanced Workers integration."}},{"@type":"Question","name":"Can I deploy without GitHub?","acceptedAnswer":{"@type":"Answer","text":"Yes. Use Direct Upload via Wrangler or drag-and-drop workflows documented by Cloudflare. Git integration is recommended because it gives you version history and preview URLs."}},{"@type":"Question","name":"How does Pages work with Formspree or Umami?","acceptedAnswer":{"@type":"Answer","text":"They are client-side integrations. Pages serves your HTML; forms post to Formspree and analytics scripts call Umami. No server configuration on Cloudflare is required."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools/">Tools</a><span aria-hidden="true">/</span><span>Cloudflare Pages for Static Sites</span></nav>
+      <h1 itemprop="headline">Cloudflare Pages for Static Sites</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 9 min read · Tool Guide</p>
+      <p>Cloudflare Pages is the default hosting recommendation on LaunchStatic because it solves the three problems indie hackers care about most: cost, speed, and simplicity. You push HTML files to a Git repository, connect that repo to Cloudflare, and your site is served from hundreds of edge locations worldwide with automatic HTTPS. There is no build step required for plain static sites, no bandwidth cap on the free tier, and no credit card needed to get started.</p>
+<h2>Why Cloudflare Pages beats generic static hosts</h2>
+<p>Many static hosts work fine for a single landing page, but Cloudflare Pages combines hosting with the same CDN infrastructure that protects large enterprises. That means your waitlist page loads quickly in Tokyo, Berlin, and São Paulo without you configuring regional servers. Preview deployments are generated for every Git branch and pull request, which is invaluable when you want a client or cofounder to review copy changes before merging to production.</p>
+<p>Unlike some competitors, Cloudflare does not throttle free projects after a traffic spike. A Product Hunt launch or a viral tweet will not trigger a surprise invoice. For pre-revenue founders, predictable $0 hosting removes one more reason to delay shipping. You still own your files — if you outgrow Pages or want a different workflow, download your repo and move elsewhere.</p>
+<h2>What you need before connecting</h2>
+<ul><li>A GitHub, GitLab, or Bitbucket account with your site files in a repository</li><li>An <code>index.html</code> at the repository root (not buried in a subfolder)</li><li>Root-relative asset paths like <code>/assets/css/main.css</code></li><li>A free Cloudflare account at dash.cloudflare.com</li></ul>
+<p>LaunchStatic templates are structured exactly for this layout. Download a template, customize copy locally, initialize Git, push to GitHub, and you are one dashboard wizard away from a live URL ending in <code>*.pages.dev</code>.</p>
+<h2>Create a Pages project (Git-connected)</h2>
+<ol><li>Log in to Cloudflare Dashboard → Workers &amp; Pages → Create application → Pages → Connect to Git.</li><li>Authorize Cloudflare to read your repository provider and select the repo containing your landing page.</li><li>Set the production branch to <code>main</code> (or <code>master</code> if older repos use that name).</li><li>Leave <strong>Build command</strong> empty. Set <strong>Build output directory</strong> to <code>/</code> (repository root).</li><li>Click Save and Deploy. First deploy usually finishes in under two minutes.</li><li>Visit the generated <code>your-project.pages.dev</code> URL and verify CSS, images, and links.</li></ol>
+<h3>Build settings for plain HTML</h3>
+<p>If Cloudflare detects a framework it may suggest a build command. For LaunchStatic templates, ignore those prompts. An empty build command tells Pages to publish files as-is. This is faster and eliminates an entire class of CI failures caused by missing Node versions or npm lockfile drift. You edit HTML, commit, push — done.</p>
+<h2>Custom domains and DNS</h2>
+<p>After the first deploy succeeds, open your Pages project → Custom domains → Set up a custom domain. Enter your apex domain (<code>example.com</code>) or subdomain (<code>www.example.com</code>). Cloudflare walks you through DNS records. If your domain is already on Cloudflare, the record is often added automatically. If your registrar is elsewhere, create the CNAME Cloudflare displays and wait for propagation — usually minutes, occasionally up to 24 hours.</p>
+<p>SSL certificates provision automatically. Do not pay for third-party certificates unless you have a specific compliance requirement. For standard landing pages, Cloudflare's Universal SSL is sufficient and renews without manual intervention.</p>
+<h2>Headers, caching, and security basics</h2>
+<p>Add a <code>_headers</code> file at your project root to set security headers without a server. A minimal example sets <code>X-Frame-Options</code>, <code>Referrer-Policy</code>, and cache lifetimes for static assets. Pages reads this file on deploy and applies rules at the edge.</p>
+<pre><code>/*
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable</code></pre>
+<p>For redirects — for example forcing <code>www</code> to apex — add a <code>_redirects</code> file. Cloudflare Pages supports the same syntax Netlify popularized, which keeps migration straightforward if you switch hosts later.</p>
+<h2>Common mistakes and fixes</h2>
+<table><thead><tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr></thead><tbody><tr><td>404 on homepage</td><td>No index.html at repo root</td><td>Move index.html to top level</td></tr><tr><td>Unstyled page</td><td>Relative CSS paths break on subroutes</td><td>Use root-relative /assets/ paths</td></tr><tr><td>Old content after deploy</td><td>Browser or CDN cache</td><td>Hard refresh; bump asset query strings</td></tr><tr><td>Build fails</td><td>Accidental npm build command</td><td>Clear build command; redeploy</td></tr></tbody></table>
+<h2>When to choose something else</h2>
+<p>Cloudflare Pages is not the only valid choice. GitHub Pages is simpler if your audience lives entirely inside GitHub and you do not need preview URLs per branch. Netlify Drop is unbeatable for one-off ZIP uploads without Git. Choose Pages when you want production-grade CDN, generous free limits, and a path to custom domains without migrating DNS providers later.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/deploy-guides/">Cloudflare deployment walkthrough</a> <a href="/tools/formspree.html">Formspree form guide</a> <a href="/templates/waitlist.html">Waitlist template</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is Cloudflare Pages really free for landing pages?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Static HTML sites on the free tier include unlimited bandwidth for reasonable use, automatic SSL, and global CDN delivery. You pay only if you add paid Cloudflare products or exceed specific Workers/Pages paid-plan limits — unlikely for a single marketing site.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need Wrangler CLI?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. Git-connected deploys handle everything from the dashboard. Wrangler is optional for direct uploads or advanced Workers integration.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I deploy without GitHub?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Use Direct Upload via Wrangler or drag-and-drop workflows documented by Cloudflare. Git integration is recommended because it gives you version history and preview URLs.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How does Pages work with Formspree or Umami?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">They are client-side integrations. Pages serves your HTML; forms post to Formspree and analytics scripts call Umami. No server configuration on Cloudflare is required.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Deploy your template today</h2><p>Grab a free LaunchStatic template, push to GitHub, and connect Cloudflare Pages. Most founders have a live HTTPS URL within fifteen minutes.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/deploy-guides/" class="btn btn-secondary">Full deploy guide</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

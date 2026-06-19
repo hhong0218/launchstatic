@@ -1,0 +1,113 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Deploy a Static Site on GitHub Pages — LaunchStatic</title>
+  <meta name="description" content="Deploy plain HTML to GitHub Pages: repo setup, GitHub Actions optional, custom domains, HTTPS, and differences vs Cloudflare Pages.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/deploy-static-site-github-pages.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Deploy a Static Site on GitHub Pages — LaunchStatic">
+  <meta property="og:description" content="Deploy plain HTML to GitHub Pages: repo setup, GitHub Actions optional, custom domains, HTTPS, and differences vs Cloudflare Pages.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/deploy-static-site-github-pages.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Deploy a Static Site on GitHub Pages — LaunchStatic">
+  <meta name="twitter:description" content="Deploy plain HTML to GitHub Pages: repo setup, GitHub Actions optional, custom domains, HTTPS, and differences vs Cloudflare Pages.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Deploy a Static Site on GitHub Pages","description":"Deploy plain HTML to GitHub Pages: repo setup, GitHub Actions optional, custom domains, HTTPS, and differences vs Cloudflare Pages.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/deploy-static-site-github-pages.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is GitHub Pages free for public repos?","acceptedAnswer":{"@type":"Answer","text":"Yes for public repositories under standard GitHub free accounts. Confirm current limits in GitHub Pages documentation."}},{"@type":"Question","name":"Can I host a single HTML file?","acceptedAnswer":{"@type":"Answer","text":"Yes. Put index.html at the publishing root and enable Pages."}},{"@type":"Question","name":"Does GitHub Pages run PHP or Node servers?","acceptedAnswer":{"@type":"Answer","text":"No. Only static assets and client-side JavaScript. Use external services for forms and APIs."}},{"@type":"Question","name":"How do I use a project site at the domain root?","acceptedAnswer":{"@type":"Answer","text":"Attach a custom apex domain in Pages settings with the DNS records GitHub provides."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Deploy a Static Site on GitHub Pages</span></nav>
+      <h1 itemprop="headline">How to Deploy a Static Site on GitHub Pages</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 12 min read · How-to</p>
+      <p>GitHub Pages hosts static files directly from a repository—ideal when your code already lives on GitHub and you want a free HTTPS URL without introducing another vendor. Official GitHub documentation describes two deployment modes: legacy branch publishing and the modern GitHub Actions <code>upload-pages-artifact</code> workflow. This how-to focuses on the straightforward branch method for LaunchStatic HTML templates, then covers custom domains and when to prefer Cloudflare Pages instead.</p>
+<h2>Prepare your repository structure</h2>
+<p>GitHub Pages serves files from the repository root (or <code>/docs</code> if configured). Your <code>index.html</code> must sit at the publishing root. Assets live under predictable paths such as <code>/assets/css/main.css</code>. Use root-relative links so the same HTML works on <code>username.github.io/repo-name/</code> project pages and apex custom domains.</p>
+<pre><code>my-landing/
+├── index.html
+├── assets/
+│   ├── css/main.css
+│   └── js/main.js
+├── privacy.html
+└── robots.txt</code></pre>
+<p>For <strong>user or organization sites</strong> (repo named <code>username.github.io</code>), the site URL is <code>https://username.github.io/</code>. For <strong>project sites</strong>, URLs include the repo name: <code>https://username.github.io/my-landing/</code>—you may need a <code>&lt;base href&gt;</code> tag or path-prefix-aware links unless you use a custom domain at the root.</p>
+<h2>Push code to GitHub</h2>
+<p>Create a public repository (private repos require a paid GitHub plan for Pages in some account types—check current GitHub pricing docs). Initialize git locally and push:</p>
+<pre><code>git init
+git add .
+git commit -m &quot;Initial static site&quot;
+git branch -M main
+git remote add origin https://github.com/USERNAME/REPO.git
+git push -u origin main</code></pre>
+<p>Verify files appear in the browser UI before enabling Pages—especially that <code>index.html</code> is not trapped inside a subfolder.</p>
+<h2>Enable GitHub Pages in repository settings</h2>
+<p>Open <strong>Settings → Pages</strong>. Under <strong>Build and deployment</strong>, set Source to <strong>Deploy from a branch</strong>. Choose branch <code>main</code> and folder <code>/ (root)</code>. Save. GitHub provisions HTTPS and a <code>*.github.io</code> URL within a few minutes. Refresh the Pages settings screen until the live link appears.</p>
+<h2>Optional: deploy with GitHub Actions</h2>
+<p>If you add a minification or sitemap build step, switch Source to <strong>GitHub Actions</strong> and commit a workflow file. GitHub's starter <code>static.yml</code> workflow uploads the repository root as an artifact—customize steps before upload.</p>
+<pre><code># .github/workflows/pages.yml
+name: Deploy static site
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm run build   # optional minify/sitemap
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - uses: actions/deploy-pages@v4</code></pre>
+<p>Omit the npm line if you have no build. Actions deployments appear in the Actions tab with logs if a step fails.</p>
+<h2>Configure a custom domain</h2>
+<p>In Pages settings, add your domain under <strong>Custom domain</strong>, e.g. <code>www.example.com</code>. GitHub displays required DNS records—typically <code>A</code> records pointing to GitHub's documented IP addresses for apex domains and a <code>CNAME</code> for <code>www</code> targeting <code>username.github.io</code>. Enable <strong>Enforce HTTPS</strong> once certificate issuance completes (can take up to an hour). Create a CNAME file in your repo root only if documentation still requires it for your setup; the UI often manages records without manual files.</p>
+<pre><code># Optional legacy CNAME file at repo root (single hostname)
+www.example.com</code></pre>
+<h2>Verify forms, analytics, and SEO files</h2>
+<p>Formspree and Umami work on GitHub Pages because they are browser-side or third-party POST targets. Update Formspree <code>_next</code> redirect URLs to your <code>github.io</code> or custom domain. Confirm <code>robots.txt</code> and <code>sitemap.xml</code> use the live hostname. Run Lighthouse on the deployed URL—GitHub Pages CDN is solid but slower on some regions compared to Cloudflare's edge.</p>
+<h2>GitHub Pages vs Cloudflare Pages</h2>
+<p>GitHub Pages excels at simplicity when code is already on GitHub. Cloudflare Pages adds faster global caching, preview deployments per branch, and integrated DNS if you buy domains there. Many teams ship marketing sites on Cloudflare and open-source docs on GitHub Pages—pick one canonical host to avoid duplicate content.</p>
+<table><thead><tr><th>Feature</th><th>GitHub Pages</th><th>Cloudflare Pages</th></tr></thead><tbody><tr><td>Build step</td><td>Optional Actions</td><td>Native build hook</td></tr><tr><td>Custom domain SSL</td><td>Yes</td><td>Yes</td></tr><tr><td>Bandwidth</td><td>Soft limits apply</td><td>Generous free tier</td></tr><tr><td>Best for</td><td>OSS repos, docs</td><td>Marketing launches</td></tr></tbody></table>
+<ul class="checklist"><li><input type="checkbox" disabled> index.html at publishing root</li><li><input type="checkbox" disabled> Pages enabled on main branch</li><li><input type="checkbox" disabled> HTTPS loads without certificate warnings</li><li><input type="checkbox" disabled> Custom domain DNS validated</li><li><input type="checkbox" disabled> Internal links use correct base path or root-relative URLs</li></ul>
+<h2>Troubleshooting</h2>
+<p><strong>404 on project site assets:</strong> Paths may need the repo prefix—test with browser Network tab. <strong>Actions deploy pending:</strong> Ensure <code>permissions</code> include <code>pages: write</code>. <strong>HTTPS unavailable:</strong> DNS conflicts or CAA records blocking issuance—use GitHub's troubleshooting docs. <strong>Old content visible:</strong> Hard refresh; GitHub caches aggressively but deploys usually propagate within minutes.</p>
+<h2>Jekyll and static generator defaults</h2>
+<p>GitHub Pages historically promoted Jekyll, which ignores folders starting with underscores and processes Liquid templates. Pure HTML repos without a <code>_config.yml</code> bypass Jekyll processing—add an empty <code>.nojekyll</code> file at the root if GitHub mistakenly treats your site as a Jekyll build and excludes paths. This is a common fix when <code>/assets/</code> returns 404 on Pages but works locally.</p>
+<pre><code># Touch an empty file at repo root
+touch .nojekyll</code></pre>
+<h2>When to migrate to Cloudflare</h2>
+<p>Consider migrating marketing domains to Cloudflare Pages when you need wildcard previews, edge middleware, or Web Analytics integration without third-party scripts. GitHub Pages remains excellent for open-source documentation mirroring the repo. Many LaunchStatic users deploy production marketing on Cloudflare while keeping GitHub Pages as a mirror—pick one canonical URL and redirect the other to avoid SEO duplication.</p>
+<h2>Repository visibility and forks</h2>
+<p>Public repos expose your Formspree IDs and analytics IDs in HTML—rotate them if you fork community templates into production. Private repos on paid GitHub plans can still publish Pages to selected audiences; confirm current GitHub policy before assuming private source means private site. Forks inherit workflows; delete or update <code>.github/workflows</code> files you do not need to avoid failed Action emails on every push.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/how-to/connect-custom-domain-cloudflare.html">Custom domain on Cloudflare</a> <a href="/deploy-guides/">Cloudflare deploy guide</a> <a href="/blog/deploy-static-site-cloudflare-5-minutes.html">5-minute Cloudflare deploy</a> <a href="/templates/">Download templates</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is GitHub Pages free for public repos?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes for public repositories under standard GitHub free accounts. Confirm current limits in GitHub Pages documentation.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I host a single HTML file?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Put index.html at the publishing root and enable Pages.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does GitHub Pages run PHP or Node servers?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. Only static assets and client-side JavaScript. Use external services for forms and APIs.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">How do I use a project site at the domain root?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Attach a custom apex domain in Pages settings with the DNS records GitHub provides.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Pick your host and ship</h2><p>Download a LaunchStatic template, push to GitHub, and enable Pages in settings.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/deploy-guides/" class="btn btn-secondary">Try Cloudflare instead</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

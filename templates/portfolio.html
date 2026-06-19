@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free developer portfolio landing page template with projects grid, about section, and contact CTA. Download the HTML file and deploy to Cloudflare Pages in minutes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/templates/portfolio.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Developer Portfolio Template — LaunchStatic">
+  <meta property="og:description" content="Free static portfolio template with projects grid, about bio, and contact CTA. MIT-licensed HTML for freelancers and indie developers.">
+  <meta property="og:url" content="https://launchstatic.dev/templates/portfolio.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Developer Portfolio Template — LaunchStatic">
+  <meta name="twitter:description" content="Free static portfolio template with projects grid, about bio, and contact CTA. MIT-licensed HTML for freelancers and indie developers.">
+  <title>Developer Portfolio Template — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/" class="active">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/templates/">Templates</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Developer Portfolio</span>
+        </nav>
+
+        <div class="grid grid-2" style="align-items:start;gap:2rem">
+          <div>
+            <span class="badge-free">Free</span>
+            <h1 class="section-title mt-2">Developer Portfolio Template</h1>
+            <p class="section-lead mb-3">A clean, single-page portfolio for freelancers, contractors, and indie developers who need a credible web presence without spinning up a framework. The demo features <strong>Casey Dev</strong>, a fictional full-stack builder — swap the copy, project cards, and contact email to make it yours tonight.</p>
+            <div class="hero-actions mb-4" style="justify-content:flex-start">
+              <a href="/downloads/portfolio-landing.html" class="btn btn-success" download>Download HTML</a>
+              <a href="/demos/portfolio/index.html" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open full preview</a>
+            </div>
+          </div>
+          <div class="preview-frame" aria-label="Live preview of Portfolio template">
+            <iframe src="/demos/portfolio/index.html" title="Developer portfolio live preview" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container prose">
+        <h2>What's included</h2>
+        <p>This template packs everything a solo developer needs to look hireable on first glance. It is one self-contained HTML file with embedded CSS — no build step, no asset pipeline, no npm install. Upload the file, point your domain, and you have a portfolio that loads in under a second on mobile networks.</p>
+        <ul>
+          <li><strong>Sticky header</strong> — logo, anchor navigation (Projects, About, Contact), and a primary CTA button that stays visible while scrolling</li>
+          <li><strong>Hero section</strong> — availability badge, headline, positioning paragraph, and dual CTAs (view work + external GitHub link)</li>
+          <li><strong>Projects grid</strong> — four project cards with category tags, short descriptions, and outbound links you can point to repos, case studies, or live demos</li>
+          <li><strong>About section</strong> — CSS avatar placeholder, bio paragraphs, and a skills pill row for languages and platforms</li>
+          <li><strong>Contact CTA</strong> — centered closing section with a <code>mailto:</code> link ready for your real address</li>
+          <li><strong>Responsive layout</strong> — projects reflow into a single column on phones; about section stacks avatar above text on narrow screens</li>
+          <li><strong>MIT license header</strong> — license comment in the HTML source so you know commercial use is explicitly allowed</li>
+        </ul>
+
+        <h2>Use cases</h2>
+        <p>Developer portfolios sit in an awkward middle ground: they need to feel personal but still professional enough that a hiring manager or client trusts you with a budget. This layout targets that balance. Freelancers pitching on Upwork or Contra can deploy it as a single URL to paste into proposals. Contractors between engagements get a permanent home for case studies without maintaining a blog CMS.</p>
+        <p>Bootcamp graduates and career switchers benefit from the structured project grid — you do not need ten projects, just four well-described ones with clear tags (open source, client work, side project). Agency developers who want a personal brand separate from their employer can fork the file, change colors in <code>:root</code>, and ship under a custom subdomain in an afternoon.</p>
+        <p>The template also works as a lightweight "link in bio" replacement when your GitHub profile README is not enough. Pair it with a custom domain and you have something shareable on LinkedIn, conference speaker bios, and podcast show notes. Because everything is static HTML, it scores well on Core Web Vitals without extra optimization — a subtle signal that you understand performance basics.</p>
+
+        <h2>Customization</h2>
+        <p>Start with the CSS variables at the top of the downloaded file. <code>--accent</code> controls buttons, project hover states, and link colors; <code>--bg</code> and <code>--surface</code> set the page background and card contrast. A dark mode variant takes five minutes: invert the text and background values and lighten the border color.</p>
+        <p>Replace every instance of <strong>Casey Dev</strong> with your name or studio brand. Update the hero badge to reflect real availability ("Open for contract · Remote EU" reads better than a generic "Available for freelance"). For the avatar, swap the CSS initials circle with an <code>&lt;img&gt;</code> tag — the layout reserves a 120×120px circle with no extra markup changes required.</p>
+        <p>Project cards are plain <code>&lt;article&gt;</code> elements. Duplicate or delete cards freely; the grid uses <code>auto-fit</code> so three or six projects still look balanced. Point outbound links to GitHub repos, Notion case studies, or live deployments. Add Google Analytics, Plausible, or Umami by dropping a script before <code>&lt;/body&gt;</code> — see our <a href="/how-to/setup-umami-analytics-static.html">Umami setup guide</a> for a privacy-friendly option.</p>
+        <p>Want JSON-LD for richer search snippets? Follow the patterns in <a href="/how-to/add-json-ld-schema-static.html">How to add JSON-LD schema to a static site</a> and add a <code>Person</code> schema block with your name, job title, and social profiles.</p>
+
+        <h2>Deployment checklist</h2>
+        <p>Before you share the URL publicly, run through this quick QA list. Most items take less than ten minutes and prevent the embarrassing "broken link on my own portfolio" problem every developer has seen at least once.</p>
+        <ol>
+          <li><strong>Replace placeholder links</strong> — GitHub, project URLs, and the <code>mailto:</code> address should all resolve to real destinations</li>
+          <li><strong>Update meta title and description</strong> — search engines and social previews pull from <code>&lt;title&gt;</code> and the meta description tag in <code>&lt;head&gt;</code></li>
+          <li><strong>Add Open Graph tags</strong> — include <code>og:title</code>, <code>og:description</code>, and an <code>og:image</code> screenshot of your page for LinkedIn and Slack link previews</li>
+          <li><strong>Test on mobile</strong> — open the deployed URL on a phone; confirm the sticky header does not obscure content and project cards are tappable</li>
+          <li><strong>Run a link check</strong> — use the steps in <a href="/how-to/fix-broken-links-before-launch.html">How to fix broken links before launch</a> before sending the URL to recruiters</li>
+          <li><strong>Connect custom domain</strong> — follow <a href="/how-to/connect-custom-domain-cloudflare.html">How to connect a custom domain on Cloudflare Pages</a> so your portfolio lives at <code>yourname.dev</code> instead of a <code>.pages.dev</code> subdomain</li>
+          <li><strong>Submit sitemap</strong> — even a one-page site benefits from a sitemap entry; see <a href="/how-to/generate-sitemap-xml-static.html">How to generate sitemap.xml</a></li>
+        </ol>
+        <p>For a fuller pre-launch walkthrough, read the <a href="/guides/static-landing-page-playbook.html">Static Landing Page Playbook</a> and the host-specific steps in <a href="/deploy-guides/">Deploy Guides</a>.</p>
+
+        <h2>FAQ</h2>
+        <h3>Do I need a separate CSS or JavaScript file?</h3>
+        <p>No. The entire layout lives in one HTML file with embedded styles. That keeps deployment trivial — drag one file into Cloudflare Pages, Netlify, or GitHub Pages and you are done. If you outgrow inline CSS later, you can extract the <code>&lt;style&gt;</code> block into <code>styles.css</code> without changing the markup.</p>
+        <h3>Can I add a blog or resume download?</h3>
+        <p>Yes. Add a nav link pointing to <code>/blog/</code> or attach a PDF resume button in the hero CTA row. Because this is plain HTML, you can link to any path on the same domain or an external Notion page. Keep the single-page structure for simplicity, or duplicate the header/footer into additional pages as your site grows.</p>
+        <h3>Is this template good for designers or only developers?</h3>
+        <p>The demo copy targets developers, but the layout is role-agnostic. Replace the skills pills with design tools (Figma, Framer, Webflow), swap project tags to "Brand identity" or "Product design," and change the hero headline to match your discipline. The grid and about sections work for any creative professional who needs a project showcase.</p>
+        <h3>How does file size compare to a React portfolio?</h3>
+        <p>The downloaded file is roughly 8KB uncompressed and well under 3KB gzipped — orders of magnitude smaller than a typical Create React App bundle. That translates to faster first paint, lower hosting costs, and zero JavaScript hydration bugs. For a portfolio whose job is to load instantly and link elsewhere, static HTML is the pragmatic choice.</p>
+
+        <h2>License</h2>
+        <p>This template is released under the <strong>MIT License</strong>. Use it for your personal portfolio, a client deliverable, or a commercial template resale (with your own modifications). No attribution required, though a link back to <a href="/">LaunchStatic</a> helps other builders find free templates. You own every customization you make after download.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+            <li><a href="/templates/portfolio.html">Developer Portfolio</a></li>
+            <li><a href="/templates/newsletter.html">Newsletter</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Generate sitemap.xml for a Static Site — LaunchStatic</title>
+  <meta name="description" content="Create and maintain sitemap.xml for static HTML: required tags, Python generator script, lastmod, and submitting to Google Search Console.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/generate-sitemap-xml-static.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Generate sitemap.xml for a Static Site — LaunchStatic">
+  <meta property="og:description" content="Create and maintain sitemap.xml for static HTML: required tags, Python generator script, lastmod, and submitting to Google Search Console.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/generate-sitemap-xml-static.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Generate sitemap.xml for a Static Site — LaunchStatic">
+  <meta name="twitter:description" content="Create and maintain sitemap.xml for static HTML: required tags, Python generator script, lastmod, and submitting to Google Search Console.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Generate sitemap.xml for a Static Site","description":"Create and maintain sitemap.xml for static HTML: required tags, Python generator script, lastmod, and submitting to Google Search Console.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/generate-sitemap-xml-static.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need a sitemap for a one-page site?","acceptedAnswer":{"@type":"Answer","text":"Helpful but not mandatory. A single URL can still be indexed via links. A one-entry sitemap is cheap insurance at launch."}},{"@type":"Question","name":"Should PDFs go in sitemap.xml?","acceptedAnswer":{"@type":"Answer","text":"Yes if they are public marketing assets you want indexed. Use the same urlset format with the PDF URL."}},{"@type":"Question","name":"Can I use a sitemap generator website?","acceptedAnswer":{"@type":"Answer","text":"You can, but a repo script stays in sync with git and avoids uploading your structure to third parties."}},{"@type":"Question","name":"Why does Search Console show sitemap errors?","acceptedAnswer":{"@type":"Answer","text":"Common causes: HTTP instead of HTTPS, 404 on sitemap.xml, or URLs blocked by robots.txt/noindex."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Generate sitemap.xml for a Static Site</span></nav>
+      <h1 itemprop="headline">How to Generate sitemap.xml for a Static Site</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 11 min read · How-to</p>
+      <p>Search engines discover pages by crawling links, but a sitemap.xml file accelerates indexing—especially for new domains without backlinks. For static sites, the sitemap is just another file in your repo root alongside index.html. Google and Bing publish sitemap protocols specifying URL entries, optional last modified dates, and changefreq hints. This how-to shows how to generate an accurate sitemap for a hand-maintained HTML project and keep it updated as you add guides and landing pages.</p>
+<h2>Understand the required format</h2>
+<p>A valid sitemap is XML with a <code>urlset</code> root namespace per sitemaps.org. Each public canonical URL gets one <code>&lt;url&gt;</code> block with at least <code>&lt;loc&gt;</code>. Use absolute HTTPS URLs that match your <code>link rel="canonical"</code> tags—never mix www and non-www. Exclude pages you do not want indexed: staging hosts, thank-you pages with no unique value, or admin paths if any exist.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://example.com/&lt;/loc&gt;
+    &lt;lastmod&gt;2026-06-19&lt;/lastmod&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://example.com/templates/&lt;/loc&gt;
+    &lt;lastmod&gt;2026-06-15&lt;/lastmod&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</code></pre>
+<h2>Inventory every public URL</h2>
+<p>Walk your project tree and list HTML files served to anonymous visitors. Include hub pages (<code>/guides/</code>, <code>/how-to/</code>), detail articles, legal pages, and template catalog entries. Exclude <code>404.html</code>, demo iframes you noindex, and duplicate language paths if hreflang handles alternates separately. Cross-check against header/footer navigation so orphan pages are either linked or deliberately omitted from the sitemap.</p>
+<h2>Generate with a small Python script</h2>
+<p>Manual XML works for ten URLs; automation prevents drift at fifty. A script scans for <code>.html</code> files, maps paths to URLs, and writes <code>sitemap.xml</code> at the repo root.</p>
+<pre><code># scripts/build_sitemap.py
+from pathlib import Path
+from datetime import date
+
+BASE = &quot;https://example.com&quot;
+ROOT = Path(__file__).resolve().parent.parent
+SKIP = {&quot;404.html&quot;}
+
+def to_url(path: Path) -&gt; str:
+    rel = path.relative_to(ROOT).as_posix()
+    if rel == &quot;index.html&quot;:
+        return f&quot;{BASE}/&quot;
+    return f&quot;{BASE}/&quot; + rel
+
+urls = []
+for html in sorted(ROOT.rglob(&quot;*.html&quot;)):
+    if html.name in SKIP or &quot;demos/&quot; in html.as_posix():
+        continue
+    urls.append(to_url(html))
+
+lines = [&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x27;,
+         &#x27;&lt;urlset xmlns=&quot;http://www.sitemaps.org/schemas/sitemap/0.9&quot;&gt;&#x27;]
+for u in urls:
+    lines.append(&quot;  &lt;url&gt;&quot;)
+    lines.append(f&quot;    &lt;loc&gt;{u}&lt;/loc&gt;&quot;)
+    lines.append(f&quot;    &lt;lastmod&gt;{date.today().isoformat()}&lt;/lastmod&gt;&quot;)
+    lines.append(&quot;  &lt;/url&gt;&quot;)
+lines.append(&quot;&lt;/urlset&gt;&quot;)
+(ROOT / &quot;sitemap.xml&quot;).write_text(&quot;\n&quot;.join(lines), encoding=&quot;utf-8&quot;)</code></pre>
+<p>Customize <code>SKIP</code> and folder exclusions for your structure. Run the script before deploy or add it to a Makefile. Commit the generated <code>sitemap.xml</code> so Cloudflare Pages serves it without a dynamic build.</p>
+<h2>Reference the sitemap in robots.txt</h2>
+<p>robots.txt lives at the site root and tells crawlers where to find your sitemap. Google documentation recommends announcing the sitemap URL explicitly.</p>
+<pre><code>User-agent: *
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml</code></pre>
+<p>Keep robots.txt permissive for marketing sites unless you block specific paths (for example, unfinished <code>/drafts/</code>). A disallow typo can hide your entire launch from search.</p>
+<h2>Submit to search consoles</h2>
+<p>After deploy, open Google Search Console, add your domain property, verify DNS or HTML tag, then submit the sitemap URL under Sitemaps. Repeat in Bing Webmaster Tools. Initial status may show "Couldn't fetch" until DNS propagates—retry later the same day. Monitor Coverage for excluded URLs that should be indexed; often they lack internal links or carry accidental <code>noindex</code> meta tags.</p>
+<h2>Maintain lastmod honestly</h2>
+<p>Google's guidance treats <code>lastmod</code> as a hint when it reflects real content changes. Updating every date daily without edits wastes crawl budget trust. Tie lastmod to git commit timestamps per file if you want precision, or update manually when you materially revise an article. Do not stuff changefreq and priority tags—they are largely ignored on modern Google crawls.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> All canonical HTTPS URLs included</li><li><input type="checkbox" disabled> No staging or noindex pages listed</li><li><input type="checkbox" disabled> robots.txt points to sitemap.xml</li><li><input type="checkbox" disabled> Submitted in Search Console after domain cutover</li><li><input type="checkbox" disabled> Regenerate sitemap when adding new HTML files</li></ul>
+<h2>Scale beyond 50,000 URLs</h2>
+<p>Sitemap protocol limits each file to 50,000 URLs and 50 MB uncompressed. Large programmatic SEO projects split into multiple sitemaps and index them with a sitemap index file. Typical LaunchStatic marketing sites stay far below that threshold—one file is enough.</p>
+<h2>Handle trailing slashes and duplicates</h2>
+<p>List only canonical URLs. If <code>/guides/</code> and <code>/guides/index.html</code> both resolve, pick the URL your canonical tags use—usually the directory form with trailing slash on Cloudflare Pages. Do not include both in the sitemap; duplicate loc entries waste crawl budget and confuse reporting. When you migrate hosts, regenerate the sitemap the same deploy you update redirects.</p>
+<h2>Automate in CI</h2>
+<p>Add <code>python scripts/build_sitemap.py</code> to your release checklist or GitHub Action before deploy. Fail the workflow if the script errors—missing BASE constant or empty urlset should block production. Commit the generated artifact so preview environments without Python still serve a correct sitemap copied from main.</p>
+<h2>Validate XML output</h2>
+<p>Malformed XML prevents parsing entirely. Escape ampersands in URLs if query strings appear. Validate with <code>xmllint --noout sitemap.xml</code> on macOS/Linux or an online schema checker. A single unescaped character blocks the whole file—worse than omitting a minor page. After first production deploy, fetch <code>https://example.com/sitemap.xml</code> in a browser and confirm Content-Type is XML, not HTML error pages disguised as 200 responses from SPA misconfiguration (not an issue on pure static hosts).</p>
+<p>Ping Search Console after major URL structure changes—adding an entire <code>/how-to/</code> hub warrants a fresh sitemap submission even if the file path stayed <code>/sitemap.xml</code>.</p>
+<p>Keep a <code>SITEMAP_BASE</code> constant at the top of your generator script. Forgetting to swap staging hostnames into production is the most common sitemap bug we see in indie launches.</p>
+<p>Add the sitemap URL to your README so collaborators know where discovery files live. Onboarding docs prevent duplicate manual sitemaps drifting out of sync with generated ones.</p>
+<p>When you noindex a page with robots meta, remove it from the sitemap the same commit—mixed signals slow crawlers down.</p>
+<p>Archive old sitemap copies in git history if you need to audit indexing issues months after a redesign.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/how-to/add-json-ld-schema-static.html">Add JSON-LD schema</a> <a href="/how-to/fix-broken-links-before-launch.html">Fix broken links</a> <a href="/how-to/connect-custom-domain-cloudflare.html">Connect custom domain</a> <a href="/guides/">Static site guides</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need a sitemap for a one-page site?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Helpful but not mandatory. A single URL can still be indexed via links. A one-entry sitemap is cheap insurance at launch.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Should PDFs go in sitemap.xml?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes if they are public marketing assets you want indexed. Use the same urlset format with the PDF URL.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I use a sitemap generator website?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">You can, but a repo script stays in sync with git and avoids uploading your structure to third parties.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Why does Search Console show sitemap errors?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Common causes: HTTP instead of HTTPS, 404 on sitemap.xml, or URLs blocked by robots.txt/noindex.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Launch with SEO basics covered</h2><p>Templates include sensible meta tags—add your sitemap and submit once you deploy.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/how-to/add-json-ld-schema-static.html" class="btn btn-secondary">Add structured data</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

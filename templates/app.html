@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free mobile app landing page template with store badges, phone mockup, and screenshot gallery. Download and deploy in minutes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/templates/app.html">
+  <title>App Landing Template — LaunchStatic</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="LaunchStatic home">
+        <span class="logo-mark" aria-hidden="true">LS</span>
+        LaunchStatic
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="/templates/" class="active">Templates</a>
+        <a href="/deploy-guides/">Deploy</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+      <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile navigation">
+        <a href="/templates/">Templates</a>
+        <a href="/deploy-guides/">Deploy Guides</a>
+        <a href="/tools/">Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/templates/">Templates</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">App Landing</span>
+        </nav>
+
+        <div class="grid grid-2" style="align-items:start;gap:2rem">
+          <div>
+            <span class="badge-free">Free</span>
+            <h1 class="section-title mt-2">App Landing Template</h1>
+            <p class="section-lead mb-3">A dark-themed landing page for iOS and Android apps. The demo showcases PocketHabit, a habit tracker — replace the name, store links, and screenshots with your own app details.</p>
+            <div class="hero-actions mb-4" style="justify-content:flex-start">
+              <a href="/downloads/app-landing.html" class="btn btn-success" download>Download HTML</a>
+              <a href="/demos/app/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Open full preview</a>
+            </div>
+          </div>
+          <div class="preview-frame" aria-label="Live preview of App template">
+            <iframe src="/demos/app/" title="App landing page live preview" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-sm" style="background:var(--surface);border-block:1px solid var(--border)">
+      <div class="container prose">
+        <h2>What's included</h2>
+        <ul>
+          <li><strong>Hero with phone mockup</strong> — CSS-only device frame showing an in-app UI preview (no image assets required)</li>
+          <li><strong>App Store and Google Play buttons</strong> — styled download badges with accessible labels</li>
+          <li><strong>Screenshot gallery</strong> — three placeholder panels you can swap for real PNGs or WebP images</li>
+          <li><strong>Feature highlights</strong> — offline-first, widgets, and no-account-required selling points</li>
+          <li><strong>Privacy policy link</strong> — footer slot for your legal page (required for store submissions)</li>
+          <li><strong>Dark theme</strong> — matches common indie app branding; tweak CSS variables for your palette</li>
+        </ul>
+
+        <h2>Who this template fits</h2>
+        <p>Mobile indie developers launching on iOS, Android, or both benefit from store badges above the fold and a screenshot gallery that mirrors App Store browsing behavior. The dark theme matches common utility and productivity apps without looking like a generic Bootstrap landing page.</p>
+        <p>If your app is web-only or still in waitlist mode, use the <a href="/templates/waitlist.html">Waitlist</a> or <a href="/templates/saas.html">SaaS</a> layouts until store URLs exist. Switch to this template the week before TestFlight or Play Console production release.</p>
+
+        <h2>Customization tips</h2>
+        <p>Update the <code>href</code> attributes on store buttons to your real App Store and Play Store URLs. Replace the CSS phone mockup content with a screenshot <code>&lt;img&gt;</code> if you prefer a photographic preview.</p>
+        <p>Swap the gradient screenshot placeholders in the gallery section with actual app captures — 9:16 aspect ratio works best. Change the accent color via <code>--accent</code> and <code>--accent2</code> in the <code>:root</code> block to match your app icon.</p>
+        <p>Add Open Graph meta tags in <code>&lt;head&gt;</code> for better link previews when you share on social platforms or Product Hunt. Include a 1200×630 image of your app for best results. Our <a href="/guides/static-site-seo-handbook.html">SEO handbook</a> covers structured data for software apps.</p>
+
+        <h2>Store submission checklist</h2>
+        <ul>
+          <li>Footer includes a working Privacy Policy URL (required by both stores)</li>
+          <li>Store badge links open the correct regional listing — test on iOS and Android</li>
+          <li>Screenshots use your real UI, not placeholder gradients, before public launch</li>
+          <li>Support email in footer matches the address in App Store Connect / Play Console</li>
+          <li>Page loads over HTTPS on your marketing domain</li>
+          <li>Analytics script does not block first paint — defer non-critical JS</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Can I use one page for both stores?</h3>
+        <p>Yes. Keep both badges in the hero. Hide the Play badge with CSS if you are iOS-only until Android ships — do not link to a dead URL.</p>
+        <h3>How do I add real screenshots?</h3>
+        <p>Replace each <code>.shot</code> div with <code>&lt;img src="shot-1.webp" alt="PocketHabit daily streak screen" loading="lazy" width="280" height="498"&gt;</code>. Compress images with Squoosh or similar; aim under 80 KB each.</p>
+        <h3>Where should I host?</h3>
+        <p><a href="/tools/cloudflare-pages.html">Cloudflare Pages</a> is the default — free SSL and fast global CDN. Connect a custom domain with our <a href="/how-to/connect-custom-domain-cloudflare.html">domain guide</a>.</p>
+
+        <h2>Common mistakes to avoid</h2>
+        <p>Linking store badges before your app is approved creates a broken first impression on launch day. Use a waitlist CTA until Apple or Google confirms live status, then swap badges in one deploy. Screenshots with lorem ipsum text survive internal reviews but fail public trust — users assume the app is unfinished.</p>
+        <p>App founders also forget deep links: your marketing domain should redirect /ios and /android paths to the correct store listing so printed QR codes and podcast show notes stay valid after you change slug URLs in the consoles. Document those redirects in your deploy repo so you do not hunt DNS records during a launch livestream. Test store links from both Wi-Fi and cellular before paying for ads.</p>
+
+        <h2>License</h2>
+        <p>This template is released under the <strong>MIT License</strong>. Use it for any app launch, client project, or portfolio site. No royalties, no usage limits. Customize and ship.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+          <p>Static landing page templates and deployment guides for indie hackers, no-code builders, and solo founders.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="/templates/">Templates</a></li>
+            <li><a href="/deploy-guides/">Deploy Guides</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Templates</h4>
+          <ul>
+            <li><a href="/templates/saas.html">SaaS Landing</a></li>
+            <li><a href="/templates/app.html">App Landing</a></li>
+            <li><a href="/templates/waitlist.html">Waitlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/privacy.html">Privacy Policy</a></li>
+            <li><a href="/terms.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> LaunchStatic. All rights reserved.</span>
+        <span>Static HTML · Cloudflare Pages ready</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

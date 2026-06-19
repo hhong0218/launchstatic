@@ -1,0 +1,83 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Write a Privacy Policy for a Static Site — LaunchStatic</title>
+  <meta name="description" content="Draft a privacy policy for static HTML sites: GDPR basics, third-party processors, cookies, analytics, ads, and what regulators expect disclosed.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/how-to/write-privacy-policy-static-site.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Write a Privacy Policy for a Static Site — LaunchStatic">
+  <meta property="og:description" content="Draft a privacy policy for static HTML sites: GDPR basics, third-party processors, cookies, analytics, ads, and what regulators expect disclosed.">
+  <meta property="og:url" content="https://launchstatic.dev/how-to/write-privacy-policy-static-site.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Write a Privacy Policy for a Static Site — LaunchStatic">
+  <meta name="twitter:description" content="Draft a privacy policy for static HTML sites: GDPR basics, third-party processors, cookies, analytics, ads, and what regulators expect disclosed.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"How to Write a Privacy Policy for a Static Site","description":"Draft a privacy policy for static HTML sites: GDPR basics, third-party processors, cookies, analytics, ads, and what regulators expect disclosed.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/how-to/write-privacy-policy-static-site.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do I need a privacy policy with no analytics?","acceptedAnswer":{"@type":"Answer","text":"If you collect any personal data (including emails) or use infrastructure that logs IPs, you still need a notice explaining those practices."}},{"@type":"Question","name":"Can I use a free privacy policy generator?","acceptedAnswer":{"@type":"Answer","text":"Generators help structure sections but often miss your actual processors. Edit every line to match your stack."}},{"@type":"Question","name":"Is a privacy policy required for AdSense?","acceptedAnswer":{"@type":"Answer","text":"Yes. Google AdSense program policies require a published privacy policy describing cookies and ad partners."}},{"@type":"Question","name":"Does GDPR apply to US-only static sites?","acceptedAnswer":{"@type":"Answer","text":"GDPR applies when you offer services to individuals in the EU/EEA or monitor their behavior. Many global landing pages fall in scope."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/how-to/">How-to</a><span aria-hidden="true">/</span><span>How to Write a Privacy Policy for a Static Site</span></nav>
+      <h1 itemprop="headline">How to Write a Privacy Policy for a Static Site</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 13 min read · How-to</p>
+      <p>A static site still collects data—analytics hits, form submissions, server logs, and advertising cookies if you monetize. Privacy laws including the EU GDPR and UK GDPR, California CPRA, and ePrivacy rules require transparent notices even when you never touch a database. This how-to explains how to write a practical privacy policy page for LaunchStatic-style sites, citing official regulator guidance at a high level. It is educational, not legal advice; have counsel review before handling sensitive data or EU children’s audiences.</p>
+<h2>Identify what data you actually process</h2>
+<p>Audit every touchpoint. Typical static marketing sites process: (1) <strong>voluntary data</strong>—emails via Formspree; (2) <strong>analytics data</strong>—page URLs, referrers, device type via Umami or Plausible; (3) <strong>hosting logs</strong>—IP addresses, user agents retained by Cloudflare or GitHub for security; (4) <strong>cookies</strong>—consent banners, AdSense if enabled. List processors, not just tools—Formspree Inc., Cloudflare Inc., Google if you add Ads. If you only serve static HTML with no analytics, say so honestly, but remember TLS terminators still see IPs briefly.</p>
+<h2>Structure the policy page for humans</h2>
+<p>Regulators expect clear language. Use headings scanners can navigate. A solid outline:</p>
+<ol><li>Who we are (controller name, contact email)</li><li>What data we collect and why (purposes)</li><li>Legal bases (contract, consent, legitimate interests)</li><li>Third parties and international transfers</li><li>Retention periods</li><li>Your rights (access, deletion, objection)</li><li>Children's privacy</li><li>Changes to this policy</li><li>How to contact us / supervisory authority</li></ol>
+<p>Link the policy from the site footer on every page, including 404.html. Match the URL you declare in AdSense and Formspree dashboards.</p>
+<h2>Disclose third-party form processors</h2>
+<p>When using Formspree, state that submissions are transmitted to Formspree for email delivery, which fields you collect, and retention per Formspree's documentation. Example plain-language sentence: "When you submit the waitlist form, we collect your email address to send launch updates; our processor Formspree stores submissions on our behalf." Link to Formspree's privacy policy. If you export CSVs locally, mention that copies may reside in your inbox or spreadsheet tools.</p>
+<pre><code>&lt;section id=&quot;processors&quot;&gt;
+  &lt;h2&gt;Third-party services&lt;/h2&gt;
+  &lt;p&gt;We use Formspree (formspree.io) to process contact and waitlist
+  submissions. Their privacy policy explains how they handle data
+  on our behalf.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+<h2>Cover analytics transparently</h2>
+<p>If you run Umami Cloud, describe collected metrics (pages viewed, referrer, browser type), whether cookies are used, and opt-out options if your plan provides them. The European Data Protection Board emphasizes purpose limitation—do not claim "essential" processing for marketing analytics. Legitimate interest may apply to aggregated, low-invasion analytics in some contexts, but consent banners are safer when in doubt, especially alongside ads.</p>
+<h2>Explain cookies and consent</h2>
+<p>Separate essential cookies (security, load balancing) from analytics and advertising. Link a dedicated cookie policy or section listing each cookie name, provider, purpose, and duration. If you use Google AdSense later, implement Consent Mode v2 per Google's EU requirements and document it. LaunchStatic's default cookie banner points to <code>/cookies.html</code>—keep that page synchronized with actual practices.</p>
+<h2>Retention and security</h2>
+<p>State realistic retention: "Waitlist emails until launch plus 12 months" beats vague "as long as necessary." Mention HTTPS enforced by your host, access controls on admin accounts (GitHub, Cloudflare), and that no system is 100% secure. If you do not sell personal data, say so explicitly—CPRA and many state laws require clarity on "sale" and "sharing."</p>
+<h2>User rights and requests</h2>
+<p>Provide a contact email for privacy requests—<code>privacy@example.com</code> or your general hello inbox. Describe how users can access, correct, or delete data you control. If Formspree holds submissions, explain you will forward deletion requests to them or use their dashboard tools. EU residents may lodge complaints with their local supervisory authority; name one example (e.g., ICO in the UK) without implying you are EU-established unless true.</p>
+<h2>Keep the policy updated</h2>
+<p>Bump the "Last updated" date when you add AdSense, switch analytics vendors, or collect new fields. Version major changes in git. Avoid copying another startup's policy wholesale—practices differ, and outdated templates create liability. The FTC has brought actions against companies whose policies misstated actual data use.</p>
+<ul class="checklist"><li><input type="checkbox" disabled> Footer links to /privacy.html on all pages</li><li><input type="checkbox" disabled> Every third-party processor named</li><li><input type="checkbox" disabled> Purposes match real site behavior</li><li><input type="checkbox" disabled> Contact email monitored by a human</li><li><input type="checkbox" disabled> Cookie policy aligned with banner text</li><li><input type="checkbox" disabled> Last updated date visible at top</li></ul>
+<h2>Publish as static HTML</h2>
+<p>Create <code>privacy.html</code> with the same header/footer as other pages for trust and crawlability. Use plain sentences, short paragraphs, and avoid legalese where possible—ICO and CNIL both encourage understandable notices. Add Article or WebPage JSON-LD only if it helps; accuracy matters more than markup. Cross-link from your contact page and signup forms ("See our Privacy Policy").</p>
+<h2>International transfers and subprocessors</h2>
+<p>US-based hosts like Cloudflare and Formspree may process EU visitors' data in the United States. GDPR Chapter V requires appropriate safeguards—often Standard Contractual Clauses in vendor DPAs. Link to processor DPAs where available and state that you rely on contractual protections. If you self-host in the EU, say so; do not claim EU-only hosting if your CDN edges are global.</p>
+<h2>Children and sensitive categories</h2>
+<p>If your product is not directed at children under 13 (or 16 in some EU states), say you do not knowingly collect children's data and instruct parents to contact you for deletion. Health, financial, or biometric data triggers stricter rules—static marketing sites rarely collect these, but do not add optional form fields you are not prepared to govern. COPPA and GDPR children's provisions are not satisfied by a generic boilerplate paragraph alone if your product is a kids' app.</p>
+<h2>Template starting point</h2>
+<p>Review LaunchStatic's own <a href="/privacy.html">privacy.html</a> as a structural reference—not a copy-paste legal document. Replace entity name, contact emails, processor list, and retention periods. Add sections you lack (advertising, affiliate links) and delete sections that do not apply. Store the policy in git so "Last updated" dates reflect real diffs auditors can trace.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/privacy.html">LaunchStatic privacy example</a> <a href="/blog/static-site-legal-pages-checklist.html">Legal pages checklist</a> <a href="/how-to/add-formspree-to-static-site.html">Add Formspree</a> <a href="/how-to/setup-umami-analytics-static.html">Set up Umami</a> <a href="/cookies.html">Cookie policy page</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need a privacy policy with no analytics?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">If you collect any personal data (including emails) or use infrastructure that logs IPs, you still need a notice explaining those practices.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I use a free privacy policy generator?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Generators help structure sections but often miss your actual processors. Edit every line to match your stack.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is a privacy policy required for AdSense?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. Google AdSense program policies require a published privacy policy describing cookies and ad partners.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does GDPR apply to US-only static sites?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">GDPR applies when you offer services to individuals in the EU/EEA or monitor their behavior. Many global landing pages fall in scope.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Launch with legal basics</h2><p>Templates include footer links for Privacy and Terms—customize the pages before you announce.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/blog/static-site-legal-pages-checklist.html" class="btn btn-secondary">Legal checklist</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

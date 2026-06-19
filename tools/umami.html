@@ -1,0 +1,75 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umami Analytics for Static Sites — LaunchStatic</title>
+  <meta name="description" content="Privacy-friendly analytics with Umami: self-host free or use cloud hosting. Setup script, GDPR considerations, and comparison to Plausible and GA4.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/tools/umami.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Umami Analytics for Static Sites — LaunchStatic">
+  <meta property="og:description" content="Privacy-friendly analytics with Umami: self-host free or use cloud hosting. Setup script, GDPR considerations, and comparison to Plausible and GA4.">
+  <meta property="og:url" content="https://launchstatic.dev/tools/umami.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Umami Analytics for Static Sites — LaunchStatic">
+  <meta name="twitter:description" content="Privacy-friendly analytics with Umami: self-host free or use cloud hosting. Setup script, GDPR considerations, and comparison to Plausible and GA4.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Umami Analytics for Static Sites","description":"Privacy-friendly analytics with Umami: self-host free or use cloud hosting. Setup script, GDPR considerations, and comparison to Plausible and GA4.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/tools/umami.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Will Umami slow my landing page?","acceptedAnswer":{"@type":"Answer","text":"The tracker is lightweight \u2014 far smaller than typical GA4 bundles. Use defer and load from a nearby host to minimize impact on Core Web Vitals."}},{"@type":"Question","name":"Do I need cookies consent with Umami?","acceptedAnswer":{"@type":"Answer","text":"Depends on jurisdiction and configuration. Many sites use Umami specifically to avoid cookie banners, but you must align with your legal advice and disclose analytics in your privacy policy."}},{"@type":"Question","name":"Can I run Umami on Cloudflare Workers?","acceptedAnswer":{"@type":"Answer","text":"Umami expects Node and a SQL database; Workers alone are not a fit. Host on a VPS, Railway, Render, or Umami Cloud instead."}},{"@type":"Question","name":"Does Umami support multiple sites?","acceptedAnswer":{"@type":"Answer","text":"Yes. One Umami instance can track many websites with separate IDs \u2014 ideal for portfolio founders running several experiments."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools/">Tools</a><span aria-hidden="true">/</span><span>Umami Analytics for Static Sites</span></nav>
+      <h1 itemprop="headline">Umami Analytics for Static Sites</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 10 min read · Tool Guide</p>
+      <p>You cannot improve a landing page you do not measure — but mainstream analytics tools often bring cookie banners, heavy scripts, and data practices that feel overkill for a single pre-launch page. Umami is an open-source analytics platform built for simplicity: pageviews, referrers, devices, and basic events without tracking individuals across the web. It fits static sites because integration is one async script tag and a website ID.</p>
+<h2>Self-hosted vs Umami Cloud</h2>
+<p>Umami is AGPL-licensed and runs on PostgreSQL or MySQL. Self-hosting on a $5 VPS or a small Docker container on Fly.io costs less than SaaS analytics over a year if you are comfortable running updates. Umami Cloud (hosted by the creators) trades money for convenience — reasonable when your time is worth more than server maintenance. Both options respect visitor privacy more than legacy enterprise analytics stacks.</p>
+<table><thead><tr><th>Approach</th><th>Cost profile</th><th>Best for</th></tr></thead><tbody><tr><td>Self-host Docker</td><td>VPS + your time</td><td>Technical founders, multiple sites</td></tr><tr><td>Umami Cloud</td><td>Monthly subscription</td><td>Fast setup, no DevOps</td></tr><tr><td>Plausible Cloud</td><td>Monthly subscription</td><td>Teams wanting hosted EU option</td></tr><tr><td>No analytics</td><td>$0</td><td>Absolute minimum before launch</td></tr></tbody></table>
+<h2>What Umami tracks (and does not)</h2>
+<p>Umami records page URL, referrer, browser, OS, device type, and country derived from IP — then discards raw IP per their design. It does not fingerprint users for cross-site profiling. You get aggregate dashboards: which blog post drove signups, whether mobile bounce is high, if a Hacker News spike happened. It is not a replacement for product analytics inside your SaaS app; it is marketing-site telemetry done ethically.</p>
+<h2>Add Umami to LaunchStatic templates</h2>
+<p>Create a website entry in Umami admin, copy the tracking ID, and paste the script before <code>&lt;/body&gt;</code> on every page you want measured — at minimum <code>index.html</code>, plus legal pages if you care about privacy-policy traffic.</p>
+<pre><code>&lt;script defer src=&quot;https://your-umami.example.com/script.js&quot; data-website-id=&quot;YOUR_WEBSITE_ID&quot;&gt;&lt;/script&gt;</code></pre>
+<p>Use the <code>defer</code> attribute so HTML parsing is not blocked. Host the script on the same domain as your Umami instance (or Umami Cloud URL). After deploy, visit your live site and confirm realtime views increment in the dashboard.</p>
+<h2>Self-hosting quick path with Docker</h2>
+<p>The official Docker Compose file spins up Umami and PostgreSQL. Point a subdomain like <code>analytics.yourdomain.com</code> at the server, terminate TLS with Caddy or Nginx, and set a strong admin password on first login. Schedule automatic image updates — Umami releases security patches like any public-facing app. Back up the database volume; losing stats is not catastrophic but hurts trend analysis.</p>
+<h3>Environment variables that matter</h3>
+<ul><li><code>DATABASE_URL</code> — PostgreSQL connection string</li><li><code>APP_SECRET</code> — session signing secret; generate a long random string</li><li><code>DISABLE_TELEMETRY</code> — set true if you prefer no phone-home from the app itself</li><li><code>CORS</code> — restrict origins if you embed the script on multiple domains</li></ul>
+<h2>Custom events for conversion tracking</h2>
+<p>Beyond pageviews, Umami supports custom events — useful for button clicks without full tag-manager complexity. Track waitlist submits by firing an event after successful Formspree response:</p>
+<pre><code>if (window.umami) {
+  umami.track(&#x27;waitlist_signup&#x27;, { source: &#x27;hero&#x27; });
+}</code></pre>
+<p>Keep event names consistent and documented. Three well-chosen events beat fifty noisy ones you never review.</p>
+<h2>GDPR, cookie banners, and privacy policies</h2>
+<p>Umami markets itself as cookieless analytics when configured without local storage. Many EU sites still mention analytics in privacy policies and offer opt-out where required. LaunchStatic is not a law firm — consult your counsel for your markets. Practically, teams choose Umami to reduce intrusive consent banners compared to AdTech-heavy alternatives. Document what you collect and why in <a href="/privacy.html">your privacy page</a>.</p>
+<h2>Umami vs Plausible vs Google Analytics 4</h2>
+<p><strong>Plausible</strong> is a polished hosted product with transparent pricing and excellent docs — great if you want zero servers and will pay monthly from day one. <strong>GA4</strong> is free but complex, script-heavy, and tied to Google's ecosystem; overkill for a waitlist. <strong>Umami</strong> shines when you want open source, self-host optionality, and a clean dashboard without learning a tag manager. You can switch tools later — analytics snippets are a few lines in shared layout partials.</p>
+<h2>Operational tips for launch week</h2>
+<ul class="checklist"><li><input type="checkbox" disabled> Verify tracking on production domain, not just localhost</li><li><input type="checkbox" disabled> Exclude your own IP in Umami settings to avoid skewing data</li><li><input type="checkbox" disabled> Share read-only dashboard links with cofounders instead of screenshots</li><li><input type="checkbox" disabled> Set a weekly reminder to review top referrers and adjust messaging</li><li><input type="checkbox" disabled> Remove analytics from password-protected staging environments</li></ul><p class="text-muted mt-3"><strong>Related:</strong> <a href="/tools/cloudflare-pages.html">Cloudflare Pages guide</a> <a href="/tools/formspree.html">Formspree guide</a> <a href="/privacy.html">Privacy policy template</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Will Umami slow my landing page?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">The tracker is lightweight — far smaller than typical GA4 bundles. Use <code>defer</code> and load from a nearby host to minimize impact on Core Web Vitals.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Do I need cookies consent with Umami?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Depends on jurisdiction and configuration. Many sites use Umami specifically to avoid cookie banners, but you must align with your legal advice and disclose analytics in your privacy policy.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I run Umami on Cloudflare Workers?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Umami expects Node and a SQL database; Workers alone are not a fit. Host on a VPS, Railway, Render, or Umami Cloud instead.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does Umami support multiple sites?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. One Umami instance can track many websites with separate IDs — ideal for portfolio founders running several experiments.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Measure what you ship</h2><p>Deploy a LaunchStatic template, add Umami in two minutes, and know where your first visitors come from before you scale ad spend.</p><a href="/templates/" class="btn btn-primary">Browse templates</a> <a href="/tools/" class="btn btn-secondary">All tool guides</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

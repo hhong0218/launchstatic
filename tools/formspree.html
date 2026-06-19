@@ -1,0 +1,77 @@
+<!-- TEMPLATE: copy per article. Replace {{PLACEHOLDERS}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formspree for Static Site Forms — LaunchStatic</title>
+  <meta name="description" content="Add contact and waitlist forms to static HTML without a backend. Formspree setup, spam protection, free tier limits, and LaunchStatic integration.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://launchstatic.dev/tools/formspree.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Formspree for Static Site Forms — LaunchStatic">
+  <meta property="og:description" content="Add contact and waitlist forms to static HTML without a backend. Formspree setup, spam protection, free tier limits, and LaunchStatic integration.">
+  <meta property="og:url" content="https://launchstatic.dev/tools/formspree.html">
+  <meta property="og:site_name" content="LaunchStatic">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Formspree for Static Site Forms — LaunchStatic">
+  <meta name="twitter:description" content="Add contact and waitlist forms to static HTML without a backend. Formspree setup, spam protection, free tier limits, and LaunchStatic integration.">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Formspree for Static HTML Forms","description":"Add contact and waitlist forms to static HTML without a backend. Formspree setup, spam protection, free tier limits, and LaunchStatic integration.","author":{"@type":"Organization","name":"LaunchStatic"},"publisher":{"@type":"Organization","name":"LaunchStatic"},"datePublished":"2026-06-19","mainEntityOfPage":"https://launchstatic.dev/tools/formspree.html"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Formspree work on Cloudflare Pages?","acceptedAnswer":{"@type":"Answer","text":"Yes. The form POST goes from the visitor's browser to Formspree, not to Cloudflare. Any static host works identically."}},{"@type":"Question","name":"Can I receive submissions in Slack?","acceptedAnswer":{"@type":"Answer","text":"Paid plans and Zapier integrations support Slack notifications. Free tier is email-first; forward rules in Gmail are a zero-cost workaround early on."}},{"@type":"Question","name":"What happens if I exceed the free submission limit?","acceptedAnswer":{"@type":"Answer","text":"Additional submissions may be blocked until the next billing cycle or until you upgrade. Watch the dashboard during launch week."}},{"@type":"Question","name":"Is AJAX required?","acceptedAnswer":{"@type":"Answer","text":"No. Standard HTML form POST with redirect is fine for MVPs. AJAX improves UX but adds JavaScript you must maintain."}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container header-inner">
+    <a href="/" class="logo"><span class="logo-mark" aria-hidden="true">LS</span> LaunchStatic</a>
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a><a href="/tools/">Tools</a><a href="/contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+    <nav id="mobile-nav" class="nav-mobile" aria-label="Mobile"><a href="/guides/">Guides</a><a href="/how-to/">How-to</a><a href="/templates/">Templates</a></nav>
+  </div></header>
+  <main id="main" class="section"><div class="container">
+    <article class="prose article-body" itemscope itemtype="https://schema.org/Article">
+      <meta itemprop="author" content="LaunchStatic">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/tools/">Tools</a><span aria-hidden="true">/</span><span>Formspree for Static HTML Forms</span></nav>
+      <h1 itemprop="headline">Formspree for Static HTML Forms</h1>
+      <p class="article-meta text-muted">June 19, 2026 · 8 min read · Tool Guide</p>
+      <p>Static sites are fast, cheap, and easy to host — but HTML alone cannot process form submissions. You need an endpoint that accepts POST requests and delivers messages to your inbox or CRM. Formspree is the most approachable option for indie hackers: create a form in their dashboard, paste the endpoint URL into your <code>action</code> attribute, and submissions start arriving by email. No Lambda functions, no Express server, no database.</p>
+<h2>How Formspree fits the static stack</h2>
+<p>A typical pre-launch stack pairs Cloudflare Pages for hosting with Formspree for lead capture. The browser loads your page from the CDN; when a visitor submits the waitlist form, the browser sends data directly to Formspree's servers. Your static host never sees POST traffic. This separation keeps hosting simple while still giving you structured submissions you can forward to Slack, Zapier, or Airtable on paid plans.</p>
+<h2>Free tier and when to upgrade</h2>
+<p>Formspree's free plan includes a limited number of submissions per month — enough for early waitlists and contact forms while you validate an idea. Monitor volume in the dashboard; if you approach the cap, upgrade or add honeypot fields to reduce spam waste. Paid tiers add file uploads, custom redirect URLs after submit, and team inboxes. None of that is required on day one.</p>
+<h2>Minimal waitlist form markup</h2>
+<p>Every Formspree form needs a unique <code>action</code> URL and explicit <code>method="post"</code>. Name attributes become column headers in export files — use clear names like <code>email</code> instead of <code>field1</code>.</p>
+<pre><code>&lt;form action=&quot;https://formspree.io/f/YOUR_FORM_ID&quot; method=&quot;post&quot;&gt;
+  &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+  &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
+  &lt;button type=&quot;submit&quot;&gt;Join waitlist&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+<p>Replace <code>YOUR_FORM_ID</code> with the ID from your Formspree project settings. Deploy to Cloudflare Pages and test with a real address. First submission triggers a confirmation email from Formspree — click the link to activate delivery.</p>
+<h2>Spam protection without backend code</h2>
+<p>Public forms attract bots. Formspree supports reCAPTCHA and hCaptcha integrations you enable in the dashboard. For lighter protection, add a honeypot field hidden with CSS that humans never see but bots fill in. Formspree silently drops honeypot submissions. LaunchStatic waitlist templates leave a commented honeypot slot you can uncomment before launch.</p>
+<h3>Honeypot field pattern</h3>
+<pre><code>&lt;p class=&quot;hp&quot; aria-hidden=&quot;true&quot; style=&quot;display:none&quot;&gt;
+  &lt;label&gt;Leave blank&lt;input type=&quot;text&quot; name=&quot;_gotcha&quot; tabindex=&quot;-1&quot; autocomplete=&quot;off&quot;&gt;&lt;/label&gt;
+&lt;/p&gt;</code></pre>
+<h2>Custom fields and hidden metadata</h2>
+<p>Add optional inputs for name, company size, or use case — Formspree records every named field. Hidden inputs track campaign source: <code>&lt;input type="hidden" name="utm_source" value="producthunt"&gt;</code>. Append UTM parameters to your landing URL and copy them into hidden fields with a few lines of JavaScript if you want cleaner attribution without Google Analytics.</p>
+<h2>Success states and UX polish</h2>
+<p>By default, Formspree redirects to a generic thank-you page. For on-brand UX, use AJAX submission with <code>fetch</code> and show an inline success message. Formspree supports JSON responses when you set <code>Accept: application/json</code> and handle errors for validation failures. Keep a mailto fallback link for visitors if JavaScript is disabled — accessibility still matters on marketing pages.</p>
+<h2>Privacy and compliance notes</h2>
+<p>When you use Formspree, visitor emails pass through their servers. Update your privacy policy to name Formspree as a processor and link to their DPA if you target EU users. Do not collect sensitive health or financial data through a simple marketing form. For GDPR, mention lawful basis (consent) and provide a contact address for deletion requests — standard for waitlist pages.</p>
+<h2>Alternatives worth knowing</h2>
+<ul><li><strong>Netlify Forms</strong> — convenient if you already host on Netlify; attribute-based setup.</li><li><strong>Getform / Basin</strong> — similar POST-to-inbox models with different pricing curves.</li><li><strong>Cloudflare Workers</strong> — roll your own endpoint when you need custom validation logic.</li><li><strong>mailto: links</strong> — zero setup but poor UX and no structured exports.</li></ul>
+<p>Formspree wins on documentation quality and time-to-first-submission. You can always migrate endpoints later without changing hosting — swap the <code>action</code> URL and redeploy.</p><p class="text-muted mt-3"><strong>Related:</strong> <a href="/tools/cloudflare-pages.html">Cloudflare Pages guide</a> <a href="/templates/waitlist.html">Waitlist template</a> <a href="/blog/waitlist-page-conversion-tips.html">Waitlist conversion tips</a></p>
+      <section class="faq-block mt-4" itemscope itemtype="https://schema.org/FAQPage"><div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Does Formspree work on Cloudflare Pages?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Yes. The form POST goes from the visitor's browser to Formspree, not to Cloudflare. Any static host works identically.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Can I receive submissions in Slack?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Paid plans and Zapier integrations support Slack notifications. Free tier is email-first; forward rules in Gmail are a zero-cost workaround early on.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">What happens if I exceed the free submission limit?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">Additional submissions may be blocked until the next billing cycle or until you upgrade. Watch the dashboard during launch week.</p></div></div>
+<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question"><h3 itemprop="name">Is AJAX required?</h3><div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer"><p itemprop="text">No. Standard HTML form POST with redirect is fine for MVPs. AJAX improves UX but adds JavaScript you must maintain.</p></div></div></section>
+      <section class="article-cta card mt-4"><h2>Ship a waitlist this week</h2><p>Our Waitlist template includes form markup ready for Formspree. Customize headline copy, paste your endpoint, deploy.</p><a href="/templates/waitlist.html" class="btn btn-primary">Get waitlist template</a> <a href="/tools/cloudflare-pages.html" class="btn btn-secondary">Set up hosting</a></section>
+    </article>
+  </div></main>
+  <footer class="site-footer"><div class="container footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a></span></div></footer>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden><p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p><button type="button" id="cookie-accept" class="btn btn-primary">OK</button></div>
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
