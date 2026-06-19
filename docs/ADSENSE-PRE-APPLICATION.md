@@ -22,7 +22,8 @@
 - [x] Privacy policy covers analytics and contact forms
 
 ## Technical requirements
-- [ ] Live HTTPS deployment on custom domain
+- [x] Live HTTPS deployment (https://launchstatic.pages.dev)
+- [ ] Custom domain launchstatic.dev connected
 - [x] `robots.txt` allows Googlebot
 - [x] `sitemap.xml` submitted to Search Console
 - [ ] 0 broken internal links (run `scripts/check-links.py`)

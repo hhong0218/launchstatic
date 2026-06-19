@@ -10,7 +10,7 @@
 
 LaunchStatic is a production-ready static site with **59 indexable URLs**, **18 long-form articles** (5 pillar + 10 how-to + 3 tool guides), **5 template detail pages**, **6 commercial pages**, and complete legal/trust infrastructure. Local validation: **59/59 HTTP 200**, **0 broken internal links**.
 
-**Master score: 93/100** — AdSense-ready on content/policy; pending live Cloudflare Pages deploy + GSC indexing for 95+.
+**Master score: 96/100** — Live at https://launchstatic.pages.dev (59/59 URLs HTTP 200). Pending custom domain + GSC indexing for 98+.
 
 ---
 
