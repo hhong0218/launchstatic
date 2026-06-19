@@ -46,12 +46,10 @@
           <p>Cookies are small text files stored on your device when you visit a website. They help sites remember preferences, measure traffic, or display relevant ads.</p>
 
           <h2>Cookies we use today</h2>
-          <p><strong>By default, LaunchStatic does not set marketing or analytics cookies.</strong> We do not run Google Analytics, Meta Pixel, or similar trackers on the core site at this time.</p>
-          <p>Your browser may still store:</p>
-          <ul>
-            <li><strong>Strictly necessary technical data</strong> — Our host Cloudflare may use cookies or similar identifiers for security, bot management, and CDN performance. See <a href="https://www.cloudflare.com/cookie-policy/" rel="noopener noreferrer" target="_blank">Cloudflare's cookie policy</a>.</li>
-            <li><strong>Local storage</strong> — If you dismiss a future consent banner, we may store that preference in <code>localStorage</code> so you are not prompted on every visit.</li>
-          </ul>
+          <p><strong>Google Analytics 4</strong> — After you click <strong>Accept</strong> on our cookie banner, we load Google Analytics to measure aggregate traffic (pages viewed, referrers, device types). We configure IP anonymization and do not enable ad personalization signals in GA4. See <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google's Privacy Policy</a>.</p>
+          <p><strong>Strictly necessary</strong> — Cloudflare may use cookies or similar identifiers for security, bot management, and CDN performance. See <a href="https://www.cloudflare.com/cookie-policy/" rel="noopener noreferrer" target="_blank">Cloudflare's cookie policy</a>.</p>
+          <p><strong>Local storage</strong> — We store <code>ls-cookie-ok</code> when you accept analytics so the banner does not reappear on every visit.</p>
+          <p>We do <strong>not</strong> run Meta Pixel or other marketing pixels today.</p>
 
           <h2>Future advertising cookies (Google AdSense)</h2>
           <p>If we enable <strong>Google AdSense</strong> or other third-party advertising, those partners may set cookies to:</p>
@@ -92,6 +90,12 @@
       <div class="footer-bottom"><span>© <span id="year"></span> LaunchStatic</span><span><a href="/privacy.html">Privacy</a> · <a href="/cookies.html">Cookies</a></span></div>
     </div>
   </footer>
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden>
+    <p>We use Google Analytics after you accept, plus essential Cloudflare cookies. <a href="/cookies.html">Learn more</a>.</p>
+    <button type="button" id="cookie-accept" class="btn btn-primary">Accept</button>
+  </div>
+  <script src="/assets/js/analytics-config.js" defer></script>
+  <script src="/assets/js/analytics.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
 </body>
 </html>

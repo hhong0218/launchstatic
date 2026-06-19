@@ -60,10 +60,10 @@
           <h3>Cookies and similar technologies</h3>
           <p>See our <a href="/cookies.html">Cookie Notice</a> for detail. Summary:</p>
           <ul>
-            <li><strong>Today:</strong> No LaunchStatic analytics or advertising cookies by default.</li>
+            <li><strong>Google Analytics 4:</strong> Loaded only after you accept our cookie banner. Used for aggregate traffic measurement on launchstatic.dev / launchstatic.pages.dev.</li>
             <li><strong>Cloudflare:</strong> May set strictly necessary cookies for security and delivery.</li>
-            <li><strong>Future analytics:</strong> If we add Umami or Plausible, we will update this policy and prefer privacy-friendly, cookie-light options.</li>
-            <li><strong>Future ads:</strong> If we enable Google AdSense, Google and partners may set advertising cookies. See below.</li>
+            <li><strong>Local storage:</strong> Stores your analytics consent preference (<code>ls-cookie-ok</code>).</li>
+            <li><strong>Future ads:</strong> If we enable Google AdSense, Google and partners may set additional advertising cookies. See below.</li>
           </ul>
 
           <h2>How we use your information</h2>
@@ -141,6 +141,12 @@
       </div>
     </div>
   </footer>
+    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden>
+    <p>We use Google Analytics after you accept, plus essential Cloudflare cookies. <a href="/cookies.html">Learn more</a>.</p>
+    <button type="button" id="cookie-accept" class="btn btn-primary">Accept</button>
+  </div>
+  <script src="/assets/js/analytics-config.js" defer></script>
+  <script src="/assets/js/analytics.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
 </body>
 </html>

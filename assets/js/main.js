@@ -53,6 +53,9 @@
     cookieAccept.addEventListener('click', function () {
       localStorage.setItem('ls-cookie-ok', '1');
       cookieBanner.hidden = true;
+      if (typeof window.LS_loadAnalytics === 'function') {
+        window.LS_loadAnalytics();
+      }
     });
   }
 

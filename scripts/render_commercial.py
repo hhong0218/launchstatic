@@ -99,9 +99,14 @@ def site_footer() -> str:
 
 def cookie_banner() -> str:
     return """  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie notice" hidden>
-    <p>We use essential cookies via Cloudflare. <a href="/cookies.html">Learn more</a>.</p>
-    <button type="button" id="cookie-accept" class="btn btn-primary">OK</button>
+    <p>We use Google Analytics after you accept, plus essential Cloudflare cookies. <a href="/cookies.html">Learn more</a>.</p>
+    <button type="button" id="cookie-accept" class="btn btn-primary">Accept</button>
   </div>"""
+
+
+def analytics_scripts() -> str:
+    return """  <script src="/assets/js/analytics-config.js" defer></script>
+  <script src="/assets/js/analytics.js" defer></script>"""
 
 
 def newsletter_form(form_id: str = "page-newsletter") -> str:
@@ -242,6 +247,7 @@ def render_commercial(page: dict) -> str:
   </main>
 {site_footer()}
 {cookie_banner()}
+{analytics_scripts()}
   <script src="/assets/js/main.js" defer></script>
 </body>
 </html>"""
