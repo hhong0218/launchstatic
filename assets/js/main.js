@@ -48,7 +48,11 @@
   }
   var cookieBanner = document.getElementById('cookie-banner');
   var cookieAccept = document.getElementById('cookie-accept');
-  if (cookieBanner && cookieAccept && !localStorage.getItem('ls-cookie-ok')) {
+  var gaConfigured = typeof window.LS_isGaConfigured === 'function' && window.LS_isGaConfigured();
+  if (cookieBanner && !gaConfigured) {
+    cookieBanner.hidden = true;
+    cookieBanner.setAttribute('aria-hidden', 'true');
+  } else if (cookieBanner && cookieAccept && !localStorage.getItem('ls-cookie-ok')) {
     cookieBanner.hidden = false;
     cookieAccept.addEventListener('click', function () {
       localStorage.setItem('ls-cookie-ok', '1');

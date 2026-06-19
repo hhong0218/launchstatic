@@ -1,9 +1,32 @@
 (function () {
   'use strict';
 
-  var MEASUREMENT_ID = window.LS_GA_MEASUREMENT_ID || '';
+  var GA_ID = window.LS_GA_MEASUREMENT_ID || '';
+  var CF_TOKEN = window.LS_CF_WEB_ANALYTICS_TOKEN || '';
   var CONSENT_KEY = 'ls-cookie-ok';
-  var loaded = false;
+  var gaLoaded = false;
+  var cfLoaded = false;
+
+  function isGaConfigured() {
+    return GA_ID && GA_ID.indexOf('G-') === 0 && GA_ID.indexOf('XXXX') === -1;
+  }
+
+  function isCfConfigured() {
+    return CF_TOKEN && CF_TOKEN.indexOf('XXXX') === -1 && CF_TOKEN !== 'enable';
+  }
+
+  window.LS_isGaConfigured = isGaConfigured;
+
+  function loadCloudflareWebAnalytics() {
+    if (cfLoaded || !isCfConfigured()) return;
+    cfLoaded = true;
+
+    var script = document.createElement('script');
+    script.defer = true;
+    script.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    script.setAttribute('data-cf-beacon', JSON.stringify({ token: CF_TOKEN }));
+    document.head.appendChild(script);
+  }
 
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -19,13 +42,9 @@
     wait_for_update: 500
   });
 
-  function isConfigured() {
-    return MEASUREMENT_ID && MEASUREMENT_ID.indexOf('G-') === 0 && MEASUREMENT_ID.indexOf('XXXX') === -1;
-  }
-
   function loadGoogleAnalytics() {
-    if (loaded || !isConfigured()) return;
-    loaded = true;
+    if (gaLoaded || !isGaConfigured()) return;
+    gaLoaded = true;
 
     gtag('consent', 'update', {
       analytics_storage: 'granted'
@@ -33,11 +52,11 @@
 
     var script = document.createElement('script');
     script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(MEASUREMENT_ID);
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
     document.head.appendChild(script);
 
     gtag('js', new Date());
-    gtag('config', MEASUREMENT_ID, {
+    gtag('config', GA_ID, {
       anonymize_ip: true,
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
@@ -46,6 +65,8 @@
   }
 
   window.LS_loadAnalytics = loadGoogleAnalytics;
+
+  loadCloudflareWebAnalytics();
 
   if (localStorage.getItem(CONSENT_KEY) === '1') {
     loadGoogleAnalytics();
