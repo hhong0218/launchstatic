@@ -5,8 +5,9 @@ Static landing page templates and deployment guides for indie hackers. HTML, CSS
 ## Live site
 
 - **Production:** https://launchstatic.pages.dev
+- **Custom domain (activating):** https://launchstatic.matchiq.co.kr — CNAME `launchstatic` → `launchstatic.pages.dev` in Cloudflare DNS (matchiq.co.kr zone)
 - **GitHub:** https://github.com/hhong0218/launchstatic
-- **Custom domain (planned):** https://launchstatic.dev — add in Cloudflare Pages → Custom domains when the zone is on Cloudflare
+- **Dashboard:** [Cloudflare Pages → launchstatic](https://dash.cloudflare.com/75c4898a1b8e3213936e24322485e741/pages/view/launchstatic)
 
 ## Deploy to Cloudflare Pages
 
